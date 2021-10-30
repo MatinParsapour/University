@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-image: linear-gradient(#8be9e7, #20dad8, #20a5d8, #12395a, #120d14);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-attachment: fixed;
+      margin: 0px;
+    }
+
+    .form{
+      margin-top: 5%;
+      margin-left: 5%;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .box{
+      width: 40%;
+      height: 400px;
+      border-radius: 5px 5px;
+      display: flex;
+      justify-content: center;
+      font-size: 40px;
+      background-color: rgb(36, 31, 80,.7);
+    }
+
+    .boxFont{
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      color: white;
+    }
+
+    .alignItems{
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+
+    .Form{
+      display: flex;
+      width: 80%;
+      justify-content: center;
+      flex-direction: column;
+      height: 60%;
+      border-radius: 5px 5px;
+      background-color: rgb(164, 164, 238);
+    }
+
+    .overflow{
+      overflow: auto;
+      flex: 1;
+    }
+
+    .input{
+      border-radius: 5px 5px;
+      width: 83%;
+      border-color: white;
+    }
+
+    .signUpInput{
+      height: 40px;
+    }
+
+    .logInInput{
+      height: 40px;
+    }
+
+
+    .marginTop{
+      margin-bottom: 5px;
+    }
+    .signUp{
+      border-radius: 5px 5px;
+      border-color: white;
+      width: 60%;
+      height: 40px;
+    }
+
+    .inputs{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .formContent{
+      display: flex;
+      min-height: min-content;
+    }
+
+    .logInHeight{
+      height: 150px;
+    }
+
+    .sex{
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  </style>
+    <title>Register</title>
+</head>
+<body>
+<div class="form">
+  <div class="box alignItems">
+    <p class="boxFont">Sign up</p>
+    <div class="Form overflow">
+      <p id="Warning" style="color: black; background-color: white"></p>
+      <form action="#" th:action="@{/add-user}" th:object="${user}" method="post" class="inputs formContent">
+        <br>
+        <br>
+        <br>
+        <input class="input marginTop signUpInput" type="text" th:field="*{firstName}" name="firstName" placeholder="Firstname" required>
+        <input class="input marginTop signUpInput" th:field="*{lastName}" type="text" placeholder="Lastname" required>
+        <input id="signUpUserName" class="input marginTop signUpInput" th:field="*{userName}" onkeyup="checkSignUpUsername()" type="text" placeholder="Username" required>
+        <input class="active input marginTop signUpInput" th:field="*{password}" onkeyup="checkSignUpPassword()" type="password" id="password" placeholder="Password" required>
+        <i id="icon1" class="fa fa-eye-slash"></i>
+        <input class="active input marginTop signUpInput" type="password" id="repeatPassword" onkeyup="checkPasswords()" placeholder="Repeat password" required>
+        <i id="icon2" class="fa fa-eye-slash"></i>
+        <input id="nationalCode" class="input marginTop signUpInput" th:field="*{nationalCode}" type="number" placeholder="National code" required>
+        <input class="input marginTop signUpInput" type="email" th:field="*{email}" placeholder="Email" required>
+        <input  class="input marginTop signUpInput" type="date" th:field="*{birthday}" placeholder="Birth day" required>
+        <div class="sex">
+          <label for="student" id="studentLabel">Student</label>
+          <input id = "student" th:field="*{type}" onclick="checkRole()" name = "role" type="radio" value = "Student">
+          <label for="teacher" id="teacherLabel">Teacher</label>
+          <input id = "teacher" th:field="*{type}" onclick="checkRole()" name = "role" type = "radio" value = "Teacher">
+        </div>
+        <input class="signUp marginTop signUpInput" id="signUpButton" type="submit" value="Sign up">
+      </form>
+    </div>
+  </div>
+  <div class="box alignItems">
+    <p class="boxFont">Log in</p>
+    <div class="Form">
+      <form action="#" th:action="@{/validate-user}" th:object="${user}" method="post">
+        <div class="inputs logInHeight">
+          <input class="input logInInput" type="text" id="logInUserName" onkeyup="checkLogInUsername()" th:field="*{userName}" placeholder="Username" required>
+          <input class="active input logInInput" type="password" onkeyup="checkLogInPassword()" th:field="*{password}" id="logInPassword" placeholder="Password" required>
+          <i id="icon3" class="fa fa-eye-slash"></i>
+          <input class="signUp" type="submit" id="logInButton" value="Log in">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  function checkSignUpUsername(){
+    if(document.getElementById("signUpUserName").value.length > 4){
+      document.getElementById("signUpUserName").style.borderColor = "white"
+    }
+  }
+
+  function checkSignUpPassword(){
+    if(document.getElementById("password").value.length > 8 && document.getElementById("password").value.length < 16){
+      document.getElementById("password").style.borderColor = "white"
+    }
+  }
+  function checkLogInUsername(){
+    if(document.getElementById("logInUserName").value.length > 4){
+      document.getElementById("logInUserName").style.borderColor = "white"
+    }
+  }
+
+  function checkLogInPassword(){
+    if(document.getElementById("logInPassword").value.length > 8 && document.getElementById("password").value.length < 16){
+      document.getElementById("logInPassword").style.borderColor = "white"
+    }
+  }
+
+  function checkPasswords(){
+    if(document.getElementById("password").value == document.getElementById("repeatPassword").value){
+      document.getElementById("password").style.borderColor = "white"
+      document.getElementById("repeatPassword").style.borderColor = "white"
+    }
+  }
+
+  function checkRole(){
+    if(document.getElementById("student").checked || document.getElementById("teacher").checked){
+      document.getElementById("studentLabel").style.color = "black"
+      document.getElementById("teacherLabel").style.color = "black"
+    }
+  }
+
+  document.getElementById("signUpButton").addEventListener("click",function (event){
+    if(document.getElementById("signUpUserName").value.length < 4){
+      event.preventDefault()
+      alert("Username should be more than 4 characters")
+      document.getElementById("signUpUserName").style.borderColor = "red"
+    }
+    if(document.getElementById("password").value.length < 8 || document.getElementById("password").value.length > 16){
+      event.preventDefault()
+      alert("Password should be between 8 to 16 characters")
+      document.getElementById("password").style.borderColor = "red"
+    }
+    if(document.getElementById("password").value != document.getElementById("repeatPassword").value){
+      event.preventDefault()
+      alert("Passwords don't match")
+      document.getElementById("password").style.borderColor = "red"
+      document.getElementById("repeatPassword").style.borderColor = "red"
+    }
+    if(!document.getElementById("student").checked && !document.getElementById("teacher").checked){
+      event.preventDefault()
+      alert("Select if you are student or teacher")
+      document.getElementById("studentLabel").style.color = "red"
+      document.getElementById("teacherLabel").style.color = "red"
+    }
+  })
+
+  document.getElementById("logInButton").addEventListener("click",function (event){
+    if(document.getElementById("logInUserName").value.length < 4){
+      event.preventDefault()
+      alert("Enter a valid username")
+      document.getElementById("logInUserName").style.borderColor = "red"
+    }
+    if(document.getElementById("logInPassword").value.length < 8 || document.getElementById("logInPassword").value.length > 16){
+      event.preventDefault()
+      alert("Enter a valid password")
+      document.getElementById("logInPassword").style.borderColor = "red"
+    }
+  })
+
+  var inputPass2 = document.getElementById('pass2'),
+          icon1 = document.getElementById('icon1'),
+          icon2 = document.getElementById('icon2'),
+          icon3 = document.getElementById('icon3');
+
+  icon1.onclick = eye();
+  icon2.onclick = eye();
+  icon3.onclick = eye();
+  function eye() {
+
+    if(inputPass2.className === 'active') {
+      inputPass2.setAttribute('type', 'text');
+      inputPass2.className = '';
+
+    } else {
+      inputPass2.setAttribute('type', 'password');
+      inputPass2.className = 'active';
+    }
+
+  }
+</script>
+</body>
+</html>
