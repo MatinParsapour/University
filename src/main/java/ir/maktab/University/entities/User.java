@@ -5,12 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Inheritance
@@ -24,6 +26,7 @@ public class User extends BaseEntity<Long> {
     private static final String FIRST_NAME = "first_name";
     private static final String LAST_NAME = "last_name";
     private static final String BIRTHDAY = "birthday";
+    private static final String NATIONAL_CODE = "national_code";
     private static final String EMAIL = "email";
     private static final String TYPE = "type";
     private static final String USER_NAME = "user_name";
@@ -36,7 +39,11 @@ public class User extends BaseEntity<Long> {
     private String lastName;
 
     @Column(name = BIRTHDAY)
-    private LocalDate birthday;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
+
+    @Column(name = NATIONAL_CODE)
+    private long nationalCode;
 
     @Column(name = EMAIL)
     private String email;
