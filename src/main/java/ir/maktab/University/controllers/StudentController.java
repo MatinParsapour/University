@@ -34,7 +34,7 @@ public class StudentController {
 
     @GetMapping("/get-students")
     public List<Student> students(){
-        return studentService.getUnConfirmedStudents();
+        return studentService.getAllStudents();
     }
 
     @PostMapping("/reject-student")
