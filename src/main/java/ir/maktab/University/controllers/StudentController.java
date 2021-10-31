@@ -16,6 +16,11 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    @PostMapping("/get-student")
+    public Student getStudent(long id){
+        return studentService.getStudentById(id).get();
+    }
+
 
     public Student addStudent(User user){
         Student student = new Student();
