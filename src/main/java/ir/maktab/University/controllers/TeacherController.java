@@ -17,6 +17,11 @@ public class TeacherController {
     private TeacherService teacherService;
 
 
+    @PostMapping("/get-teacher")
+    public Teacher getTeacher(long id){
+        return teacherService.getTeacherById(id).get();
+    }
+
     public Teacher addTeacher(User user){
         Teacher teacher = new Teacher();
         teacher.setStatus("In progress");
