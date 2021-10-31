@@ -14,4 +14,6 @@ public interface StudentService {
     Optional<Student> getStudentById(long id);
 
     void deleteStudent(long id);
+
+    Student getStudentByUsername(String username);
 }

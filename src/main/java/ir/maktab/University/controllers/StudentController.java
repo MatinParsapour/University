@@ -22,6 +22,17 @@ public class StudentController {
     }
 
 
+    @PostMapping("/student-allow")
+    public Boolean isAllow(String username){
+        Student student = studentService.getStudentByUsername(username);
+        if(student.getStatus().equals("Accepted")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
     public Student addStudent(User user){
         Student student = new Student();
         student.setStatus("In progerss");
@@ -64,6 +75,7 @@ public class StudentController {
     @PostMapping("/change-to-student")
     public void changeToStudent(User user) {
         Student student = addStudent(user);
+        student.setType("Student");
         student.setStatus("Accepted");
         studentService.addStudent(student);
     }
