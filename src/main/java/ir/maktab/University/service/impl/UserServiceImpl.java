@@ -6,6 +6,8 @@ import ir.maktab.University.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -16,5 +18,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUsernameAndPassword(String username, String password) {
         return userRepository.findByUserNameAndPassword(username,password);
+    }
+
+    @Override
+    public Optional<User> getUserById(long id) {
+        return userRepository.findById(id);
     }
 }
