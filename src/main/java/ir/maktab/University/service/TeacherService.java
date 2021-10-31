@@ -1,9 +1,17 @@
 package ir.maktab.University.service;
 
 import ir.maktab.University.entities.Teacher;
-import ir.maktab.University.entities.User;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface TeacherService {
 
     void addTeacher(Teacher teacher);
+
+    List<Teacher> getAllTeachers();
+
+    Optional<Teacher> getTeacherById(long userId);
+
+    void deleteTeacher(long userId);
 }
