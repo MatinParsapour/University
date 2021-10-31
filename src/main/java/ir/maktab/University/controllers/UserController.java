@@ -1,5 +1,6 @@
 package ir.maktab.University.controllers;
 
+import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.User;
 import ir.maktab.University.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,49 @@ public class UserController {
             return "redirect:/";
         } else if (singedUpUser != null && singedUpUser.getType().equals("Teacher")) {
             return "redirect:/";
+        } else if (singedUpUser != null && singedUpUser.getType().equals("Manager")) {
+            return "redirect:/manager-main";
         } else {
             return "redirect:/register";
         }
+    }
+
+    @PostMapping("/reject-user")
+    public String rejectUser(String userId){
+        User user = userService.getUserById(Long.parseLong(userId)).get();
+        if(user.getType().equals("Student")){
+            studentController.rejectStudent(userId);
+            return "redirect:/manager-main";
+        }else{
+            teacherController.rejectTeacher(userId);
+            return "redirect:/manager-main";
+        }
+    }
+
+    @PostMapping("/accept-user")
+    public String acceptUser(String userId){
+        User user = userService.getUserById(Long.parseLong(userId)).get();
+        if(user.getType().equals("Student")){
+            studentController.acceptStudent(userId);
+            return "redirect:/manager-main";
+        }else{
+            teacherController.acceptTeacher(userId);
+            return "redirect:/manager-main";
+        }
+    }
+
+    @PostMapping("/student-to-teacher")
+    public String studentToTeacher(String userId){
+        User user = userService.getUserById(Long.parseLong(userId)).get();
+        studentController.deleteStudent(userId);
+        teacherController.changeToTeacher(user);
+        return "redirect:/manager-main";
+    }
+    @PostMapping("/teacher-to-student")
+    public String teacherToStudent(String userId){
+        User user = userService.getUserById(Long.parseLong(userId)).get();
+        teacherController.deleteTeacher(userId);
+        studentController.changeToStudent(user);
+        return "redirect:/manager-main";
     }
 }
