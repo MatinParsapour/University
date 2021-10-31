@@ -36,4 +36,9 @@ public class TeacherServiceImpl implements TeacherService {
     public void deleteTeacher(long userId) {
         teacherRepository.deleteById(userId);
     }
+
+    @Override
+    public Teacher getTeacherByUserName(String username) {
+        return teacherRepository.findByUserName(username);
+    }
 }

@@ -17,6 +17,17 @@ public class TeacherController {
     private TeacherService teacherService;
 
 
+    @PostMapping("/teacher-allow")
+    public Boolean teacherAllow(String username){
+        Teacher teacher = teacherService.getTeacherByUserName(username);
+        if(teacher.getStatus().equals("Accepted")){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
     @PostMapping("/get-teacher")
     public Teacher getTeacher(long id){
         return teacherService.getTeacherById(id).get();
@@ -59,6 +70,7 @@ public class TeacherController {
     @PostMapping("/change-to-teacher")
     public void changeToTeacher(User user){
         Teacher teacher = addTeacher(user);
+        teacher.setType("Teacher");
         teacher.setStatus("Accepted");
         teacherService.addTeacher(teacher);
     }

@@ -14,4 +14,6 @@ public interface TeacherService {
     Optional<Teacher> getTeacherById(long userId);
 
     void deleteTeacher(long userId);
+
+    Teacher getTeacherByUserName(String username);
 }
