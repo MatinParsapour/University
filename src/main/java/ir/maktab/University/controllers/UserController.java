@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class UserController {
@@ -37,8 +38,7 @@ public class UserController {
         }
         return "redirect:/";
     }
-
-    @PostMapping("/get-right-user")
+    @PostMapping("/get-correct-user")
     public User getRightUser(String username, String password){
         return userService.getUserByUsernameAndPassword(username,password);
     }
