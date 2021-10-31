@@ -3,6 +3,7 @@ package ir.maktab.University.controllers;
 import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.User;
 import ir.maktab.University.service.UserService;
+import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,15 +46,24 @@ public class UserController {
     @PostMapping("/validate-user")
     public String validateUser(User user) {
         User singedUpUser = getRightUser(user.getUserName(),user.getPassword());
-        if (singedUpUser != null && singedUpUser.getType().equals("Student")) {
+        if (singedUpUser != null && singedUpUser.getType().equals("Student") && studentController.getStudent(singedUpUser.getId()).getStatus().equals("Accepted")) {
+            Security.setUser(singedUpUser);
             return "redirect:/";
-        } else if (singedUpUser != null && singedUpUser.getType().equals("Teacher")) {
+        } else if (singedUpUser != null && singedUpUser.getType().equals("Teacher") && teacherController.getTeacher(singedUpUser.getId()).getStatus().equals("Accepted")) {
+            Security.setUser(singedUpUser);
             return "redirect:/";
         } else if (singedUpUser != null && singedUpUser.getType().equals("Manager")) {
+            Security.setUser(singedUpUser);
             return "redirect:/manager-main";
         } else {
             return "redirect:/register";
         }
+    }
+
+    @GetMapping("/log-out")
+    public String logOut(){
+        Security.setUser(null);
+        return "redirect:/";
     }
 
     @PostMapping("/reject-user")
