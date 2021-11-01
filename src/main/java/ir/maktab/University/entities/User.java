@@ -31,6 +31,7 @@ public class User extends BaseEntity<Long> {
     private static final String TYPE = "type";
     private static final String USER_NAME = "user_name";
     private static final String PASSWORD = "password";
+    private static final String GENDER = "gender";
 
     @Column(name = FIRST_NAME)
     private String firstName;
@@ -56,4 +57,7 @@ public class User extends BaseEntity<Long> {
 
     @Column(name = PASSWORD)
     private String password;
+
+    @Column(name = GENDER)
+    private String gender;
 }
