@@ -63,25 +63,27 @@
                     <a class="nav-link active" aria-current="page" onclick="hidStudents()" style="cursor: pointer" id="teachers">Teachers</a>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search by username" aria-label="Search">
+            <form action="/search-users" class="d-flex">
+                <input name="field" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
     </div>
 </nav>
-
 <div th:switch="${students}" id="studentsData">
     <h2 th:case="null">No teacher found</h2>
         <div th:case="*">
-            <div th:each="student : ${students}" class="showBox">
-                <p>FirstName : <span th:text="${student.firstName}"></span></p>
-                <p>LastName : <span th:text="${student.lastName}"></span></p>
-                <p>Birthday : <span th:text="${student.birthday}"></span></p>
-                <p>Email : <span th:text="${student.email}"></span></p>
-                <p>Status : <span th:text="${student.status}"></span></p>
+            <div th:each="student : ${students}">
+                <div id="studentList" class="showBox">
+                    <p>FirstName : <span th:text="${student.firstName}"></span></p>
+                    <p>LastName : <span th:text="${student.lastName}"></span></p>
+                    <p>Birthday : <span th:text="${student.birthday}"></span></p>
+                    <p>Email : <span th:text="${student.email}"></span></p>
+                    <p>Status : <span id="studentStatus" th:text="${student.status}" th:value="${student.status}"></span></p>
+                    <p>Gender : <span th:text="${student.gender}"></span></p>
+                </div>
                 <div th:switch="${student.status}">
-                    <div th:case="'In progerss'">
+                    <div th:case="'In progerss'" style="display: flex">
                         <form action="#" th:action="@{/reject-user}" method="post">
                             <input type="hidden" th:value="${student.id}" name="userId">
                             <input type="submit" value="Reject">
@@ -111,14 +113,17 @@
 <div th:switch="${teachers}" id="teachersData">
     <h2 th:case="null">No student found</h2>
     <div th:case="*">
-        <div th:each="teacher : ${teachers}" class="showBox">
-            <p>FirstName : <span th:text="${teacher.firstName}"></span></p>
-            <p>LastName : <span th:text="${teacher.lastName}"></span></p>
-            <p>Birthday : <span th:text="${teacher.birthday}"></span></p>
-            <p>Email : <span th:text="${teacher.email}"></span></p>
-            <p>Status : <span th:text="${teacher.status}"></span></p>
+        <div th:each="teacher : ${teachers}">
+            <div class="showBox">
+                <p>FirstName : <span th:text="${teacher.firstName}"></span></p>
+                <p>LastName : <span th:text="${teacher.lastName}"></span></p>
+                <p>Birthday : <span th:text="${teacher.birthday}"></span></p>
+                <p>Email : <span th:text="${teacher.email}"></span></p>
+                <p>Status : <span th:text="${teacher.status}"></span></p>
+                <p>Gender : <span th:text="${teacher.gender}"></span></p>
+            </div>
             <div th:switch="${teacher.status}">
-                <div th:case="'In progress'">
+                <div th:case="'In progress'" style="display: flex">
                     <form action="#" th:action="@{/reject-user}" method="post">
                         <input type="hidden" th:value="${teacher.id}" name="userId">
                         <input type="submit" value="Reject">
@@ -140,7 +145,6 @@
                         <input type="submit" value="Change role to student">
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
@@ -151,6 +155,18 @@
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+    function checkSearchBox(){
+        if(document.getElementById("searchBox").value.length === 0){
+            document.getElementById("dropDownMenu").style.display = "none"
+            alert("The search field is empty")
+        }else{
+            if(document.getElementById("dropDownMenu").style.display === "block"){
+                document.getElementById("dropDownMenu").style.display = "none"
+            }else if(document.getElementById("dropDownMenu").style.display === "none"){
+                document.getElementById("dropDownMenu").style.display = "block"
+            }
+        }
+    }
 
     function hidStudents() {
         document.getElementById("studentsData").style.display = "none"
