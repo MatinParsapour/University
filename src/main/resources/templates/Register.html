@@ -101,7 +101,11 @@
             height: 150px;
         }
 
-        .sex {
+        .role {
+            font-size: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .sex{
             font-size: 20px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
@@ -114,7 +118,8 @@
         <p class="boxFont">Sign up</p>
         <div class="Form overflow">
             <p id="Warning" style="color: black; background-color: white"></p>
-            <form action="#" th:action="@{/add-user}" th:object="${user}" method="post" class="inputs formContent">
+            <form id="signUpForm" action="#" th:action="@{/add-user}" th:object="${user}" method="post" class="inputs formContent">
+                <br>
                 <br>
                 <br>
                 <br>
@@ -136,13 +141,19 @@
                        required>
                 <input class="input marginTop signUpInput" type="date" th:field="*{birthday}" placeholder="Birth day"
                        required>
-                <div class="sex">
+                <div class="role">
                     <label for="student" id="studentLabel">Student</label>
                     <input id="student" th:field="*{type}" onclick="checkRole()" name="role" type="radio"
                            value="Student">
                     <label for="teacher" id="teacherLabel">Teacher</label>
                     <input id="teacher" th:field="*{type}" onclick="checkRole()" name="role" type="radio"
                            value="Teacher">
+                </div>
+                <div class="sex">
+                    <label for="male">male</label>
+                    <input id = "male" th:field="*{gender}" onclick="checkSex()" name = "sex" type="radio" value = "male">
+                    <label for="female">female</label>
+                    <input id = "female" th:field="*{gender}" onclick="checkSex()" name = "sex" type = "radio" value = "female">
                 </div>
                 <input class="signUp marginTop signUpInput" id="signUpButton" type="submit" value="Sign up">
             </form>
@@ -202,6 +213,25 @@
             })
 
         })
+
+        $("#signUpForm").submit(function (happened){
+            var username = $("#signUpUserName").val();
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/is-user-exists",
+                data:{username: username},
+                success: function (result){
+                    if($.trim(result)){
+                        happened.preventDefault();
+                        alert("Username already exists")
+                    }
+                },
+                error: function (){
+                    alert("Something went wrong")
+                }
+            })
+        })
     });
 
     function checkSignUpUsername() {
@@ -242,6 +272,13 @@
         }
     }
 
+    function checkSex(){
+        if(document.getElementById("male").checked || document.getElementById("female").checked){
+            document.getElementById("male").style.color = "black"
+            document.getElementById("female").style.color = "black"
+        }
+    }
+
     document.getElementById("signUpButton").addEventListener("click", function (event) {
         if (document.getElementById("signUpUserName").value.length < 4) {
             event.preventDefault()
@@ -264,6 +301,12 @@
             alert("Select if you are student or teacher")
             document.getElementById("studentLabel").style.color = "red"
             document.getElementById("teacherLabel").style.color = "red"
+        }
+        if(!document.getElementById("female").checked && !document.getElementById("male").checked){
+            event.preventDefault()
+            alert("You should choose your gender")
+            document.getElementById("male").style.color = "red"
+            document.getElementById("female").style.color = "red"
         }
     })
 
