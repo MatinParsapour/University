@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Controller
 public class UserController {
 
@@ -97,11 +99,15 @@ public class UserController {
         teacherController.changeToTeacher(user);
         return "redirect:/manager-main";
     }
-    @PostMapping("/teacher-to-student")
-    public String teacherToStudent(String userId){
-        User user = userService.getUserById(Long.parseLong(userId)).get();
-        teacherController.deleteTeacher(userId);
-        studentController.changeToStudent(user);
-        return "redirect:/manager-main";
+
+    @GetMapping("/search-users")
+    public String searchUser(String field,Model model){
+        List<User> users = userService.searchUsers(field);
+        if(users.size() == 0){
+            model.addAttribute("users",null);
+        }else{
+            model.addAttribute("users",users);
+        }
+        return "FoundUsers";
     }
 }

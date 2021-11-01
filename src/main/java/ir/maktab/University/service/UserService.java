@@ -2,6 +2,7 @@ package ir.maktab.University.service;
 
 import ir.maktab.University.entities.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -11,4 +12,6 @@ public interface UserService {
     Optional<User> getUserById(long id);
 
     User getUserByUserName(String username);
+
+    List<User> searchUsers(String field);
 }

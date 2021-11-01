@@ -6,6 +6,7 @@ import ir.maktab.University.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -29,4 +30,11 @@ public class UserServiceImpl implements UserService {
     public User getUserByUserName(String username) {
         return userRepository.findByUserName(username);
     }
+
+    @Override
+    public List<User> searchUsers(String field) {
+        return userRepository.findAllByFirstNameOrLastNameOrStatusOrGenderOrEmail(field,field,field,field,field);
+    }
+
+
 }
