@@ -42,6 +42,7 @@ public class StudentController {
         student.setUserName(user.getUserName());
         student.setPassword(user.getPassword());
         student.setNationalCode(user.getNationalCode());
+        student.setGender(user.getGender());
         student.setEmail(user.getEmail());
         student.setType(user.getType());
         studentService.addStudent(student);
