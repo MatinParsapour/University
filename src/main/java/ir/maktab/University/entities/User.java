@@ -32,6 +32,8 @@ public class User extends BaseEntity<Long> {
     private static final String USER_NAME = "user_name";
     private static final String PASSWORD = "password";
     private static final String GENDER = "gender";
+    private static final String STATUS = "status";
+
 
     @Column(name = FIRST_NAME)
     private String firstName;
@@ -60,4 +62,7 @@ public class User extends BaseEntity<Long> {
 
     @Column(name = GENDER)
     private String gender;
+
+    @Column(name = STATUS)
+    private String status;
 }
