@@ -42,6 +42,7 @@ public class TeacherController {
         teacher.setUserName(user.getUserName());
         teacher.setPassword(user.getPassword());
         teacher.setNationalCode(user.getNationalCode());
+        teacher.setGender(user.getGender());
         teacher.setEmail(user.getEmail());
         teacher.setType(user.getType());
         teacherService.addTeacher(teacher);
