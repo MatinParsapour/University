@@ -25,8 +25,7 @@ public class VerifyUserController {
 
     @PostMapping("/get-right-user")
     public User getRightUser(String username, String password){
-        User user = userService.getUserByUsernameAndPassword(username,password);
-        return user;
+        return userService.getUserByUsernameAndPassword(username,password);
     }
 
     @PostMapping("/is-user-allowed")
@@ -45,5 +44,10 @@ public class VerifyUserController {
             result = "Ok";
         }
         return result;
+    }
+
+    @PostMapping("/is-user-exists")
+    public User isUserExists(String username){
+        return userService.getUserByUserName(username);
     }
 }
