@@ -31,13 +31,9 @@ public class CourseController {
         return "ShowCourse";
     }
 
-    public void addCourse(Course course){
-        courseService.createCourse(course);
-    }
-
-    @GetMapping("/get-all-courses")
-    public List<Course> getAllCourses(){
-        return courseService.getAllCourses();
+    @GetMapping("/get-courses")
+    public List<Course> courses(){
+        return courseService.courses();
     }
 
     @PostMapping("/remove-student-from-course")
@@ -45,6 +41,14 @@ public class CourseController {
         Student student = studentController.getStudent(Long.parseLong(studentId));
         Course course = courseService.getCourse(Long.parseLong(courseId)).get();
         course.getStudents().remove(student);
+        courseService.createCourse(course);
+        return "redirect:/manager-main";
+    }
+
+    @PostMapping("/create-course")
+    public String createCourse(Course course, String teacherId){
+        Teacher teacher = teacherController.getTeacher(Long.parseLong(teacherId));
+        course.setTeacher(teacher);
         courseService.createCourse(course);
         return "redirect:/manager-main";
     }
