@@ -23,7 +23,7 @@
             border-collapse: collapse;
         }
 
-        #teachersData{
+        .displayNone{
             display: none;
         }
 
@@ -57,10 +57,16 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <span class="nav-link active" id="students" onclick="hidTeachers()" style="cursor: pointer">Student</span>
+                    <span class="nav-link active" id="students" onclick="showStudents()" style="cursor: pointer">Student</span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" onclick="hidStudents()" style="cursor: pointer" id="teachers">Teachers</a>
+                    <a class="nav-link active" aria-current="page" onclick="showTeachers()" style="cursor: pointer" id="teachers">Teachers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" onclick="showCourses()" style="cursor: pointer" id="courses">Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/add-course" style="cursor: pointer" >Add course</a>
                 </li>
             </ul>
             <form action="/search-users" class="d-flex">
@@ -70,7 +76,7 @@
         </div>
     </div>
 </nav>
-<div th:switch="${students}" id="studentsData">
+<div th:switch="${students}" id="displayStudents">
     <h2 th:case="null">No teacher found</h2>
         <div th:case="*">
             <div th:each="student : ${students}">
@@ -110,7 +116,7 @@
         </div>
 </div>
 
-<div th:switch="${teachers}" id="teachersData">
+<div th:switch="${teachers}" class="displayNone" id="displayTeachers">
     <h2 th:case="null">No student found</h2>
     <div th:case="*">
         <div th:each="teacher : ${teachers}">
@@ -150,6 +156,28 @@
     </div>
 </div>
 
+<div th:switch="${courses}" class="displayNone" id="displayCourses">
+    <h2 th:case="null">No student found</h2>
+    <div th:case="*">
+        <div th:each="course : ${courses}">
+            <div class="showBox">
+                <p>Title : <span th:text="${course.title}"></span></p>
+                <p>Code : <span th:text="${course.courseCode}"></span></p>
+                <p>Start date : <span th:text="${course.startDate}"></span></p>
+                <p>Finish date : <span th:text="${course.finishDate}"></span></p>
+            </div>
+            <div>
+                <div>
+                    <form action="#" th:action="@{/display-course}">
+                        <input type="hidden" th:value="${course.id}" name="courseId">
+                        <input type="submit" value="See details">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
 </script>
@@ -168,14 +196,20 @@
         }
     }
 
-    function hidStudents() {
-        document.getElementById("studentsData").style.display = "none"
-        document.getElementById("teachersData").style.display = "block"
+    function showTeachers() {
+        document.getElementById("displayTeachers").style.display = "block"
+        document.getElementById("displayStudents").style.display = "none"
+        document.getElementById("displayCourses").style.display = "none"
     }
-
-    function hidTeachers() {
-        document.getElementById("studentsData").style.display = "block"
-        document.getElementById("teachersData").style.display = "none"
+    function showStudents() {
+        document.getElementById("displayTeachers").style.display = "none"
+        document.getElementById("displayStudents").style.display = "block"
+        document.getElementById("displayCourses").style.display = "none"
+    }
+    function showCourses() {
+        document.getElementById("displayTeachers").style.display = "none"
+        document.getElementById("displayStudents").style.display = "none"
+        document.getElementById("displayCourses").style.display = "block"
     }
 </script>
 </body>
