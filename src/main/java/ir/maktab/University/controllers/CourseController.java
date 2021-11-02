@@ -52,4 +52,12 @@ public class CourseController {
         courseService.createCourse(course);
         return "redirect:/manager-main";
     }
+
+    @GetMapping("/add-course")
+    public String addCourse(Model model){
+        List<Teacher> teachers = teacherController.teachers();
+        model.addAttribute("teachers",teachers);
+        model.addAttribute("course",new Course());
+        return "Course";
+    }
 }
