@@ -17,6 +17,9 @@ public class ManagerController {
     private ManagerService managerService;
 
     @Autowired
+    private CourseController courseController;
+
+    @Autowired
     private TeacherController teacherController;
 
     @Autowired
@@ -24,8 +27,10 @@ public class ManagerController {
 
     @GetMapping("/manager-main")
     public String managerMain(Model model){
+        List<Course> courseList = courseController.getAllCourses();
         List<Student> studentList = studentController.students();
         List<Teacher> teacherList = teacherController.teachers();
+        model.addAttribute("courses",courseList);
         model.addAttribute("students", studentList);
         model.addAttribute("teachers",teacherList);
         return "Manager";
