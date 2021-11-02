@@ -1,5 +1,6 @@
 package ir.maktab.University.controllers;
 
+import ir.maktab.University.entities.Course;
 import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.Teacher;
 import ir.maktab.University.service.ManagerService;
@@ -27,7 +28,7 @@ public class ManagerController {
 
     @GetMapping("/manager-main")
     public String managerMain(Model model){
-        List<Course> courseList = courseController.getAllCourses();
+        List<Course> courseList = courseController.courses();
         List<Student> studentList = studentController.students();
         List<Teacher> teacherList = teacherController.teachers();
         model.addAttribute("courses",courseList);
