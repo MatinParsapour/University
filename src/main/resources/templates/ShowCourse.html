@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>Course</title>
+  <Style>
+    body {
+      background-image: linear-gradient(#8be9e7, #20dad8, #20a5d8, #12395a, #120d14);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .courseData{
+      width: 60%;
+      height: 600px;
+      background-color: rgba(158, 78, 147, 0.3);
+      display: flex;
+      justify-content: space-around;
+      border-radius: 5px 5px;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .studentsData{
+      width: 36%;
+      height: 600px;
+      background-color: rgba(158, 78, 147, 0.3);
+      border-radius: 5px 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: auto;
+    }
+
+    .courseHeader{
+      font-size: 30px;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      color: rgb(124, 86, 86);
+    }
+
+    .details{
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .student{
+      width: 97%;
+      background-color: rgb(156, 131, 131,40%);
+      border-radius: 5px 5px;
+      margin-top: 5%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  </Style>
+</head>
+<body>
+<div class="courseData">
+    <p class="courseHeader">Course : <span th:text="${course.title}"></span></p>
+    <div class="details">
+        <p>Course code : <span th:text="${course.courseCode}"></span></p>
+        <p>Start date : <span th:text="${course.startDate}"></span></p>
+        <p>Finish date : <span th:text="${course.finishDate}"></span></p>
+        <div>
+            <p>Teacher : </p>
+            <div>
+                <p>Name : <span th:text="${course.teacher.firstName}"></span> <span th:text="${course.teacher.lastName}"></span></p>
+                <p>Gender : <span th:text="${course.teacher.gender}"></span></p>
+                <p>National code : <span th:text="${course.teacher.nationalCode}"></span></p>
+                <p>Birth day : <span th:text="${course.teacher.birthday}"></span></p>
+                <p>Email : <span th:text="${course.teacher.email}"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="studentsData">
+    <form th:each="student : ${course.students}" action="#" th:action="@{/remove-student-from-course}" class="student" method="post">
+        <p>Name : <span th:text="${student.firstName}"></span> <span th:text="${student.lastName}"></span></p>
+        <p>Name : <span th:text="${student.nationalCode}"></span></p>
+        <p>Gender : <span th:text="${student.gender}"></span></p>
+        <p>Birthday : <span th:text="${student.birthday}"></span></p>
+        <p>Email : <span th:text="${student.email}"></span></p>
+        <input type="hidden" name="courseId" th:value="${course.id}">
+        <input type="hidden" name="studentId" th:value="${student.id}">
+        <input type="submit" value="Remove from course">
+    </form>
+</div>
+</body>
+</html>
