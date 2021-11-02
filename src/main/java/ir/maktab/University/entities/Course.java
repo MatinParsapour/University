@@ -30,12 +30,14 @@ public class Course extends BaseEntity<Long> {
     private long courseCode;
 
     @Column(name = START_DATE)
-    private LocalDate startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date startDate;
 
     @Column(name = FINISH_DATE)
-    private LocalDate finishDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date finishDate;
 
-    @OneToOne
+    @ManyToOne
     private Teacher teacher;
 
     @ManyToMany
