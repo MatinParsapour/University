@@ -6,10 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Setter
@@ -21,4 +19,7 @@ public class Student extends User{
 
     @Column(name = STATUS)
     private String status;
+
+    @ManyToMany(mappedBy = "students")
+    private List<Course> courseList;
 }
