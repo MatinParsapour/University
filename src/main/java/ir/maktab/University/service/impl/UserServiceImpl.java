@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> searchUsers(String field) {
-        return userRepository.findAllByFirstNameOrLastNameOrStatusOrGenderOrEmail(field,field,field,field,field);
+        return userRepository.findAllByFirstNameLikeOrLastNameLikeOrStatusLikeOrGenderLikeOrEmailLike("%" + field + "%","%" + field + "%","%" + field + "%","%" + field + "%","%" + field + "%");
     }
 
 
