@@ -27,6 +27,11 @@ public class TeacherController {
         }
     }
 
+    @GetMapping("/get-teachers")
+    public List<Teacher> teachers(){
+        return teacherService.teachers();
+    }
+
 
     @PostMapping("/get-teacher")
     public Teacher getTeacher(long id){
@@ -47,11 +52,6 @@ public class TeacherController {
         teacher.setType(user.getType());
         teacherService.addTeacher(teacher);
         return teacher;
-    }
-
-    @GetMapping("/get-teachers")
-    public List<Teacher> teachers(){
-        return teacherService.getAllTeachers();
     }
 
     @PostMapping("/reject-teacher")

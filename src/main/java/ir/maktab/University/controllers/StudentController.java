@@ -32,6 +32,11 @@ public class StudentController {
         }
     }
 
+    @GetMapping("/get-students")
+    public List<Student> students(){
+        return studentService.students();
+    }
+
 
     public Student addStudent(User user){
         Student student = new Student();
@@ -47,11 +52,6 @@ public class StudentController {
         student.setType(user.getType());
         studentService.addStudent(student);
         return student;
-    }
-
-    @GetMapping("/get-students")
-    public List<Student> students(){
-        return studentService.getAllStudents();
     }
 
     @PostMapping("/reject-student")
