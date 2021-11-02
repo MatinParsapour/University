@@ -9,7 +9,7 @@ public interface TeacherService {
 
     void addTeacher(Teacher teacher);
 
-    List<Teacher> getAllTeachers();
+    List<Teacher> teachers();
 
     Optional<Teacher> getTeacherById(long userId);
 

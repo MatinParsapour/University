@@ -23,7 +23,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<Teacher> getAllTeachers() {
+    public List<Teacher> teachers() {
         return teacherRepository.findAllByOrderByStatus();
     }
 

@@ -9,7 +9,7 @@ public interface StudentService {
 
     void addStudent(Student student);
 
-    List<Student> getAllStudents();
+    List<Student> students();
 
     Optional<Student> getStudentById(long id);
 
