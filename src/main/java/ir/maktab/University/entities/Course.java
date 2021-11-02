@@ -2,9 +2,12 @@ package ir.maktab.University.entities;
 
 import ir.maktab.University.entities.base.BaseEntity;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -35,6 +38,6 @@ public class Course extends BaseEntity<Long> {
     @OneToOne
     private Teacher teacher;
 
-    @OneToMany
-    private Set<Student> students;
+    @ManyToMany
+    private Set<Student> students = new HashSet<>();
 }
