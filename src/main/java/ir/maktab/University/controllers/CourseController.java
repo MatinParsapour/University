@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -81,6 +84,42 @@ public class CourseController {
     public String deleteCourse(String courseId){
         Course course = courseService.getCourse(Long.parseLong(courseId)).get();
         courseService.deleteCourse(course);
+        return "redirect:/manager-main";
+    }
+
+    @PostMapping("/change-course-name")
+    public String changeCourseName(String courseId, String courseName){
+        Course course = courseService.getCourse(Long.parseLong(courseId)).get();
+        course.setTitle(courseName);
+        courseService.createCourse(course);
+        return "redirect:/manager-main";
+    }
+
+    @PostMapping("/change-course-code")
+    public String changeCourseCode(String courseId,long courseCode){
+        Course course = courseService.getCourse(Long.parseLong(courseId)).get();
+        course.setCourseCode(courseCode);
+        courseService.createCourse(course);
+        return "redirect:/manager-main";
+    }
+
+    @PostMapping("/change-course-start-date")
+    public String changeCourseStartDate(String courseId, String courseStartDate) throws ParseException {
+        Course course = courseService.getCourse(Long.parseLong(courseId)).get();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = format.parse(courseStartDate);
+        course.setStartDate(startDate);
+        courseService.createCourse(course);
+        return "redirect:/manager-main";
+    }
+
+    @PostMapping("/change-course-finish-date")
+    public String changeCourseFinishDate(String courseId,String courseFinishDate) throws ParseException {
+        Course course = courseService.getCourse(Long.parseLong(courseId)).get();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date finishDate = format.parse(courseFinishDate);
+        course.setFinishDate(finishDate);
+        courseService.createCourse(course);
         return "redirect:/manager-main";
     }
 }
