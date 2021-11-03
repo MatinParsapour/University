@@ -12,4 +12,6 @@ public interface CourseService {
     Optional<Course> getCourse(long id);
 
     List<Course> courses();
+
+    Course getCourseByCourseCode(long courseCode);
 }
