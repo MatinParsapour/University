@@ -4,65 +4,179 @@
     <meta charset="UTF-8">
     <title>Course</title>
   <Style>
-    body {
-      background-image: linear-gradient(#8be9e7, #20dad8, #20a5d8, #12395a, #120d14);
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      background-attachment: fixed;
-      display: flex;
-      justify-content: space-between;
-    }
+      @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js);
+      @import url(https://fonts.googleapis.com/css?family=Arvo);
 
-    .courseData{
-      width: 60%;
-      height: 600px;
-      background-color: rgba(158, 78, 147, 0.3);
-      display: flex;
-      justify-content: space-around;
-      border-radius: 5px 5px;
-      flex-direction: column;
-      align-items: center;
-    }
+      /* iconicfill */
+      [class*="iconicfill-"]:before {
+          font-family: 'IconicFill', sans-serif;
+      }
 
-    .studentsData{
-      width: 36%;
-      height: 600px;
-      background-color: rgba(158, 78, 147, 0.3);
-      border-radius: 5px 5px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      overflow: auto;
-    }
+      body,
+      html {
+          width: 100%;
+          height: 100%;
+      }
 
-    .courseHeader{
-      font-size: 30px;
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      color: rgb(124, 86, 86);
-    }
+      body {
+          font-family: 'Arvo';
+          background: #4f3b5b;
+          background: -moz-radial-gradient(center, ellipse cover, #4f3b5b 0%, #231733 100%);
+          background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #4f3b5b), color-stop(100%, #231733));
+          background: -webkit-radial-gradient(center, ellipse cover, #4f3b5b 0%, #231733 100%);
+          background: -o-radial-gradient(center, ellipse cover, #4f3b5b 0%, #231733 100%);
+          background: -ms-radial-gradient(center, ellipse cover, #4f3b5b 0%, #231733 100%);
+          background: radial-gradient(ellipse at center, #4f3b5b 0%, #231733 100%);
+      }
 
-    .details{
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
+      .wrap {
+          width: 300px;
+      }
 
-    .student{
-      width: 97%;
-      background-color: rgb(156, 131, 131,40%);
-      border-radius: 5px 5px;
-      margin-top: 5%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+      .center {
+          top: 50%;
+          transform: translateY(-50%);
+          position: relative;
+          margin: auto;
+      }
 
-    #cancelButton{
-        display: none;
-    }
-    #studentsList{
-        display: none;
-    }
+      body {
+          background-image: linear-gradient(#8be9e7, #20dad8, #20a5d8, #12395a, #120d14);
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+          background-attachment: fixed;
+          display: flex;
+          justify-content: space-between;
+      }
+
+      .courseData {
+          width: 60%;
+          height: 600px;
+          background-color: rgba(158, 78, 147, 0.3);
+          display: flex;
+          justify-content: space-around;
+          border-radius: 5px 5px;
+          flex-direction: column;
+          align-items: center;
+      }
+
+      .studentsData {
+          width: 36%;
+          height: 600px;
+          background-color: rgba(158, 78, 147, 0.3);
+          border-radius: 5px 5px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          overflow: auto;
+      }
+
+      .courseHeader {
+          font-size: 30px;
+          font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+          color: rgb(124, 86, 86);
+      }
+
+      .details {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+      }
+
+      .student {
+          width: 97%;
+          background-color: rgba(47, 48, 143, 0.4);
+          border-radius: 5px 5px;
+          margin-top: 5%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+      }
+
+      #cancelButton {
+          display: none;
+      }
+
+      #studentsList {
+          display: none;
+      }
+
+      #editPad {
+          position: fixed;
+          top: 20%;
+          left: 35%;
+          background-color: #12395a;
+          transform: translate(-50%, -50%);
+          height: 350px;
+          width: 46%;
+          display: none;
+          align-items: center;
+          margin-left: 15%;
+          margin-top: 5%;
+          border-radius: 5px 5px;
+      }
+
+      .input {
+          display: block;
+          width: 90%;
+          padding: 15px 0 15px 12px;
+          font-family: "Arvo";
+          font-weight: 400;
+          color: #377D6A;
+          background: rgba(0, 0, 0, 0.3);
+          border: none;
+          outline: none;
+          color: #fff;
+          text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+          border: 1px solid rgba(0, 0, 0, 0.3);
+          border-radius: 4px;
+          box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2), 0 1px 1px rgba(255, 255, 255, 0.2);
+          text-indent: 60px;
+          transition: all .3s ease-in-out;
+          position: relative;
+          font-size: 13px;
+      }
+
+      .editPadInfo {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          align-content: space-between;
+      }
+
+      .margin-top-5 {
+          margin-top: 3%;
+      }
+
+      input:focus {
+          text-indent: 12px;
+          box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.4), 0 1px 1px rgba(255, 255, 255, 0.2);
+      }
+
+      label {
+          display: block;
+          position: static;
+          margin: 0;
+          padding: 0;
+          color: #fff;
+          font-family: 'Arvo';
+          font-size: 16px;
+      }
+
+      /* ==== Pen animation ==== */
+      .move-pen {
+          animation: move-pen 1s ease-in infinite alternate;
+      }
+
+      @keyframes move-pen {
+          from {
+              transform: translateX(-4px) rotate(6deg);
+          }
+
+          to {
+              transform: translateX(4px) rotate(-3deg);
+          }
+      }
   </Style>
 </head>
 <body>
@@ -95,6 +209,7 @@
         </form>
     </div>
     <input id="cancelButton" type="button" onclick="hideChooseStudentField()" value="Cancel">
+    <input id="editButton" type="button" onclick="editPad()" value="Edit">
 </div>
 <div class="studentsData">
     <form th:each="student : ${course.students}" action="#" th:action="@{/remove-student-from-course}" class="student" method="post">
@@ -107,6 +222,34 @@
         <input type="hidden" name="studentId" th:value="${student.id}">
         <input type="submit" value="Remove from course">
     </form>
+</div>
+<div id="editPad">
+    <div class="editPadInfo">
+        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/change-course-name}" method="post">
+            <input type="hidden" name="courseId" th:value="${course.id}">
+            <label for="courseNameInput">Course name :</label>
+            <input id="courseNameInput" class="input" type="text" name="courseName">
+            <input type="submit" value="Change course name">
+        </form>
+        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/change-course-code}" method="post">
+            <input type="hidden" name="courseId" th:value="${course.id}">
+            <label for="courseCodeInput">Course code : </label>
+            <input id="courseCodeInput" class="input" type="number" name="courseCode">
+            <input type="submit" value="Change course code">
+        </form>
+        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/change-course-start-date}" method="post">
+            <input type="hidden" name="courseId" th:value="${course.id}">
+            <label for="courseStartDate">Start date : </label>
+            <input id="courseStartDate" class="input" type="date" name="courseStartDate">
+            <input type="submit" value="Change course start date">
+        </form>
+        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/change-course-finish-date}" method="post">
+            <input type="hidden" name="courseId" th:value="${course.id}">
+            <label for="courseFinishDate">Finish date : </label>
+            <input id="courseFinishDate" class="input" type="date" name="courseFinishDate">            <input type="submit" value="Change course finish date">
+        </form>
+        <input class="margin-top-5" type="button" value="Close" onclick="closeEditPad()">
+    </div>
 </div>
 
 
@@ -121,6 +264,37 @@
         document.getElementById("studentsList").style.display = "none"
         document.getElementById("cancelButton").style.display = "none"
     }
+    function editPad() {
+        document.getElementById("editPad").style.display = "block"
+    }
+
+    function closeEditPad() {
+        document.getElementById("editPad").style.display = "none"
+    }
+
+    $(document).ready(function () {
+        $('input').focusin(function () {
+            $('label').transition({
+                x: '80px'
+            }, 500, 'ease').next()
+                .transition({
+                    x: '5px'
+                }, 500, 'ease');
+            setTimeout(function () {
+                $('label').next().addClass('move-pen');
+            }, 100);
+
+        });
+
+        $('input').focusout(function () {
+            $('label').transition({
+                x: '0px'
+            }, 500, 'ease').next()
+                .transition({
+                    x: '-100px'
+                }, 500, 'ease').removeClass('move-pen');
+        });
+    })
 </script>
 </body>
 </html>
