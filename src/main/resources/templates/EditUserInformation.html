@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user</title>
+    <style>
+        body {
+            background-image: linear-gradient(#8be9e7, #20dad8, #20a5d8, #12395a, #120d14);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+        .showBox {
+            font-size: 20px;
+            margin-top: 5%;
+            display: flex;
+            align-self: center;
+            border-radius: 5px 5px;
+            width: 95%;
+            height: 500px;
+            background-color: rgb(10, 10, 68, 80%);
+            color: white;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+
+        .displayFlex {
+            display: flex;
+        }
+
+        .displayHidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div id="studentList" class="showBox">
+        <p class="displayFlex" id="firstName">FirstName : <span th:text="${user.firstName}"></span> <input class="displayHidden"
+                                                                       id="changeFirstNameButton"
+                                                                       onclick="showFirstNameForm()" type="button"
+                                                                       value="Change first name">
+        </p>
+        <form class="displayHidden" id="firstNameForm" action="/change-user-first-name" method="post">
+            <input type="hidden" th:value="${user.id}" name="userId">
+            <input type="text" name="firstName" placeholder="New first name">
+            <input type="submit" value="Change">
+        </form>
+        <p class="displayFlex" id="lastName">LastName : <span th:text="${user.lastName}"></span> <input type="button" class="displayHidden"
+                                                                         id="changeLastNameButton"
+                                                                         onclick="showLastNameForm()"
+                                                                         value="Change last name"></p>
+        <form class="displayHidden" id="lastNameForm" action="/change-user-last-name" method="post">
+            <input type="hidden" th:value="${user.id}" name="userId">
+            <input type="text" name="lastName" placeholder="New last name">
+            <input type="submit" value="Change">
+        </form>
+        <p>Birthday : <span th:text="${user.birthday}"></span></p>
+        <p class="displayFlex" id="email">Email : <span th:text="${user.email}"></span> <input type="button"
+                                                                                       class="displayHidden"
+                                                                                       onclick="showEmailForm()"
+                                                                                       id="changeEmailButton"
+                                                                                       value="Change email"></p>
+        <form class="displayHidden" id="emailForm" action="/change-user-email" method="post">
+            <input type="hidden" th:value="${user.id}" name="userId">
+            <input type="text" name="email" placeholder="New email">
+            <input type="submit" value="Change">
+        </form>
+        <p>Status : <span th:text="${user.status}"></span></p>
+        <p>Gender : <span th:text="${user.gender}"></span></p>
+    </div>
+    <div>
+        <div class="displayFlex">
+            <input type="button" value="Edit" onclick="edit()">
+            <input type="button" value="cancel" onclick="cancelEdit()" class="displayHidden" id="cancelButton">
+        </div>
+    </div>
+</div>
+<script>
+    function edit() {
+        document.getElementById("changeFirstNameButton").style.display = "block"
+        document.getElementById("changeEmailButton").style.display = "block"
+        document.getElementById("changeLastNameButton").style.display = "block"
+        document.getElementById("cancelButton").style.display = "block"
+    }
+
+    function cancelEdit() {
+        document.getElementById("changeFirstNameButton").style.display = "none"
+        document.getElementById("changeEmailButton").style.display = "none"
+        document.getElementById("changeLastNameButton").style.display = "none"
+        document.getElementById("cancelButton").style.display = "none"
+        document.getElementById("firstNameForm").style.display = "none"
+        document.getElementById("lastNameForm").style.display = "none"
+        document.getElementById("emailForm").style.display = "none"
+        document.getElementById("firstName").style.display = "block"
+        document.getElementById("lastName").style.display = "block"
+        document.getElementById("email").style.display = "block"
+    }
+
+    function showFirstNameForm() {
+        document.getElementById("firstNameForm").style.display = "block"
+        document.getElementById("firstName").style.display = "none"
+    }
+
+    function showLastNameForm() {
+        document.getElementById("lastNameForm").style.display = "block"
+        document.getElementById("lastName").style.display = "none"
+    }
+
+    function showEmailForm() {
+        document.getElementById("emailForm").style.display = "block"
+        document.getElementById("email").style.display = "none"
+    }
+</script>
+</body>
+</html>
