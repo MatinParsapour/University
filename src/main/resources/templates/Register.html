@@ -202,12 +202,14 @@
                                 }
                             },
                             error: function (){
+                                event.preventDefault()
                                 alert("Something went wrong")
                             }
                         })
                     }
                 },
                 error: function (){
+                    event.preventDefault();
                     alert("Error")
                 }
             })
@@ -228,6 +230,7 @@
                     }
                 },
                 error: function (){
+                    happened.preventDefault();
                     alert("Something went wrong")
                 }
             })
