@@ -56,6 +56,13 @@
       flex-direction: column;
       justify-content: center;
     }
+
+    #cancelButton{
+        display: none;
+    }
+    #studentsList{
+        display: none;
+    }
   </Style>
 </head>
 <body>
@@ -76,11 +83,23 @@
             </div>
         </div>
     </div>
+    <input id="addStudentButton" onclick="showChooseStudentField()" type="button" value="Add student">
+    <div id="studentsList">
+        <form action="#" th:action="@{/add-student-to-course}" method="post">
+            <select name="studentId" required>
+                <option th:each="student : ${students}" th:value="${student.id}"><span
+                        th:text="${student.firstName}"></span> <span th:text="${student.lastName}"></span></option>
+            </select>
+            <input type="hidden" th:value="${course.id}" name="courseId">
+            <input type="submit" value="Save">
+        </form>
+    </div>
+    <input id="cancelButton" type="button" onclick="hideChooseStudentField()" value="Cancel">
 </div>
 <div class="studentsData">
     <form th:each="student : ${course.students}" action="#" th:action="@{/remove-student-from-course}" class="student" method="post">
         <p>Name : <span th:text="${student.firstName}"></span> <span th:text="${student.lastName}"></span></p>
-        <p>Name : <span th:text="${student.nationalCode}"></span></p>
+        <p>National code : <span th:text="${student.nationalCode}"></span></p>
         <p>Gender : <span th:text="${student.gender}"></span></p>
         <p>Birthday : <span th:text="${student.birthday}"></span></p>
         <p>Email : <span th:text="${student.email}"></span></p>
@@ -89,5 +108,19 @@
         <input type="submit" value="Remove from course">
     </form>
 </div>
+
+
+<script>
+    function showChooseStudentField(){
+        document.getElementById("addStudentButton").style.display = "none"
+        document.getElementById("studentsList").style.display = "block"
+        document.getElementById("cancelButton").style.display = "block"
+    }
+    function hideChooseStudentField(){
+        document.getElementById("addStudentButton").style.display = "block"
+        document.getElementById("studentsList").style.display = "none"
+        document.getElementById("cancelButton").style.display = "none"
+    }
+</script>
 </body>
 </html>
