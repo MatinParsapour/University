@@ -105,10 +105,14 @@
                             <input type="submit" value="Accept">
                         </form>
                     </div>
-                    <div th:case="'Accepted'">
+                    <div th:case="'Accepted'" style="display: flex">
                         <form action="#" th:action="@{/student-to-teacher}" method="post">
                             <input type="hidden" th:value="${student.id}" name="userId">
                             <input type="submit" value="Change role to teacher">
+                        </form>
+                        <form action="#" th:action="@{/edit-user-information}" method="post">
+                            <input type="hidden" th:value="${student.id}" name="userId">
+                            <input type="submit" value="Edit">
                         </form>
                     </div>
                 </div>
@@ -145,10 +149,14 @@
                         <input type="submit" value="Accept">
                     </form>
                 </div>
-                <div th:case="Accepted">
+                <div th:case="'Accepted'" style="display: flex">
                     <form action="#" th:action="@{/teacher-to-student}" method="post">
                         <input type="hidden" th:value="${teacher.id}" name="userId">
                         <input type="submit" value="Change role to student">
+                    </form>
+                    <form action="#" th:action="@{/edit-user-information}" method="post">
+                        <input type="hidden" th:value="${teacher.id}" name="userId">
+                        <input type="submit" value="Edit">
                     </form>
                 </div>
             </div>
