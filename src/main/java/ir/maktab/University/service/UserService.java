@@ -14,4 +14,6 @@ public interface UserService {
     User getUserByUserName(String username);
 
     List<User> searchUsers(String field);
+
+    void saveOrUpdateUser(User user);
 }

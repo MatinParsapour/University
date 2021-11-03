@@ -11,6 +11,7 @@ import java.util.Optional;
 
 
 @Service
+
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -34,6 +35,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> searchUsers(String field) {
         return userRepository.findAllByFirstNameLikeOrLastNameLikeOrStatusLikeOrGenderLikeOrEmailLike("%" + field + "%","%" + field + "%","%" + field + "%","%" + field + "%","%" + field + "%");
+    }
+
+    @Override
+    public void saveOrUpdateUser(User user) {
+        userRepository.save(user);
     }
 
 
