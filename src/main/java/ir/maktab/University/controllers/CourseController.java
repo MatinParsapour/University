@@ -49,10 +49,15 @@ public class CourseController {
 
     @PostMapping("/create-course")
     public String createCourse(Course course, String teacherId){
-        Teacher teacher = teacherController.getTeacher(Long.parseLong(teacherId));
-        course.setTeacher(teacher);
-        courseService.createCourse(course);
-        return "redirect:/manager-main";
+        Course definedCourse = courseService.getCourseByCourseCode(course.getCourseCode());
+        if(definedCourse == null){
+            Teacher teacher = teacherController.getTeacher(Long.parseLong(teacherId));
+            course.setTeacher(teacher);
+            courseService.createCourse(course);
+            return "redirect:/manager-main";
+        }else{
+            return "WarningPage";
+        }
     }
 
     @GetMapping("/add-course")
