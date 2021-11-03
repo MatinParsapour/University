@@ -35,4 +35,9 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findByCourseCode(courseCode);
     }
 
+    @Override
+    public void deleteCourse(Course course) {
+        courseRepository.delete(course);
+    }
+
 }

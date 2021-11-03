@@ -176,9 +176,13 @@
             </div>
             <div>
                 <div>
-                    <form action="#" th:action="@{/display-course}">
+                    <form action="#" th:action="@{/display-course}" method="post">
                         <input type="hidden" th:value="${course.id}" name="courseId">
                         <input type="submit" value="See details">
+                    </form>
+                    <form action="#" th:action="@{/delete-course}" method="post">
+                        <input type="hidden" th:value="${course.id}" name="courseId">
+                        <input type="submit" value="Delete course" style="background-color: red">
                     </form>
                 </div>
             </div>

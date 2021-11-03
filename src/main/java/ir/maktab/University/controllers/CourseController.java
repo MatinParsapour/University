@@ -24,7 +24,7 @@ public class CourseController {
     @Autowired
     private StudentController studentController;
 
-    @GetMapping("/display-course")
+    @PostMapping("/display-course")
     public String displayCourse(Model model,String courseId){
         List<Student> students = studentController.students();
         Course course = courseService.getCourse(Long.parseLong(courseId)).get();
@@ -74,6 +74,13 @@ public class CourseController {
         Course course = courseService.getCourse(Long.parseLong(courseId)).get();
         course.getStudents().add(student);
         courseService.createCourse(course);
+        return "redirect:/manager-main";
+    }
+
+    @PostMapping("/delete-course")
+    public String deleteCourse(String courseId){
+        Course course = courseService.getCourse(Long.parseLong(courseId)).get();
+        courseService.deleteCourse(course);
         return "redirect:/manager-main";
     }
 }
