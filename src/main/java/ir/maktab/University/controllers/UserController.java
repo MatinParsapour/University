@@ -110,4 +110,33 @@ public class UserController {
         }
         return "FoundUsers";
     }
+
+    @PostMapping("/change-user-first-name")
+    public String changeUserFirstName(String userId,String firstName){
+        User user = userService.getUserById(Long.parseLong(userId)).get();
+        user.setFirstName(firstName);
+        userService.saveOrUpdateUser(user);
+        return "redirect:/manager-main";
+    }
+    @PostMapping("/change-user-last-name")
+    public String changeUserLastName(String userId,String lastName){
+        User user = userService.getUserById(Long.parseLong(userId)).get();
+        user.setLastName(lastName);
+        userService.saveOrUpdateUser(user);
+        return "redirect:/manager-main";
+    }
+    @PostMapping("/change-user-email")
+    public String changeUserEmail(String userId,String email){
+        User user = userService.getUserById(Long.parseLong(userId)).get();
+        user.setEmail(email);
+        userService.saveOrUpdateUser(user);
+        return "redirect:/manager-main";
+    }
+
+    @PostMapping("/edit-user-information")
+    public String editUserInformation(String userId,Model model){
+        User user = userService.getUserById(Long.parseLong(userId)).get();
+        model.addAttribute("user",user);
+        return "EditUserInformation";
+    }
 }
