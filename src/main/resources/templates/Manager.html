@@ -175,7 +175,7 @@
                 <p>Finish date : <span th:text="${course.finishDate}"></span></p>
             </div>
             <div>
-                <div>
+                <div style="display: flex">
                     <form action="#" th:action="@{/display-course}" method="post">
                         <input type="hidden" th:value="${course.id}" name="courseId">
                         <input type="submit" value="See details">
@@ -195,18 +195,6 @@
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-    function checkSearchBox(){
-        if(document.getElementById("searchBox").value.length === 0){
-            document.getElementById("dropDownMenu").style.display = "none"
-            alert("The search field is empty")
-        }else{
-            if(document.getElementById("dropDownMenu").style.display === "block"){
-                document.getElementById("dropDownMenu").style.display = "none"
-            }else if(document.getElementById("dropDownMenu").style.display === "none"){
-                document.getElementById("dropDownMenu").style.display = "block"
-            }
-        }
-    }
 
     function showTeachers() {
         document.getElementById("displayTeachers").style.display = "block"
