@@ -26,7 +26,9 @@ public class CourseController {
 
     @GetMapping("/display-course")
     public String displayCourse(Model model,String courseId){
+        List<Student> students = studentController.students();
         Course course = courseService.getCourse(Long.parseLong(courseId)).get();
+        model.addAttribute("students",students);
         model.addAttribute("course",course);
         return "ShowCourse";
     }
@@ -59,5 +61,14 @@ public class CourseController {
         model.addAttribute("teachers",teachers);
         model.addAttribute("course",new Course());
         return "Course";
+    }
+
+    @PostMapping("/add-student-to-course")
+    public String addStudentToCourse(String studentId, String courseId){
+        Student student = studentController.getStudent(Long.parseLong(studentId));
+        Course course = courseService.getCourse(Long.parseLong(courseId)).get();
+        course.getStudents().add(student);
+        courseService.createCourse(course);
+        return "redirect:/manager-main";
     }
 }
