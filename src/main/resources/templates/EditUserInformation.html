@@ -37,35 +37,38 @@
 <body>
 <div>
     <div id="studentList" class="showBox">
-        <p class="displayFlex" id="firstName">FirstName : <span th:text="${user.firstName}"></span> <input class="displayHidden"
-                                                                       id="changeFirstNameButton"
-                                                                       onclick="showFirstNameForm()" type="button"
-                                                                       value="Change first name">
+        <p class="displayFlex" id="firstName">FirstName : <span th:text="${user.firstName}"></span> <input
+                class="displayHidden"
+                id="changeFirstNameButton"
+                onclick="showFirstNameForm()" type="button"
+                value="Change first name">
         </p>
         <form class="displayHidden" id="firstNameForm" action="/change-user-first-name" method="post">
             <input type="hidden" th:value="${user.id}" name="userId">
-            <input type="text" name="firstName" placeholder="New first name">
-            <input type="submit" value="Change">
+            <input id="firstNameInput" type="text" name="firstName" placeholder="New first name">
+            <input type="submit" onclick="checkFirstNameInput()" value="Change">
         </form>
-        <p class="displayFlex" id="lastName">LastName : <span th:text="${user.lastName}"></span> <input type="button" class="displayHidden"
-                                                                         id="changeLastNameButton"
-                                                                         onclick="showLastNameForm()"
-                                                                         value="Change last name"></p>
+        <p class="displayFlex" id="lastName">LastName : <span th:text="${user.lastName}"></span> <input type="button"
+                                                                                                        class="displayHidden"
+                                                                                                        id="changeLastNameButton"
+                                                                                                        onclick="showLastNameForm()"
+                                                                                                        value="Change last name">
+        </p>
         <form class="displayHidden" id="lastNameForm" action="/change-user-last-name" method="post">
             <input type="hidden" th:value="${user.id}" name="userId">
-            <input type="text" name="lastName" placeholder="New last name">
-            <input type="submit" value="Change">
+            <input type="text" id="lastNameInput" name="lastName" placeholder="New last name">
+            <input type="submit" onclick="checkLastNameInput()" value="Change">
         </form>
         <p>Birthday : <span th:text="${user.birthday}"></span></p>
         <p class="displayFlex" id="email">Email : <span th:text="${user.email}"></span> <input type="button"
-                                                                                       class="displayHidden"
-                                                                                       onclick="showEmailForm()"
-                                                                                       id="changeEmailButton"
-                                                                                       value="Change email"></p>
+                                                                                               class="displayHidden"
+                                                                                               onclick="showEmailForm()"
+                                                                                               id="changeEmailButton"
+                                                                                               value="Change email"></p>
         <form class="displayHidden" id="emailForm" action="/change-user-email" method="post">
             <input type="hidden" th:value="${user.id}" name="userId">
-            <input type="text" name="email" placeholder="New email">
-            <input type="submit" value="Change">
+            <input type="text" id="emailInput" name="email" placeholder="New email">
+            <input type="submit" onclick="checkEmailInput()" value="Change">
         </form>
         <p>Status : <span th:text="${user.status}"></span></p>
         <p>Gender : <span th:text="${user.gender}"></span></p>
@@ -78,6 +81,27 @@
     </div>
 </div>
 <script>
+    function checkFirstNameInput() {
+        if (document.getElementById("firstNameInput").value.length === 0) {
+            event.preventDefault();
+            alert("The input is empty")
+        }
+    }
+
+    function checkLastNameInput() {
+        if (document.getElementById("lastNameInput").value.length === 0) {
+            event.preventDefault();
+            alert("The input is empty")
+        }
+    }
+
+    function checkEmailInput() {
+        if (document.getElementById("emailInput").value.length === 0) {
+            event.preventDefault();
+            alert("The input is empty")
+        }
+    }
+
     function edit() {
         document.getElementById("changeFirstNameButton").style.display = "block"
         document.getElementById("changeEmailButton").style.display = "block"
