@@ -16,6 +16,9 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private CourseController courseController;
+
     @PostMapping("/student/get-student")
     public Student getStudent(long id) {
         return studentService.findById(id).get();
@@ -34,7 +37,7 @@ public class StudentController {
 
     @GetMapping("/student/get-students")
     public List<Student> students() {
-        return studentService.findAll();
+        return studentService.getAllStudents();
     }
 
 
@@ -69,15 +72,20 @@ public class StudentController {
     }
 
     @PostMapping("/student/delete-student")
-    public void deleteStudent(String userId) {
-        studentService.deleteById(Long.parseLong(userId));
+    public void inActiveStudent(String userId) {
+        Student student = studentService.findById(Long.parseLong(userId)).get();
+        student.setActive(false);
+        student.setUserName(null);
+        studentService.save(student);
     }
 
     @PostMapping("/student/change-to-student")
-    public void changeToStudent(User user) {
+    public void changeToStudent(User user, String username) {
         Student student = addStudent(user);
         student.setType("Student");
         student.setStatus("Accepted");
+        student.setUserName(username);
+        student.setActive(true);
         studentService.save(student);
     }
 }
