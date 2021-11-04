@@ -42,7 +42,7 @@ public class Course extends BaseEntity<Long> {
     @ManyToOne
     private Teacher teacher;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Student> students = new HashSet<>();
 
     @ManyToOne

@@ -19,10 +19,15 @@ import java.util.List;
 @NoArgsConstructor
 public class Student extends User {
     private static final String STATUS = "status";
+    private static final String IS_ACTIVE = "is_active";
+
 
     @Column(name = STATUS)
     private String status;
 
-    @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Course> courseList;
+
+    @Column(name = IS_ACTIVE)
+    private boolean isActive;
 }
