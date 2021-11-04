@@ -29,7 +29,7 @@ public class TeacherController {
 
     @GetMapping("/teacher/get-teachers")
     public List<Teacher> teachers() {
-        return teacherService.findAll();
+        return teacherService.getAllTeachers();
     }
 
 
@@ -69,15 +69,20 @@ public class TeacherController {
     }
 
     @PostMapping("/teacher/change-to-teacher")
-    public void changeToTeacher(User user) {
+    public void changeToTeacher(User user,String username) {
         Teacher teacher = addTeacher(user);
         teacher.setType("Teacher");
         teacher.setStatus("Accepted");
+        teacher.setUserName(username);
+        teacher.setActive(true);
         teacherService.save(teacher);
     }
 
     @PostMapping("/teacher/delete-teacher")
-    public void deleteTeacher(String userId) {
-        teacherService.deleteById(Long.parseLong(userId));
+    public void inActiveTeacher(String userId) {
+        Teacher teacher = teacherService.findById(Long.parseLong(userId)).get();
+        teacher.setActive(false);
+        teacher.setUserName(null);
+        teacherService.save(teacher);
     }
 }
