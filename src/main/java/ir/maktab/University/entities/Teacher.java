@@ -17,10 +17,15 @@ import java.util.List;
 @NoArgsConstructor
 public class Teacher extends User {
     private static final String STATUS = "status";
+    private static final String IS_ACTIVE = "is_active";
+
 
     @Column(name = STATUS)
     private String status;
 
     @OneToMany(mappedBy = "teacher")
     private List<Course> course;
+
+    @Column(name = IS_ACTIVE)
+    private boolean isActive;
 }
