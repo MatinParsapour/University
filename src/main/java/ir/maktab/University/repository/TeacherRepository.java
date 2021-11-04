@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
-    List<Teacher> findAllByOrderByStatus();
+    List<Teacher> findAllByIsActiveTrue();
 
     Teacher findByUserName(String username);
 }

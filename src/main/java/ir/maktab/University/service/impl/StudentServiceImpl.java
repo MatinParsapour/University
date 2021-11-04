@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StudentServiceImpl extends BaseServiceImpl<Student,Long,StudentRepository> implements StudentService {
@@ -22,5 +21,10 @@ public class StudentServiceImpl extends BaseServiceImpl<Student,Long,StudentRepo
     @Override
     public Student getStudentByUsername(String username) {
         return studentRepository.findByUserName(username);
+    }
+
+    @Override
+    public List<Student> getAllStudents() {
+        return studentRepository.findAllByIsActiveTrue();
     }
 }

@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface StudentService extends BaseService<Student,Long>{
 
     Student getStudentByUsername(String username);
+
+    List<Student> getAllStudents();
 }

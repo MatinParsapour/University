@@ -24,4 +24,9 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher,Long,TeacherRepo
     public Teacher getTeacherByUserName(String username) {
         return teacherRepository.findByUserName(username);
     }
+
+    @Override
+    public List<Teacher> getAllTeachers() {
+        return teacherRepository.findAllByIsActiveTrue();
+    }
 }

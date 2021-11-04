@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface TeacherService extends BaseService<Teacher,Long> {
 
     Teacher getTeacherByUserName(String username);
+
+    List<Teacher> getAllTeachers();
 }

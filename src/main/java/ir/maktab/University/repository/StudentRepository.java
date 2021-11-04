@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    List<Student> findAllByOrderByStatus();
+    List<Student> findAllByIsActiveTrue();
 
     Student findByUserName(String username);
 }
+
