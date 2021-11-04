@@ -44,4 +44,7 @@ public class Course extends BaseEntity<Long> {
 
     @ManyToMany
     private Set<Student> students = new HashSet<>();
+
+    @ManyToOne
+    private Manager manager;
 }
