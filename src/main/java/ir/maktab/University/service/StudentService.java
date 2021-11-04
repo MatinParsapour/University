@@ -5,15 +5,7 @@ import ir.maktab.University.entities.Student;
 import java.util.List;
 import java.util.Optional;
 
-public interface StudentService {
-
-    void addStudent(Student student);
-
-    List<Student> students();
-
-    Optional<Student> getStudentById(long id);
-
-    void deleteStudent(long id);
+public interface StudentService extends BaseService<Student,Long>{
 
     Student getStudentByUsername(String username);
 }

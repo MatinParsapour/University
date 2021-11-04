@@ -1,4 +1,6 @@
 package ir.maktab.University.service;
 
-public interface ManagerService {
+import ir.maktab.University.entities.Manager;
+
+public interface ManagerService extends BaseService<Manager,Long> {
 }

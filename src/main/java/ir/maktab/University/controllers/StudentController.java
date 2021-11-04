@@ -18,7 +18,7 @@ public class StudentController {
 
     @PostMapping("/student/get-student")
     public Student getStudent(long id) {
-        return studentService.getStudentById(id).get();
+        return studentService.findById(id).get();
     }
 
 
@@ -34,7 +34,7 @@ public class StudentController {
 
     @GetMapping("/student/get-students")
     public List<Student> students() {
-        return studentService.students();
+        return studentService.findAll();
     }
 
 
@@ -50,27 +50,27 @@ public class StudentController {
         student.setGender(user.getGender());
         student.setEmail(user.getEmail());
         student.setType(user.getType());
-        studentService.addStudent(student);
+        studentService.save(student);
         return student;
     }
 
     @PostMapping("/student/reject-student")
     public void rejectStudent(String userId) {
-        Student student = studentService.getStudentById(Long.parseLong(userId)).get();
+        Student student = studentService.findById(Long.parseLong(userId)).get();
         student.setStatus("Rejected");
-        studentService.addStudent(student);
+        studentService.save(student);
     }
 
     @PostMapping("/student/accept-student")
     public void acceptStudent(String userId) {
-        Student student = studentService.getStudentById(Long.parseLong(userId)).get();
+        Student student = studentService.findById(Long.parseLong(userId)).get();
         student.setStatus("Accepted");
-        studentService.addStudent(student);
+        studentService.save(student);
     }
 
     @PostMapping("/student/delete-student")
     public void deleteStudent(String userId) {
-        studentService.deleteStudent(Long.parseLong(userId));
+        studentService.deleteById(Long.parseLong(userId));
     }
 
     @PostMapping("/student/change-to-student")
@@ -78,6 +78,6 @@ public class StudentController {
         Student student = addStudent(user);
         student.setType("Student");
         student.setStatus("Accepted");
-        studentService.addStudent(student);
+        studentService.save(student);
     }
 }

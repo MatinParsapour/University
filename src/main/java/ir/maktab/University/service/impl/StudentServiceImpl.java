@@ -10,29 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl extends BaseServiceImpl<Student,Long,StudentRepository> implements StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
 
-    @Override
-    public void addStudent(Student student) {
-        studentRepository.save(student);
-    }
-
-    @Override
-    public List<Student> students() {
-        return studentRepository.findAllByOrderByStatus();
-    }
-
-    @Override
-    public Optional<Student> getStudentById(long id) {
-        return studentRepository.findById(id);
-    }
-
-    @Override
-    public void deleteStudent(long id) {
-        studentRepository.deleteById(id);
+    public StudentServiceImpl(StudentRepository repository) {
+        super(repository);
     }
 
     @Override

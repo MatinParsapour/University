@@ -10,34 +10,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CourseServiceImpl implements CourseService {
+public class CourseServiceImpl extends BaseServiceImpl<Course,Long,CourseRepository> implements CourseService {
 
     @Autowired
     private CourseRepository courseRepository;
 
-    @Override
-    public void createCourse(Course course) {
-        courseRepository.save(course);
-    }
-
-    @Override
-    public Optional<Course> getCourse(long id) {
-        return courseRepository.findById(id);
-    }
-
-    @Override
-    public List<Course> courses() {
-        return courseRepository.findAll();
+    public CourseServiceImpl(CourseRepository repository) {
+        super(repository);
     }
 
     @Override
     public Course getCourseByCourseCode(long courseCode) {
         return courseRepository.findByCourseCode(courseCode);
-    }
-
-    @Override
-    public void deleteCourse(Course course) {
-        courseRepository.delete(course);
     }
 
 }

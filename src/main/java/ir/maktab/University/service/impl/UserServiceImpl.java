@@ -12,19 +12,18 @@ import java.util.Optional;
 
 @Service
 
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<User,Long,UserRepository> implements UserService {
 
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public User getUserByUsernameAndPassword(String username, String password) {
-        return userRepository.findByUserNameAndPassword(username, password);
+    public UserServiceImpl(UserRepository repository) {
+        super(repository);
     }
 
     @Override
-    public Optional<User> getUserById(long id) {
-        return userRepository.findById(id);
+    public User getUserByUsernameAndPassword(String username, String password) {
+        return userRepository.findByUserNameAndPassword(username, password);
     }
 
     @Override
@@ -36,11 +35,4 @@ public class UserServiceImpl implements UserService {
     public List<User> searchUsers(String field) {
         return userRepository.findAllByFirstNameLikeOrLastNameLikeOrStatusLikeOrGenderLikeOrEmailLike("%" + field + "%", "%" + field + "%", "%" + field + "%", "%" + field + "%", "%" + field + "%");
     }
-
-    @Override
-    public void saveOrUpdateUser(User user) {
-        userRepository.save(user);
-    }
-
-
 }

@@ -69,7 +69,7 @@ public class UserController {
 
     @PostMapping("/reject-user")
     public String rejectUser(String userId) {
-        User user = userService.getUserById(Long.parseLong(userId)).get();
+        User user = userService.findById(Long.parseLong(userId)).get();
         if (user.getType().equals("Student")) {
             studentController.rejectStudent(userId);
             return "redirect:/manager/manager-main";
@@ -81,7 +81,7 @@ public class UserController {
 
     @PostMapping("/accept-user")
     public String acceptUser(String userId) {
-        User user = userService.getUserById(Long.parseLong(userId)).get();
+        User user = userService.findById(Long.parseLong(userId)).get();
         if (user.getType().equals("Student")) {
             studentController.acceptStudent(userId);
             return "redirect:/manager/manager-main";
@@ -93,7 +93,7 @@ public class UserController {
 
     @PostMapping("/student-to-teacher")
     public String studentToTeacher(String userId) {
-        User user = userService.getUserById(Long.parseLong(userId)).get();
+        User user = userService.findById(Long.parseLong(userId)).get();
         studentController.deleteStudent(userId);
         teacherController.changeToTeacher(user);
         return "redirect:/manager/manager-main";
@@ -112,31 +112,31 @@ public class UserController {
 
     @PostMapping("/change-user-first-name")
     public String changeUserFirstName(String userId, String firstName) {
-        User user = userService.getUserById(Long.parseLong(userId)).get();
+        User user = userService.findById(Long.parseLong(userId)).get();
         user.setFirstName(firstName);
-        userService.saveOrUpdateUser(user);
+        userService.save(user);
         return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/change-user-last-name")
     public String changeUserLastName(String userId, String lastName) {
-        User user = userService.getUserById(Long.parseLong(userId)).get();
+        User user = userService.findById(Long.parseLong(userId)).get();
         user.setLastName(lastName);
-        userService.saveOrUpdateUser(user);
+        userService.save(user);
         return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/change-user-email")
     public String changeUserEmail(String userId, String email) {
-        User user = userService.getUserById(Long.parseLong(userId)).get();
+        User user = userService.findById(Long.parseLong(userId)).get();
         user.setEmail(email);
-        userService.saveOrUpdateUser(user);
+        userService.save(user);
         return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/edit-user-information")
     public String editUserInformation(String userId, Model model) {
-        User user = userService.getUserById(Long.parseLong(userId)).get();
+        User user = userService.findById(Long.parseLong(userId)).get();
         model.addAttribute("user", user);
         return "EditUserInformation";
     }

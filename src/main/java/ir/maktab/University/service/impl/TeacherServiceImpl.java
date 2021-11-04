@@ -11,32 +11,15 @@ import java.util.Optional;
 
 
 @Service
-public class TeacherServiceImpl implements TeacherService {
+public class TeacherServiceImpl extends BaseServiceImpl<Teacher,Long,TeacherRepository> implements TeacherService {
 
 
     @Autowired
     private TeacherRepository teacherRepository;
 
-    @Override
-    public void addTeacher(Teacher teacher) {
-        teacherRepository.save(teacher);
+    public TeacherServiceImpl(TeacherRepository repository) {
+        super(repository);
     }
-
-    @Override
-    public List<Teacher> teachers() {
-        return teacherRepository.findAllByOrderByStatus();
-    }
-
-    @Override
-    public Optional<Teacher> getTeacherById(long userId) {
-        return teacherRepository.findById(userId);
-    }
-
-    @Override
-    public void deleteTeacher(long userId) {
-        teacherRepository.deleteById(userId);
-    }
-
     @Override
     public Teacher getTeacherByUserName(String username) {
         return teacherRepository.findByUserName(username);

@@ -31,7 +31,7 @@ public class CourseController {
     public String displayCourse(Model model, String courseId) {
         List<Student> students = studentController.students();
         List<Teacher> teachers = teacherController.teachers();
-        Course course = courseService.getCourse(Long.parseLong(courseId)).get();
+        Course course = courseService.findById(Long.parseLong(courseId)).get();
         model.addAttribute("students", students);
         model.addAttribute("course", course);
         model.addAttribute("teachers", teachers);
@@ -40,15 +40,15 @@ public class CourseController {
 
     @GetMapping("/course/get-courses")
     public List<Course> courses() {
-        return courseService.courses();
+        return courseService.findAll();
     }
 
     @PostMapping("/course/remove-student-from-course")
     public String removeStudentFromCourse(String courseId, String studentId) {
         Student student = studentController.getStudent(Long.parseLong(studentId));
-        Course course = courseService.getCourse(Long.parseLong(courseId)).get();
+        Course course = courseService.findById(Long.parseLong(courseId)).get();
         course.getStudents().remove(student);
-        courseService.createCourse(course);
+        courseService.save(course);
         return "redirect:/manager/manager-main";
     }
 
@@ -58,7 +58,7 @@ public class CourseController {
         if (definedCourse == null) {
             Teacher teacher = teacherController.getTeacher(Long.parseLong(teacherId));
             course.setTeacher(teacher);
-            courseService.createCourse(course);
+            courseService.save(course);
             return "redirect:/manager/manager-main";
         } else {
             return "WarningPage";
@@ -76,61 +76,60 @@ public class CourseController {
     @PostMapping("/course/add-student-to-course")
     public String addStudentToCourse(String studentId, String courseId) {
         Student student = studentController.getStudent(Long.parseLong(studentId));
-        Course course = courseService.getCourse(Long.parseLong(courseId)).get();
+        Course course = courseService.findById(Long.parseLong(courseId)).get();
         course.getStudents().add(student);
-        courseService.createCourse(course);
+        courseService.save(course);
         return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/course/delete-course")
     public String deleteCourse(String courseId) {
-        Course course = courseService.getCourse(Long.parseLong(courseId)).get();
-        courseService.deleteCourse(course);
+        courseService.deleteById(Long.parseLong(courseId));
         return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/course/change-course-name")
     public String changeCourseName(String courseId, String courseName) {
-        Course course = courseService.getCourse(Long.parseLong(courseId)).get();
+        Course course = courseService.findById(Long.parseLong(courseId)).get();
         course.setTitle(courseName);
-        courseService.createCourse(course);
+        courseService.save(course);
         return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/course/change-course-code")
     public String changeCourseCode(String courseId, long courseCode) {
-        Course course = courseService.getCourse(Long.parseLong(courseId)).get();
+        Course course = courseService.findById(Long.parseLong(courseId)).get();
         course.setCourseCode(courseCode);
-        courseService.createCourse(course);
+        courseService.save(course);
         return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/course/change-course-start-date")
     public String changeCourseStartDate(String courseId, String courseStartDate) throws ParseException {
-        Course course = courseService.getCourse(Long.parseLong(courseId)).get();
+        Course course = courseService.findById(Long.parseLong(courseId)).get();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date startDate = format.parse(courseStartDate);
         course.setStartDate(startDate);
-        courseService.createCourse(course);
+        courseService.save(course);
         return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/course/change-course-finish-date")
     public String changeCourseFinishDate(String courseId, String courseFinishDate) throws ParseException {
-        Course course = courseService.getCourse(Long.parseLong(courseId)).get();
+        Course course = courseService.findById(Long.parseLong(courseId)).get();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date finishDate = format.parse(courseFinishDate);
         course.setFinishDate(finishDate);
-        courseService.createCourse(course);
+        courseService.save(course);
         return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/course/change-course-teacher")
     public String changeCourseTeacher(long courseId, long teacherId) {
-        Course course = courseService.getCourse(courseId).get();
+        Course course = courseService.findById(courseId).get();
         Teacher teacher = teacherController.getTeacher(teacherId);
         course.setTeacher(teacher);
-        courseService.createCourse(course);
+        courseService.save(course);
         return "redirect:/manager/manager-main";
     }
 }

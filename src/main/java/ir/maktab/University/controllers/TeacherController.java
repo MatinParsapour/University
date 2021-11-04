@@ -29,13 +29,13 @@ public class TeacherController {
 
     @GetMapping("/teacher/get-teachers")
     public List<Teacher> teachers() {
-        return teacherService.teachers();
+        return teacherService.findAll();
     }
 
 
     @PostMapping("/teacher/get-teacher")
     public Teacher getTeacher(long id) {
-        return teacherService.getTeacherById(id).get();
+        return teacherService.findById(id).get();
     }
 
     public Teacher addTeacher(User user) {
@@ -50,22 +50,22 @@ public class TeacherController {
         teacher.setGender(user.getGender());
         teacher.setEmail(user.getEmail());
         teacher.setType(user.getType());
-        teacherService.addTeacher(teacher);
+        teacherService.save(teacher);
         return teacher;
     }
 
     @PostMapping("/teacher/reject-teacher")
     public void rejectTeacher(String userId) {
-        Teacher teacher = teacherService.getTeacherById(Long.parseLong(userId)).get();
+        Teacher teacher = teacherService.findById(Long.parseLong(userId)).get();
         teacher.setStatus("Rejected");
-        teacherService.addTeacher(teacher);
+        teacherService.save(teacher);
     }
 
     @PostMapping("/teacher/accept-teacher")
     public void acceptTeacher(String userId) {
-        Teacher teacher = teacherService.getTeacherById(Long.parseLong(userId)).get();
+        Teacher teacher = teacherService.findById(Long.parseLong(userId)).get();
         teacher.setStatus("Accepted");
-        teacherService.addTeacher(teacher);
+        teacherService.save(teacher);
     }
 
     @PostMapping("/teacher/change-to-teacher")
@@ -73,11 +73,11 @@ public class TeacherController {
         Teacher teacher = addTeacher(user);
         teacher.setType("Teacher");
         teacher.setStatus("Accepted");
-        teacherService.addTeacher(teacher);
+        teacherService.save(teacher);
     }
 
     @PostMapping("/teacher/delete-teacher")
     public void deleteTeacher(String userId) {
-        teacherService.deleteTeacher(Long.parseLong(userId));
+        teacherService.deleteById(Long.parseLong(userId));
     }
 }
