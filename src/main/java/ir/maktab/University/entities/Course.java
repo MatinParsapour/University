@@ -24,6 +24,8 @@ public class Course extends BaseEntity<Long> {
     private static final String COURSE_CODE = "course_code";
     private static final String START_DATE = "start_date";
     private static final String FINISH_DATE = "finish_date";
+    private static final String IS_ACTIVE = "is_active";
+
 
     @Column(name = TITLE)
     private String title;
@@ -44,6 +46,9 @@ public class Course extends BaseEntity<Long> {
 
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Student> students = new HashSet<>();
+
+    @Column(name = IS_ACTIVE)
+    private boolean isActive;
 
     @ManyToOne
     private Manager manager;

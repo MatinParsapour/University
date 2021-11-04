@@ -9,4 +9,5 @@ public interface CourseService extends BaseService<Course, Long>{
 
     Course getCourseByCourseCode(long courseCode);
 
+    List<Course> getAllCourses();
 }

@@ -200,7 +200,7 @@
     </div>
     <input id="addStudentButton" onclick="showChooseStudentField()" type="button" value="Add student">
     <div id="studentsList">
-        <form action="#" th:action="@{/add-student-to-course}" method="post">
+        <form action="#" th:action="@{/course/add-student-to-course}" method="post">
             <select name="studentId" required>
                 <option th:each="student : ${students}" th:value="${student.id}"><span
                         th:text="${student.firstName}"></span> <span th:text="${student.lastName}"></span></option>
@@ -213,7 +213,7 @@
     <input id="editButton" type="button" onclick="editPad()" value="Edit">
 </div>
 <div class="studentsData">
-    <form th:each="student : ${course.students}" action="#" th:action="@{/remove-student-from-course}" class="student"
+    <form th:each="student : ${course.students}" action="#" th:action="@{/course/remove-student-from-course}" class="student"
           method="post">
         <p>Name : <span th:text="${student.firstName}"></span> <span th:text="${student.lastName}"></span></p>
         <p>National code : <span th:text="${student.nationalCode}"></span></p>
@@ -227,39 +227,38 @@
 </div>
 <div id="editPad">
     <div class="editPadInfo">
-        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/change-course-name}" method="post">
+        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/course/change-course-name}" method="post">
             <input type="hidden" name="courseId" th:value="${course.id}">
             <label for="courseNameInput">Course name :</label>
             <input id="courseNameInput" class="input" type="text" name="courseName">
             <input type="submit" value="Change course name">
         </form>
-        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/change-course-code}" method="post">
+        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/course/change-course-code}" method="post">
             <input type="hidden" name="courseId" th:value="${course.id}">
             <label for="courseCodeInput">Course code : </label>
             <input id="courseCodeInput" class="input" type="number" name="courseCode">
             <input type="submit" value="Change course code">
         </form>
-        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/change-course-start-date}"
+        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/course/change-course-start-date}"
               method="post">
             <input type="hidden" name="courseId" th:value="${course.id}">
             <label for="courseStartDate">Start date : </label>
             <input id="courseStartDate" class="input" type="date" name="courseStartDate">
             <input type="submit" value="Change course start date">
         </form>
-        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/change-course-finish-date}"
+        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/course/change-course-finish-date}"
               method="post">
             <input type="hidden" name="courseId" th:value="${course.id}">
             <label for="courseFinishDate">Finish date : </label>
             <input id="courseFinishDate" class="input" type="date" name="courseFinishDate">
             <input type="submit" value="Change course finish date">
         </form>
-        <form action="#" class="margin-top-5" style="display: flex; width: 40%;" th:action="@{/change-course-teacher}"
+        <form action="#" class="margin-top-5" style="display: flex; width: 40%;" th:action="@{/course/change-course-teacher}"
               method="post">
             <input type="hidden" name="courseId" th:value="${course.id}">
             <select class="form-select" id="validationCustom04" name="teacherId" required>
                 <option th:each="teacher : ${teachers}" th:value="${teacher.id}"><span
-                        th:text="${teacher.firstName}"></span> <span th:text="${teacher.lastName}"></span>Matin
-                    parsapour
+                        th:text="${teacher.firstName}"></span> <span th:text="${teacher.lastName}"></span>
                 </option>
             </select>
             <input type="submit" value="Change course teacher">

@@ -149,7 +149,7 @@
                     </form>
                 </div>
                 <div th:case="'Rejected'">
-                    <form action="#" th:action="@{/accept-user}">
+                    <form action="#" th:action="@{/accept-user}" method="post">
                         <input type="hidden" th:value="${teacher.id}" name="userId">
                         <input type="submit" value="Accept">
                     </form>
@@ -181,11 +181,11 @@
             </div>
             <div>
                 <div style="display: flex">
-                    <form action="#" th:action="@{/display-course}" method="post">
+                    <form action="#" th:action="@{/course/display-course}" method="post">
                         <input type="hidden" th:value="${course.id}" name="courseId">
                         <input type="submit" value="See details">
                     </form>
-                    <form action="#" th:action="@{/delete-course}" method="post">
+                    <form action="#" th:action="@{/course/delete-course}" method="post">
                         <input type="hidden" th:value="${course.id}" name="courseId">
                         <input type="submit" value="Delete course" style="background-color: red">
                     </form>

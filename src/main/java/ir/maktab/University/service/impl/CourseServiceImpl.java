@@ -24,4 +24,9 @@ public class CourseServiceImpl extends BaseServiceImpl<Course,Long,CourseReposit
         return courseRepository.findByCourseCode(courseCode);
     }
 
+    @Override
+    public List<Course> getAllCourses() {
+        return courseRepository.findAllByIsActiveTrue();
+    }
+
 }

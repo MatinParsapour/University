@@ -41,7 +41,7 @@ public class CourseController {
 
     @GetMapping("/course/get-courses")
     public List<Course> courses() {
-        return courseService.findAll();
+        return courseService.getAllCourses();
     }
 
     @PostMapping("/course/remove-student-from-course")
@@ -87,7 +87,9 @@ public class CourseController {
 
     @PostMapping("/course/delete-course")
     public String deleteCourse(String courseId) {
-        courseService.deleteById(Long.parseLong(courseId));
+        Course course = courseService.findById(Long.parseLong(courseId)).get();
+        course.setActive(false);
+        courseService.save(course);
         return "redirect:/manager/manager-main";
     }
 
