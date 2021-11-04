@@ -55,7 +55,7 @@ public class UserController {
             return "redirect:/";
         } else if (singedUpUser != null && singedUpUser.getType().equals("Manager")) {
             Security.setUser(singedUpUser);
-            return "redirect:/manager-main";
+            return "redirect:/manager/manager-main";
         } else {
             return "redirect:/register";
         }
@@ -72,10 +72,10 @@ public class UserController {
         User user = userService.getUserById(Long.parseLong(userId)).get();
         if (user.getType().equals("Student")) {
             studentController.rejectStudent(userId);
-            return "redirect:/manager-main";
+            return "redirect:/manager/manager-main";
         } else {
             teacherController.rejectTeacher(userId);
-            return "redirect:/manager-main";
+            return "redirect:/manager/manager-main";
         }
     }
 
@@ -84,10 +84,10 @@ public class UserController {
         User user = userService.getUserById(Long.parseLong(userId)).get();
         if (user.getType().equals("Student")) {
             studentController.acceptStudent(userId);
-            return "redirect:/manager-main";
+            return "redirect:/manager/manager-main";
         } else {
             teacherController.acceptTeacher(userId);
-            return "redirect:/manager-main";
+            return "redirect:/manager/manager-main";
         }
     }
 
@@ -96,7 +96,7 @@ public class UserController {
         User user = userService.getUserById(Long.parseLong(userId)).get();
         studentController.deleteStudent(userId);
         teacherController.changeToTeacher(user);
-        return "redirect:/manager-main";
+        return "redirect:/manager/manager-main";
     }
 
     @GetMapping("/search-users")
@@ -115,7 +115,7 @@ public class UserController {
         User user = userService.getUserById(Long.parseLong(userId)).get();
         user.setFirstName(firstName);
         userService.saveOrUpdateUser(user);
-        return "redirect:/manager-main";
+        return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/change-user-last-name")
@@ -123,7 +123,7 @@ public class UserController {
         User user = userService.getUserById(Long.parseLong(userId)).get();
         user.setLastName(lastName);
         userService.saveOrUpdateUser(user);
-        return "redirect:/manager-main";
+        return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/change-user-email")
@@ -131,7 +131,7 @@ public class UserController {
         User user = userService.getUserById(Long.parseLong(userId)).get();
         user.setEmail(email);
         userService.saveOrUpdateUser(user);
-        return "redirect:/manager-main";
+        return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/edit-user-information")

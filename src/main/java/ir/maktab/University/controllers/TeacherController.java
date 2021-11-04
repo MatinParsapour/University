@@ -17,7 +17,7 @@ public class TeacherController {
     private TeacherService teacherService;
 
 
-    @PostMapping("/teacher-allow")
+    @PostMapping("/teacher/teacher-allow")
     public Boolean teacherAllow(String username) {
         Teacher teacher = teacherService.getTeacherByUserName(username);
         if (teacher.getStatus().equals("Accepted")) {
@@ -27,13 +27,13 @@ public class TeacherController {
         }
     }
 
-    @GetMapping("/get-teachers")
+    @GetMapping("/teacher/get-teachers")
     public List<Teacher> teachers() {
         return teacherService.teachers();
     }
 
 
-    @PostMapping("/get-teacher")
+    @PostMapping("/teacher/get-teacher")
     public Teacher getTeacher(long id) {
         return teacherService.getTeacherById(id).get();
     }
@@ -54,21 +54,21 @@ public class TeacherController {
         return teacher;
     }
 
-    @PostMapping("/reject-teacher")
+    @PostMapping("/teacher/reject-teacher")
     public void rejectTeacher(String userId) {
         Teacher teacher = teacherService.getTeacherById(Long.parseLong(userId)).get();
         teacher.setStatus("Rejected");
         teacherService.addTeacher(teacher);
     }
 
-    @PostMapping("/accept-teacher")
+    @PostMapping("/teacher/accept-teacher")
     public void acceptTeacher(String userId) {
         Teacher teacher = teacherService.getTeacherById(Long.parseLong(userId)).get();
         teacher.setStatus("Accepted");
         teacherService.addTeacher(teacher);
     }
 
-    @PostMapping("/change-to-teacher")
+    @PostMapping("/teacher/change-to-teacher")
     public void changeToTeacher(User user) {
         Teacher teacher = addTeacher(user);
         teacher.setType("Teacher");
@@ -76,7 +76,7 @@ public class TeacherController {
         teacherService.addTeacher(teacher);
     }
 
-    @PostMapping("/delete-teacher")
+    @PostMapping("/teacher/delete-teacher")
     public void deleteTeacher(String userId) {
         teacherService.deleteTeacher(Long.parseLong(userId));
     }

@@ -26,7 +26,7 @@ public class ManagerController {
     @Autowired
     private StudentController studentController;
 
-    @GetMapping("/manager-main")
+    @GetMapping("/manager/manager-main")
     public String managerMain(Model model) {
         List<Course> courseList = courseController.courses();
         List<Student> studentList = studentController.students();

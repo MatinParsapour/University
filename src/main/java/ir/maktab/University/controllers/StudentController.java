@@ -16,13 +16,13 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @PostMapping("/get-student")
+    @PostMapping("/student/get-student")
     public Student getStudent(long id) {
         return studentService.getStudentById(id).get();
     }
 
 
-    @PostMapping("/student-allow")
+    @PostMapping("/student/student-allow")
     public Boolean isAllow(String username) {
         Student student = studentService.getStudentByUsername(username);
         if (student.getStatus().equals("Accepted")) {
@@ -32,7 +32,7 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/get-students")
+    @GetMapping("/student/get-students")
     public List<Student> students() {
         return studentService.students();
     }
@@ -54,26 +54,26 @@ public class StudentController {
         return student;
     }
 
-    @PostMapping("/reject-student")
+    @PostMapping("/student/reject-student")
     public void rejectStudent(String userId) {
         Student student = studentService.getStudentById(Long.parseLong(userId)).get();
         student.setStatus("Rejected");
         studentService.addStudent(student);
     }
 
-    @PostMapping("/accept-student")
+    @PostMapping("/student/accept-student")
     public void acceptStudent(String userId) {
         Student student = studentService.getStudentById(Long.parseLong(userId)).get();
         student.setStatus("Accepted");
         studentService.addStudent(student);
     }
 
-    @PostMapping("/delete-student")
+    @PostMapping("/student/delete-student")
     public void deleteStudent(String userId) {
         studentService.deleteStudent(Long.parseLong(userId));
     }
 
-    @PostMapping("/change-to-student")
+    @PostMapping("/student/change-to-student")
     public void changeToStudent(User user) {
         Student student = addStudent(user);
         student.setType("Student");
