@@ -4,6 +4,7 @@ import ir.maktab.University.entities.Course;
 import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.Teacher;
 import ir.maktab.University.service.CourseService;
+import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,6 +60,8 @@ public class CourseController {
             Teacher teacher = teacherController.getTeacher(Long.parseLong(teacherId));
             course.setTeacher(teacher);
             courseService.save(course);
+            course.setManager(Security.getManager());
+            Security.getManager().getCourses().add(course);
             return "redirect:/manager/manager-main";
         } else {
             return "WarningPage";
