@@ -25,12 +25,16 @@ public class UserController {
 
     @GetMapping("/register")
     public String register(Model model) {
+        model.addAttribute("isUserAllow",Security.getIsUserAllow());
         model.addAttribute("user", new User());
         return "Register";
     }
 
     @PostMapping("/add-user")
     public String addUser(User user) {
+        if(userService.getUserByUserName(user.getUserName()) != null){
+            return "redirect:/register";
+        }
         if (user.getType().equals("Student")) {
             studentController.addStudent(user);
         } else {
@@ -46,6 +50,7 @@ public class UserController {
 
     @PostMapping("/validate-user")
     public String validateUser(User user) {
+        Security.setIsUserAllow("Yes");
         User singedUpUser = getRightUser(user.getUserName(), user.getPassword());
         if (singedUpUser != null && singedUpUser.getType().equals("Student") && studentController.getStudent(singedUpUser.getId()).getStatus().equals("Accepted")) {
             Security.setUser(singedUpUser);
@@ -57,6 +62,7 @@ public class UserController {
             Security.setUser(singedUpUser);
             return "redirect:/manager/manager-main";
         } else {
+            Security.setIsUserAllow("No");
             return "redirect:/register";
         }
     }

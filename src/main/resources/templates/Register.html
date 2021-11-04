@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
     <meta charset="UTF-8">
     <style>
@@ -164,6 +164,9 @@
     <div class="box alignItems">
         <p class="boxFont">Log in</p>
         <div class="Form">
+            <div th:switch="${isUserAllow}" style="display: flex; justify-content: center">
+                <h2 th:case="'No'" style="font-size: 16px">The username or password is incorrect</h2>
+            </div>
             <form id="logInForm" action="#" th:action="@{/validate-user}" th:object="${user}" method="post">
                 <div class="inputs logInHeight">
                     <input class="input logInInput" type="text" id="logInUserName" onkeyup="checkLogInUsername()"

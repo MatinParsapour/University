@@ -11,6 +11,15 @@ public class Security {
     private static Teacher teacher;
     private static Student student;
     private static Manager manager;
+    private static String isUserAllow;
+
+    public static String getIsUserAllow() {
+        return isUserAllow;
+    }
+
+    public static void setIsUserAllow(String isUserAllow) {
+        Security.isUserAllow = isUserAllow;
+    }
 
     public static User getUser() {
         return user;
