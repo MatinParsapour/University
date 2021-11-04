@@ -30,39 +30,14 @@
 <div th:switch="${users}" id="studentsData">
     <h2 th:case="null">No user found</h2>
     <div th:case="*">
-        <div th:each="user : ${users}">
-            <div id="studentList" class="showBox">
-                <p>FirstName : <span th:text="${user.firstName}"></span></p>
-                <p>LastName : <span th:text="${user.lastName}"></span></p>
-                <p>Birthday : <span th:text="${user.birthday}"></span></p>
-                <p>Email : <span th:text="${user.email}"></span></p>
-                <p>Status : <span id="studentStatus" th:text="${user.status}"></span></p>
-                <p>Gender : <span th:text="${user.gender}"></span></p>
-            </div>
-            <div th:switch="${user.status}">
-                <div th:case="'In progerss'" style="display: flex">
-                    <form action="#" th:action="@{/reject-user}" method="post">
-                        <input type="hidden" th:value="${user.id}" name="userId">
-                        <input type="submit" value="Reject">
-                    </form>
-                    <form action="#" th:action="@{/accept-user}" method="post">
-                        <input type="hidden" th:value="${user.id}" name="userId">
-                        <input type="submit" value="Accept">
-                    </form>
-                </div>
-                <div th:case="'Rejected'">
-                    <form action="#" th:action="@{/accept-user}" method="post">
-                        <input type="hidden" th:value="${user.id}" name="userId">
-                        <input type="submit" value="Accept">
-                    </form>
-                </div>
-                <div th:case="'Accepted'">
-                    <form action="#" th:action="@{/student-to-teacher}" method="post">
-                        <input type="hidden" th:value="${user.id}" name="userId">
-                        <input type="submit" value="Change role to teacher">
-                    </form>
-                </div>
-            </div>
+        <div th:each="user : ${users}" id="studentList" class="showBox">
+            <p>FirstName : <span th:text="${user.firstName}"></span></p>
+            <p>LastName : <span th:text="${user.lastName}"></span></p>
+            <p>Birthday : <span th:text="${user.birthday}"></span></p>
+            <p>Email : <span th:text="${user.email}"></span></p>
+            <p>Status : <span id="studentStatus" th:text="${user.status}"></span></p>
+            <p>Gender : <span th:text="${user.gender}"></span></p>
+            <p>Type : <span th:text="${user.type}"></span></p>
         </div>
     </div>
 </div>
