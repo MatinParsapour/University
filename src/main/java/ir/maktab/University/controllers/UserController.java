@@ -100,8 +100,16 @@ public class UserController {
     @PostMapping("/student-to-teacher")
     public String studentToTeacher(String userId) {
         User user = userService.findById(Long.parseLong(userId)).get();
-        studentController.deleteStudent(userId);
-        teacherController.changeToTeacher(user);
+        studentController.inActiveStudent(userId);
+        teacherController.changeToTeacher(user,user.getUserName());
+        return "redirect:/manager/manager-main";
+    }
+
+    @PostMapping("/teacher-to-student")
+    public String teacherToStudent(String userId){
+        User user = userService.findById(Long.parseLong(userId)).get();
+        teacherController.inActiveTeacher(userId);
+        studentController.changeToStudent(user,user.getUserName());
         return "redirect:/manager/manager-main";
     }
 
