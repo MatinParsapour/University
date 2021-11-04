@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
     @GetMapping("/")
-    public String home(Model model){
+    public String home(Model model) {
         model.addAttribute("user", Security.getUser());
         return "Home";
     }

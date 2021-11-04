@@ -23,7 +23,7 @@
             border-collapse: collapse;
         }
 
-        .displayNone{
+        .displayNone {
             display: none;
         }
 
@@ -57,16 +57,20 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <span class="nav-link active" id="students" onclick="showStudents()" style="cursor: pointer">Student</span>
+                    <span class="nav-link active" id="students" onclick="showStudents()"
+                          style="cursor: pointer">Student</span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" onclick="showTeachers()" style="cursor: pointer" id="teachers">Teachers</a>
+                    <a class="nav-link active" aria-current="page" onclick="showTeachers()" style="cursor: pointer"
+                       id="teachers">Teachers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" onclick="showCourses()" style="cursor: pointer" id="courses">Courses</a>
+                    <a class="nav-link active" aria-current="page" onclick="showCourses()" style="cursor: pointer"
+                       id="courses">Courses</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/add-course" style="cursor: pointer" >Add course</a>
+                    <a class="nav-link active" aria-current="page" href="/add-course" style="cursor: pointer">Add
+                        course</a>
                 </li>
             </ul>
             <form action="/search-users" class="d-flex">
@@ -78,46 +82,47 @@
 </nav>
 <div th:switch="${students}" id="displayStudents">
     <h2 th:case="null">No teacher found</h2>
-        <div th:case="*">
-            <div th:each="student : ${students}">
-                <div id="studentList" class="showBox">
-                    <p>FirstName : <span th:text="${student.firstName}"></span></p>
-                    <p>LastName : <span th:text="${student.lastName}"></span></p>
-                    <p>Birthday : <span th:text="${student.birthday}"></span></p>
-                    <p>Email : <span th:text="${student.email}"></span></p>
-                    <p>Status : <span id="studentStatus" th:text="${student.status}" th:value="${student.status}"></span></p>
-                    <p>Gender : <span th:text="${student.gender}"></span></p>
+    <div th:case="*">
+        <div th:each="student : ${students}">
+            <div id="studentList" class="showBox">
+                <p>FirstName : <span th:text="${student.firstName}"></span></p>
+                <p>LastName : <span th:text="${student.lastName}"></span></p>
+                <p>Birthday : <span th:text="${student.birthday}"></span></p>
+                <p>Email : <span th:text="${student.email}"></span></p>
+                <p>Status : <span id="studentStatus" th:text="${student.status}" th:value="${student.status}"></span>
+                </p>
+                <p>Gender : <span th:text="${student.gender}"></span></p>
+            </div>
+            <div th:switch="${student.status}">
+                <div th:case="'In progerss'" style="display: flex">
+                    <form action="#" th:action="@{/reject-user}" method="post">
+                        <input type="hidden" th:value="${student.id}" name="userId">
+                        <input type="submit" value="Reject">
+                    </form>
+                    <form action="#" th:action="@{/accept-user}" method="post">
+                        <input type="hidden" th:value="${student.id}" name="userId">
+                        <input type="submit" value="Accept">
+                    </form>
                 </div>
-                <div th:switch="${student.status}">
-                    <div th:case="'In progerss'" style="display: flex">
-                        <form action="#" th:action="@{/reject-user}" method="post">
-                            <input type="hidden" th:value="${student.id}" name="userId">
-                            <input type="submit" value="Reject">
-                        </form>
-                        <form action="#" th:action="@{/accept-user}" method="post">
-                            <input type="hidden" th:value="${student.id}" name="userId">
-                            <input type="submit" value="Accept">
-                        </form>
-                    </div>
-                    <div th:case="'Rejected'">
-                        <form action="#" th:action="@{/accept-user}" method="post">
-                            <input type="hidden" th:value="${student.id}" name="userId">
-                            <input type="submit" value="Accept">
-                        </form>
-                    </div>
-                    <div th:case="'Accepted'" style="display: flex">
-                        <form action="#" th:action="@{/student-to-teacher}" method="post">
-                            <input type="hidden" th:value="${student.id}" name="userId">
-                            <input type="submit" value="Change role to teacher">
-                        </form>
-                        <form action="#" th:action="@{/edit-user-information}" method="post">
-                            <input type="hidden" th:value="${student.id}" name="userId">
-                            <input type="submit" value="Edit">
-                        </form>
-                    </div>
+                <div th:case="'Rejected'">
+                    <form action="#" th:action="@{/accept-user}" method="post">
+                        <input type="hidden" th:value="${student.id}" name="userId">
+                        <input type="submit" value="Accept">
+                    </form>
+                </div>
+                <div th:case="'Accepted'" style="display: flex">
+                    <form action="#" th:action="@{/student-to-teacher}" method="post">
+                        <input type="hidden" th:value="${student.id}" name="userId">
+                        <input type="submit" value="Change role to teacher">
+                    </form>
+                    <form action="#" th:action="@{/edit-user-information}" method="post">
+                        <input type="hidden" th:value="${student.id}" name="userId">
+                        <input type="submit" value="Edit">
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 </div>
 
 <div th:switch="${teachers}" class="displayNone" id="displayTeachers">
@@ -201,11 +206,13 @@
         document.getElementById("displayStudents").style.display = "none"
         document.getElementById("displayCourses").style.display = "none"
     }
+
     function showStudents() {
         document.getElementById("displayTeachers").style.display = "none"
         document.getElementById("displayStudents").style.display = "block"
         document.getElementById("displayCourses").style.display = "none"
     }
+
     function showCourses() {
         document.getElementById("displayTeachers").style.display = "none"
         document.getElementById("displayStudents").style.display = "none"

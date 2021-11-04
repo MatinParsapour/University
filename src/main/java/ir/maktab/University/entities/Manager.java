@@ -1,10 +1,14 @@
 package ir.maktab.University.entities;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
-import lombok.*;
 
 @Entity
 @Setter
 @Getter
 @AllArgsConstructor
-public class Manager extends User{
+public class Manager extends User {
 }

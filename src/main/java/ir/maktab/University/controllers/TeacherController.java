@@ -18,27 +18,27 @@ public class TeacherController {
 
 
     @PostMapping("/teacher-allow")
-    public Boolean teacherAllow(String username){
+    public Boolean teacherAllow(String username) {
         Teacher teacher = teacherService.getTeacherByUserName(username);
-        if(teacher.getStatus().equals("Accepted")){
+        if (teacher.getStatus().equals("Accepted")) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
     @GetMapping("/get-teachers")
-    public List<Teacher> teachers(){
+    public List<Teacher> teachers() {
         return teacherService.teachers();
     }
 
 
     @PostMapping("/get-teacher")
-    public Teacher getTeacher(long id){
+    public Teacher getTeacher(long id) {
         return teacherService.getTeacherById(id).get();
     }
 
-    public Teacher addTeacher(User user){
+    public Teacher addTeacher(User user) {
         Teacher teacher = new Teacher();
         teacher.setStatus("In progress");
         teacher.setFirstName(user.getFirstName());
@@ -55,21 +55,21 @@ public class TeacherController {
     }
 
     @PostMapping("/reject-teacher")
-    public void rejectTeacher(String userId){
+    public void rejectTeacher(String userId) {
         Teacher teacher = teacherService.getTeacherById(Long.parseLong(userId)).get();
         teacher.setStatus("Rejected");
         teacherService.addTeacher(teacher);
     }
 
     @PostMapping("/accept-teacher")
-    public void acceptTeacher(String userId){
+    public void acceptTeacher(String userId) {
         Teacher teacher = teacherService.getTeacherById(Long.parseLong(userId)).get();
         teacher.setStatus("Accepted");
         teacherService.addTeacher(teacher);
     }
 
     @PostMapping("/change-to-teacher")
-    public void changeToTeacher(User user){
+    public void changeToTeacher(User user) {
         Teacher teacher = addTeacher(user);
         teacher.setType("Teacher");
         teacher.setStatus("Accepted");
@@ -77,7 +77,7 @@ public class TeacherController {
     }
 
     @PostMapping("/delete-teacher")
-    public void deleteTeacher(String userId){
+    public void deleteTeacher(String userId) {
         teacherService.deleteTeacher(Long.parseLong(userId));
     }
 }

@@ -17,28 +17,28 @@ public class StudentController {
     private StudentService studentService;
 
     @PostMapping("/get-student")
-    public Student getStudent(long id){
+    public Student getStudent(long id) {
         return studentService.getStudentById(id).get();
     }
 
 
     @PostMapping("/student-allow")
-    public Boolean isAllow(String username){
+    public Boolean isAllow(String username) {
         Student student = studentService.getStudentByUsername(username);
-        if(student.getStatus().equals("Accepted")){
+        if (student.getStatus().equals("Accepted")) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     @GetMapping("/get-students")
-    public List<Student> students(){
+    public List<Student> students() {
         return studentService.students();
     }
 
 
-    public Student addStudent(User user){
+    public Student addStudent(User user) {
         Student student = new Student();
         student.setStatus("In progerss");
         student.setFirstName(user.getFirstName());
@@ -55,21 +55,21 @@ public class StudentController {
     }
 
     @PostMapping("/reject-student")
-    public void rejectStudent(String userId){
+    public void rejectStudent(String userId) {
         Student student = studentService.getStudentById(Long.parseLong(userId)).get();
         student.setStatus("Rejected");
         studentService.addStudent(student);
     }
 
     @PostMapping("/accept-student")
-    public void acceptStudent(String userId){
+    public void acceptStudent(String userId) {
         Student student = studentService.getStudentById(Long.parseLong(userId)).get();
         student.setStatus("Accepted");
         studentService.addStudent(student);
     }
 
     @PostMapping("/delete-student")
-    public void deleteStudent(String userId){
+    public void deleteStudent(String userId) {
         studentService.deleteStudent(Long.parseLong(userId));
     }
 

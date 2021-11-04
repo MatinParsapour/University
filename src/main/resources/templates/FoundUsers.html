@@ -10,6 +10,7 @@
             background-size: 100% 100%;
             background-attachment: fixed;
         }
+
         .showBox {
             font-size: 20px;
             margin-top: 5%;
@@ -29,7 +30,7 @@
 <div th:switch="${users}" id="studentsData">
     <h2 th:case="null">No user found</h2>
     <div th:case="*">
-        <div  th:each="user : ${users}">
+        <div th:each="user : ${users}">
             <div id="studentList" class="showBox">
                 <p>FirstName : <span th:text="${user.firstName}"></span></p>
                 <p>LastName : <span th:text="${user.lastName}"></span></p>

@@ -4,8 +4,6 @@ import ir.maktab.University.entities.Manager;
 import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.Teacher;
 import ir.maktab.University.entities.User;
-import lombok.Getter;
-import lombok.Setter;
 
 
 public class Security {

@@ -1,6 +1,5 @@
 package ir.maktab.University.controllers;
 
-import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.User;
 import ir.maktab.University.service.UserService;
 import ir.maktab.University.util.Security;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -40,14 +38,15 @@ public class UserController {
         }
         return "redirect:/";
     }
+
     @PostMapping("/get-correct-user")
-    public User getRightUser(String username, String password){
-        return userService.getUserByUsernameAndPassword(username,password);
+    public User getRightUser(String username, String password) {
+        return userService.getUserByUsernameAndPassword(username, password);
     }
 
     @PostMapping("/validate-user")
     public String validateUser(User user) {
-        User singedUpUser = getRightUser(user.getUserName(),user.getPassword());
+        User singedUpUser = getRightUser(user.getUserName(), user.getPassword());
         if (singedUpUser != null && singedUpUser.getType().equals("Student") && studentController.getStudent(singedUpUser.getId()).getStatus().equals("Accepted")) {
             Security.setUser(singedUpUser);
             return "redirect:/";
@@ -63,37 +62,37 @@ public class UserController {
     }
 
     @GetMapping("/log-out")
-    public String logOut(){
+    public String logOut() {
         Security.setUser(null);
         return "redirect:/";
     }
 
     @PostMapping("/reject-user")
-    public String rejectUser(String userId){
+    public String rejectUser(String userId) {
         User user = userService.getUserById(Long.parseLong(userId)).get();
-        if(user.getType().equals("Student")){
+        if (user.getType().equals("Student")) {
             studentController.rejectStudent(userId);
             return "redirect:/manager-main";
-        }else{
+        } else {
             teacherController.rejectTeacher(userId);
             return "redirect:/manager-main";
         }
     }
 
     @PostMapping("/accept-user")
-    public String acceptUser(String userId){
+    public String acceptUser(String userId) {
         User user = userService.getUserById(Long.parseLong(userId)).get();
-        if(user.getType().equals("Student")){
+        if (user.getType().equals("Student")) {
             studentController.acceptStudent(userId);
             return "redirect:/manager-main";
-        }else{
+        } else {
             teacherController.acceptTeacher(userId);
             return "redirect:/manager-main";
         }
     }
 
     @PostMapping("/student-to-teacher")
-    public String studentToTeacher(String userId){
+    public String studentToTeacher(String userId) {
         User user = userService.getUserById(Long.parseLong(userId)).get();
         studentController.deleteStudent(userId);
         teacherController.changeToTeacher(user);
@@ -101,32 +100,34 @@ public class UserController {
     }
 
     @GetMapping("/search-users")
-    public String searchUser(String field,Model model){
+    public String searchUser(String field, Model model) {
         List<User> users = userService.searchUsers(field);
-        if(users.size() == 0){
-            model.addAttribute("users",null);
-        }else{
-            model.addAttribute("users",users);
+        if (users.size() == 0) {
+            model.addAttribute("users", null);
+        } else {
+            model.addAttribute("users", users);
         }
         return "FoundUsers";
     }
 
     @PostMapping("/change-user-first-name")
-    public String changeUserFirstName(String userId,String firstName){
+    public String changeUserFirstName(String userId, String firstName) {
         User user = userService.getUserById(Long.parseLong(userId)).get();
         user.setFirstName(firstName);
         userService.saveOrUpdateUser(user);
         return "redirect:/manager-main";
     }
+
     @PostMapping("/change-user-last-name")
-    public String changeUserLastName(String userId,String lastName){
+    public String changeUserLastName(String userId, String lastName) {
         User user = userService.getUserById(Long.parseLong(userId)).get();
         user.setLastName(lastName);
         userService.saveOrUpdateUser(user);
         return "redirect:/manager-main";
     }
+
     @PostMapping("/change-user-email")
-    public String changeUserEmail(String userId,String email){
+    public String changeUserEmail(String userId, String email) {
         User user = userService.getUserById(Long.parseLong(userId)).get();
         user.setEmail(email);
         userService.saveOrUpdateUser(user);
@@ -134,9 +135,9 @@ public class UserController {
     }
 
     @PostMapping("/edit-user-information")
-    public String editUserInformation(String userId,Model model){
+    public String editUserInformation(String userId, Model model) {
         User user = userService.getUserById(Long.parseLong(userId)).get();
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "EditUserInformation";
     }
 }

@@ -11,7 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.Table;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -54,7 +53,7 @@ public class User extends BaseEntity<Long> {
     @Column(name = TYPE)
     private String type;
 
-    @Column(name = USER_NAME,unique = true)
+    @Column(name = USER_NAME, unique = true)
     private String userName;
 
     @Column(name = PASSWORD)

@@ -27,13 +27,13 @@ public class ManagerController {
     private StudentController studentController;
 
     @GetMapping("/manager-main")
-    public String managerMain(Model model){
+    public String managerMain(Model model) {
         List<Course> courseList = courseController.courses();
         List<Student> studentList = studentController.students();
         List<Teacher> teacherList = teacherController.teachers();
-        model.addAttribute("courses",courseList);
+        model.addAttribute("courses", courseList);
         model.addAttribute("students", studentList);
-        model.addAttribute("teachers",teacherList);
+        model.addAttribute("teachers", teacherList);
         return "Manager";
     }
 }

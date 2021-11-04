@@ -28,23 +28,23 @@ public class CourseController {
     private StudentController studentController;
 
     @PostMapping("/display-course")
-    public String displayCourse(Model model,String courseId){
+    public String displayCourse(Model model, String courseId) {
         List<Student> students = studentController.students();
         List<Teacher> teachers = teacherController.teachers();
         Course course = courseService.getCourse(Long.parseLong(courseId)).get();
-        model.addAttribute("students",students);
-        model.addAttribute("course",course);
-        model.addAttribute("teachers",teachers);
+        model.addAttribute("students", students);
+        model.addAttribute("course", course);
+        model.addAttribute("teachers", teachers);
         return "ShowCourse";
     }
 
     @GetMapping("/get-courses")
-    public List<Course> courses(){
+    public List<Course> courses() {
         return courseService.courses();
     }
 
     @PostMapping("/remove-student-from-course")
-    public String removeStudentFromCourse(String courseId,String studentId){
+    public String removeStudentFromCourse(String courseId, String studentId) {
         Student student = studentController.getStudent(Long.parseLong(studentId));
         Course course = courseService.getCourse(Long.parseLong(courseId)).get();
         course.getStudents().remove(student);
@@ -53,28 +53,28 @@ public class CourseController {
     }
 
     @PostMapping("/create-course")
-    public String createCourse(Course course, String teacherId){
+    public String createCourse(Course course, String teacherId) {
         Course definedCourse = courseService.getCourseByCourseCode(course.getCourseCode());
-        if(definedCourse == null){
+        if (definedCourse == null) {
             Teacher teacher = teacherController.getTeacher(Long.parseLong(teacherId));
             course.setTeacher(teacher);
             courseService.createCourse(course);
             return "redirect:/manager-main";
-        }else{
+        } else {
             return "WarningPage";
         }
     }
 
     @GetMapping("/add-course")
-    public String addCourse(Model model){
+    public String addCourse(Model model) {
         List<Teacher> teachers = teacherController.teachers();
-        model.addAttribute("teachers",teachers);
-        model.addAttribute("course",new Course());
+        model.addAttribute("teachers", teachers);
+        model.addAttribute("course", new Course());
         return "Course";
     }
 
     @PostMapping("/add-student-to-course")
-    public String addStudentToCourse(String studentId, String courseId){
+    public String addStudentToCourse(String studentId, String courseId) {
         Student student = studentController.getStudent(Long.parseLong(studentId));
         Course course = courseService.getCourse(Long.parseLong(courseId)).get();
         course.getStudents().add(student);
@@ -83,14 +83,14 @@ public class CourseController {
     }
 
     @PostMapping("/delete-course")
-    public String deleteCourse(String courseId){
+    public String deleteCourse(String courseId) {
         Course course = courseService.getCourse(Long.parseLong(courseId)).get();
         courseService.deleteCourse(course);
         return "redirect:/manager-main";
     }
 
     @PostMapping("/change-course-name")
-    public String changeCourseName(String courseId, String courseName){
+    public String changeCourseName(String courseId, String courseName) {
         Course course = courseService.getCourse(Long.parseLong(courseId)).get();
         course.setTitle(courseName);
         courseService.createCourse(course);
@@ -98,7 +98,7 @@ public class CourseController {
     }
 
     @PostMapping("/change-course-code")
-    public String changeCourseCode(String courseId,long courseCode){
+    public String changeCourseCode(String courseId, long courseCode) {
         Course course = courseService.getCourse(Long.parseLong(courseId)).get();
         course.setCourseCode(courseCode);
         courseService.createCourse(course);
@@ -116,7 +116,7 @@ public class CourseController {
     }
 
     @PostMapping("/change-course-finish-date")
-    public String changeCourseFinishDate(String courseId,String courseFinishDate) throws ParseException {
+    public String changeCourseFinishDate(String courseId, String courseFinishDate) throws ParseException {
         Course course = courseService.getCourse(Long.parseLong(courseId)).get();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date finishDate = format.parse(courseFinishDate);
@@ -126,7 +126,7 @@ public class CourseController {
     }
 
     @PostMapping("/change-course-teacher")
-    public String changeCourseTeacher(long courseId, long teacherId){
+    public String changeCourseTeacher(long courseId, long teacherId) {
         Course course = courseService.getCourse(courseId).get();
         Teacher teacher = teacherController.getTeacher(teacherId);
         course.setTeacher(teacher);

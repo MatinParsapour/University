@@ -105,7 +105,8 @@
             font-size: 20px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .sex{
+
+        .sex {
             font-size: 20px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
@@ -118,7 +119,8 @@
         <p class="boxFont">Sign up</p>
         <div class="Form overflow">
             <p id="Warning" style="color: black; background-color: white"></p>
-            <form id="signUpForm" action="#" th:action="@{/add-user}" th:object="${user}" method="post" class="inputs formContent">
+            <form id="signUpForm" action="#" th:action="@{/add-user}" th:object="${user}" method="post"
+                  class="inputs formContent">
                 <br>
                 <br>
                 <br>
@@ -151,9 +153,9 @@
                 </div>
                 <div class="sex">
                     <label for="male">male</label>
-                    <input id = "male" th:field="*{gender}" onclick="checkSex()" name = "sex" type="radio" value = "male">
+                    <input id="male" th:field="*{gender}" onclick="checkSex()" name="sex" type="radio" value="male">
                     <label for="female">female</label>
-                    <input id = "female" th:field="*{gender}" onclick="checkSex()" name = "sex" type = "radio" value = "female">
+                    <input id="female" th:field="*{gender}" onclick="checkSex()" name="sex" type="radio" value="female">
                 </div>
                 <input class="signUp marginTop signUpInput" id="signUpButton" type="submit" value="Sign up">
             </form>
@@ -177,38 +179,38 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-    $(document).ready(function (){
-        $("#logInForm").submit(function (event){
+    $(document).ready(function () {
+        $("#logInForm").submit(function (event) {
             var username = $("#logInUserName").val();
             var password = $("#logInPassword").val();
 
             $.ajax({
                 type: "POST",
                 url: "http://localhost:8080/get-right-user",
-                data:{username: username, password: password},
-                success: function (result){
-                    if(!$.trim(result)){
+                data: {username: username, password: password},
+                success: function (result) {
+                    if (!$.trim(result)) {
                         event.preventDefault();
                         alert("Username or password is incorrect")
-                    }else{
+                    } else {
                         $.ajax({
                             type: "POST",
                             url: "http://localhost:8080/is-user-allowed",
                             data: {username: username},
-                            success: function (result){
-                                if(!result.includes("Ok")){
+                            success: function (result) {
+                                if (!result.includes("Ok")) {
                                     event.preventDefault();
                                     alert("You are not allowed")
                                 }
                             },
-                            error: function (){
+                            error: function () {
                                 event.preventDefault()
                                 alert("Something went wrong")
                             }
                         })
                     }
                 },
-                error: function (){
+                error: function () {
                     event.preventDefault();
                     alert("Error")
                 }
@@ -216,20 +218,20 @@
 
         })
 
-        $("#signUpForm").submit(function (happened){
+        $("#signUpForm").submit(function (happened) {
             var username = $("#signUpUserName").val();
 
             $.ajax({
                 type: "POST",
                 url: "http://localhost:8080/is-user-exists",
-                data:{username: username},
-                success: function (result){
-                    if($.trim(result)){
+                data: {username: username},
+                success: function (result) {
+                    if ($.trim(result)) {
                         happened.preventDefault();
                         alert("Username already exists")
                     }
                 },
-                error: function (){
+                error: function () {
                     happened.preventDefault();
                     alert("Something went wrong")
                 }
@@ -275,8 +277,8 @@
         }
     }
 
-    function checkSex(){
-        if(document.getElementById("male").checked || document.getElementById("female").checked){
+    function checkSex() {
+        if (document.getElementById("male").checked || document.getElementById("female").checked) {
             document.getElementById("male").style.color = "black"
             document.getElementById("female").style.color = "black"
         }
@@ -305,7 +307,7 @@
             document.getElementById("studentLabel").style.color = "red"
             document.getElementById("teacherLabel").style.color = "red"
         }
-        if(!document.getElementById("female").checked && !document.getElementById("male").checked){
+        if (!document.getElementById("female").checked && !document.getElementById("male").checked) {
             event.preventDefault()
             alert("You should choose your gender")
             document.getElementById("male").style.color = "red"

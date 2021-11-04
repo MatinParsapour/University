@@ -2,13 +2,9 @@ package ir.maktab.University.controllers;
 
 import ir.maktab.University.entities.User;
 import ir.maktab.University.service.UserService;
-import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class VerifyUserController {
@@ -24,30 +20,30 @@ public class VerifyUserController {
 
 
     @PostMapping("/get-right-user")
-    public User getRightUser(String username, String password){
-        return userService.getUserByUsernameAndPassword(username,password);
+    public User getRightUser(String username, String password) {
+        return userService.getUserByUsernameAndPassword(username, password);
     }
 
     @PostMapping("/is-user-allowed")
-    public String isUserAllow(String username){
+    public String isUserAllow(String username) {
         User user = userService.getUserByUserName(username);
         String result = "";
-        if(user.getType().equals("Student")){
-            if(studentController.isAllow(username)){
+        if (user.getType().equals("Student")) {
+            if (studentController.isAllow(username)) {
                 result = "Ok";
             }
-        }else if(user.getType().equals("Teacher")){
-            if(teacherController.teacherAllow(username)){
+        } else if (user.getType().equals("Teacher")) {
+            if (teacherController.teacherAllow(username)) {
                 result = "Ok";
             }
-        }else {
+        } else {
             result = "Ok";
         }
         return result;
     }
 
     @PostMapping("/is-user-exists")
-    public User isUserExists(String username){
+    public User isUserExists(String username) {
         return userService.getUserByUserName(username);
     }
 }

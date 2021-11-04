@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUsernameAndPassword(String username, String password) {
-        return userRepository.findByUserNameAndPassword(username,password);
+        return userRepository.findByUserNameAndPassword(username, password);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> searchUsers(String field) {
-        return userRepository.findAllByFirstNameLikeOrLastNameLikeOrStatusLikeOrGenderLikeOrEmailLike("%" + field + "%","%" + field + "%","%" + field + "%","%" + field + "%","%" + field + "%");
+        return userRepository.findAllByFirstNameLikeOrLastNameLikeOrStatusLikeOrGenderLikeOrEmailLike("%" + field + "%", "%" + field + "%", "%" + field + "%", "%" + field + "%", "%" + field + "%");
     }
 
     @Override
