@@ -30,9 +30,11 @@ public class CourseController {
     @PostMapping("/display-course")
     public String displayCourse(Model model,String courseId){
         List<Student> students = studentController.students();
+        List<Teacher> teachers = teacherController.teachers();
         Course course = courseService.getCourse(Long.parseLong(courseId)).get();
         model.addAttribute("students",students);
         model.addAttribute("course",course);
+        model.addAttribute("teachers",teachers);
         return "ShowCourse";
     }
 
@@ -119,6 +121,15 @@ public class CourseController {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date finishDate = format.parse(courseFinishDate);
         course.setFinishDate(finishDate);
+        courseService.createCourse(course);
+        return "redirect:/manager-main";
+    }
+
+    @PostMapping("/change-course-teacher")
+    public String changeCourseTeacher(long courseId, long teacherId){
+        Course course = courseService.getCourse(courseId).get();
+        Teacher teacher = teacherController.getTeacher(teacherId);
+        course.setTeacher(teacher);
         courseService.createCourse(course);
         return "redirect:/manager-main";
     }

@@ -246,7 +246,16 @@
         <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/change-course-finish-date}" method="post">
             <input type="hidden" name="courseId" th:value="${course.id}">
             <label for="courseFinishDate">Finish date : </label>
-            <input id="courseFinishDate" class="input" type="date" name="courseFinishDate">            <input type="submit" value="Change course finish date">
+            <input id="courseFinishDate" class="input" type="date" name="courseFinishDate">
+            <input type="submit" value="Change course finish date">
+        </form>
+        <form action="#" class="margin-top-5" style="display: flex; width: 40%;" th:action="@{/change-course-teacher}" method="post">
+            <input type="hidden" name="courseId" th:value="${course.id}">
+            <select class="form-select" id="validationCustom04" name="teacherId" required>
+                <option th:each="teacher : ${teachers}" th:value="${teacher.id}"><span
+                        th:text="${teacher.firstName}"></span> <span th:text="${teacher.lastName}"></span>Matin parsapour</option>
+            </select>
+            <input type="submit" value="Change course teacher">
         </form>
         <input class="margin-top-5" type="button" value="Close" onclick="closeEditPad()">
     </div>
