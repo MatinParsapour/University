@@ -179,65 +179,6 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $("#logInForm").submit(function (event) {
-            var username = $("#logInUserName").val();
-            var password = $("#logInPassword").val();
-
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8080/get-right-user",
-                data: {username: username, password: password},
-                success: function (result) {
-                    if (!$.trim(result)) {
-                        event.preventDefault();
-                        alert("Username or password is incorrect")
-                    } else {
-                        $.ajax({
-                            type: "POST",
-                            url: "http://localhost:8080/is-user-allowed",
-                            data: {username: username},
-                            success: function (result) {
-                                if (!result.includes("Ok")) {
-                                    event.preventDefault();
-                                    alert("You are not allowed")
-                                }
-                            },
-                            error: function () {
-                                event.preventDefault()
-                                alert("Something went wrong")
-                            }
-                        })
-                    }
-                },
-                error: function () {
-                    event.preventDefault();
-                    alert("Error")
-                }
-            })
-
-        })
-
-        $("#signUpForm").submit(function (happened) {
-            var username = $("#signUpUserName").val();
-
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8080/is-user-exists",
-                data: {username: username},
-                success: function (result) {
-                    if ($.trim(result)) {
-                        happened.preventDefault();
-                        alert("Username already exists")
-                    }
-                },
-                error: function () {
-                    happened.preventDefault();
-                    alert("Something went wrong")
-                }
-            })
-        })
-    });
 
     function checkSignUpUsername() {
         if (document.getElementById("signUpUserName").value.length > 4) {
