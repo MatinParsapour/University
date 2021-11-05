@@ -33,6 +33,6 @@ public class UserServiceImpl extends BaseServiceImpl<User,Long,UserRepository> i
 
     @Override
     public List<User> searchUsers(String field) {
-        return userRepository.findAllByFirstNameLikeOrLastNameLikeOrStatusLikeOrGenderLikeOrEmailLike("%" + field + "%", "%" + field + "%", "%" + field + "%", "%" + field + "%", "%" + field + "%");
+        return userRepository.findAllByFirstNameLikeOrLastNameLikeOrStatusLikeOrGenderLikeOrEmailLikeAndIsActiveTrue("%" + field + "%", "%" + field + "%", "%" + field + "%", "%" + field + "%", "%" + field + "%");
     }
 }
