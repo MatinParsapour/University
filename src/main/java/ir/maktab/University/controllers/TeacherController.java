@@ -50,6 +50,7 @@ public class TeacherController {
         teacher.setGender(user.getGender());
         teacher.setEmail(user.getEmail());
         teacher.setType(user.getType());
+        teacher.setActive(true);
         teacherService.save(teacher);
         return teacher;
     }
@@ -65,6 +66,7 @@ public class TeacherController {
     public void acceptTeacher(String userId) {
         Teacher teacher = teacherService.findById(Long.parseLong(userId)).get();
         teacher.setStatus("Accepted");
+        teacher.setActive(true);
         teacherService.save(teacher);
     }
 
@@ -74,7 +76,6 @@ public class TeacherController {
         teacher.setType("Teacher");
         teacher.setStatus("Accepted");
         teacher.setUserName(username);
-        teacher.setActive(true);
         teacherService.save(teacher);
     }
 

@@ -59,7 +59,6 @@ public class UserController {
             Security.setUser(singedUpUser);
             return "redirect:/";
         } else if (singedUpUser != null && singedUpUser.getType().equals("Manager")) {
-            Security.setUser(singedUpUser);
             return "redirect:/manager/manager-main";
         } else {
             Security.setIsUserAllow("No");
@@ -100,16 +99,18 @@ public class UserController {
     @PostMapping("/student-to-teacher")
     public String studentToTeacher(String userId) {
         User user = userService.findById(Long.parseLong(userId)).get();
+        String username = user.getUserName();
         studentController.inActiveStudent(userId);
-        teacherController.changeToTeacher(user,user.getUserName());
+        teacherController.changeToTeacher(user,username);
         return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/teacher-to-student")
     public String teacherToStudent(String userId){
         User user = userService.findById(Long.parseLong(userId)).get();
+        String username = user.getUserName();
         teacherController.inActiveTeacher(userId);
-        studentController.changeToStudent(user,user.getUserName());
+        studentController.changeToStudent(user,username);
         return "redirect:/manager/manager-main";
     }
 

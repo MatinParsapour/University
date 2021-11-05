@@ -53,6 +53,7 @@ public class StudentController {
         student.setGender(user.getGender());
         student.setEmail(user.getEmail());
         student.setType(user.getType());
+        student.setActive(true);
         studentService.save(student);
         return student;
     }
