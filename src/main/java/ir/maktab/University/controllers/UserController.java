@@ -59,6 +59,7 @@ public class UserController {
             Security.setUser(singedUpUser);
             return "redirect:/";
         } else if (singedUpUser != null && singedUpUser.getType().equals("Manager")) {
+            Security.setUser(singedUpUser);
             return "redirect:/manager/manager-main";
         } else {
             Security.setIsUserAllow("No");
