@@ -59,9 +59,8 @@ public class CourseController {
         if (definedCourse == null) {
             Teacher teacher = teacherController.getTeacher(Long.parseLong(teacherId));
             course.setTeacher(teacher);
+            course.setActive(true);
             courseService.save(course);
-            course.setManager(Security.getManager());
-            Security.getManager().getCourses().add(course);
             return "redirect:/manager/manager-main";
         } else {
             return "WarningPage";
