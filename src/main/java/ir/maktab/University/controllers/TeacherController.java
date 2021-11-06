@@ -6,18 +6,24 @@ import ir.maktab.University.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/teacher")
 public class TeacherController {
 
+
+    private final TeacherService teacherService;
+
     @Autowired
-    private TeacherService teacherService;
+    public TeacherController(TeacherService teacherService) {
+        this.teacherService = teacherService;
+    }
 
-
-    @PostMapping("/teacher/teacher-allow")
+    @PostMapping("/teacher-allow")
     public Boolean teacherAllow(String username) {
         Teacher teacher = teacherService.getTeacherByUserName(username);
         if (teacher.getStatus().equals("Accepted")) {
@@ -27,13 +33,13 @@ public class TeacherController {
         }
     }
 
-    @GetMapping("/teacher/get-teachers")
+    @GetMapping("/get-teachers")
     public List<Teacher> teachers() {
         return teacherService.getAllTeachers();
     }
 
 
-    @PostMapping("/teacher/get-teacher")
+    @PostMapping("/get-teacher")
     public Teacher getTeacher(long id) {
         return teacherService.findById(id).get();
     }
@@ -55,14 +61,14 @@ public class TeacherController {
         return teacher;
     }
 
-    @PostMapping("/teacher/reject-teacher")
+    @PostMapping("/reject-teacher")
     public void rejectTeacher(String userId) {
         Teacher teacher = teacherService.findById(Long.parseLong(userId)).get();
         teacher.setStatus("Rejected");
         teacherService.save(teacher);
     }
 
-    @PostMapping("/teacher/accept-teacher")
+    @PostMapping("/accept-teacher")
     public void acceptTeacher(String userId) {
         Teacher teacher = teacherService.findById(Long.parseLong(userId)).get();
         teacher.setStatus("Accepted");
@@ -70,7 +76,7 @@ public class TeacherController {
         teacherService.save(teacher);
     }
 
-    @PostMapping("/teacher/change-to-teacher")
+    @PostMapping("/change-to-teacher")
     public void changeToTeacher(User user,String username) {
         Teacher teacher = addTeacher(user);
         teacher.setType("Teacher");
@@ -79,7 +85,7 @@ public class TeacherController {
         teacherService.save(teacher);
     }
 
-    @PostMapping("/teacher/delete-teacher")
+    @PostMapping("/delete-teacher")
     public void inActiveTeacher(String userId) {
         Teacher teacher = teacherService.findById(Long.parseLong(userId)).get();
         teacher.setActive(false);

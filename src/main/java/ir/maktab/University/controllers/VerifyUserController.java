@@ -9,15 +9,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class VerifyUserController {
 
-    @Autowired
-    private UserService userService;
+
+    private final UserService userService;
+
+
+    private final StudentController studentController;
+
+
+    private final TeacherController teacherController;
 
     @Autowired
-    private StudentController studentController;
-
-    @Autowired
-    private TeacherController teacherController;
-
+    public VerifyUserController(UserService userService, StudentController studentController, TeacherController teacherController) {
+        this.userService = userService;
+        this.studentController = studentController;
+        this.teacherController = teacherController;
+    }
 
     @PostMapping("/get-right-user")
     public User getRightUser(String username, String password) {

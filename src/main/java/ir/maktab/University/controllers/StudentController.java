@@ -7,25 +7,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/student")
+
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+
+    private final StudentService studentService;
+
+    private final CourseController courseController;
 
     @Autowired
-    private CourseController courseController;
+    public StudentController(StudentService studentService, CourseController courseController) {
+        this.studentService = studentService;
+        this.courseController = courseController;
+    }
 
-    @PostMapping("/student/get-student")
+    @PostMapping("/get-student")
     public Student getStudent(long id) {
         return studentService.findById(id).get();
     }
 
 
-    @PostMapping("/student/student-allow")
+    @PostMapping("/student-allow")
     public Boolean isAllow(String username) {
         Student student = studentService.getStudentByUsername(username);
         if (student.getStatus().equals("Accepted")) {
@@ -35,7 +43,7 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/student/get-students")
+    @GetMapping("/get-students")
     public List<Student> students() {
         return studentService.getAllStudents();
     }
@@ -58,21 +66,21 @@ public class StudentController {
         return student;
     }
 
-    @PostMapping("/student/reject-student")
+    @PostMapping("/reject-student")
     public void rejectStudent(String userId) {
         Student student = studentService.findById(Long.parseLong(userId)).get();
         student.setStatus("Rejected");
         studentService.save(student);
     }
 
-    @PostMapping("/student/accept-student")
+    @PostMapping("/accept-student")
     public void acceptStudent(String userId) {
         Student student = studentService.findById(Long.parseLong(userId)).get();
         student.setStatus("Accepted");
         studentService.save(student);
     }
 
-    @PostMapping("/student/delete-student")
+    @PostMapping("/delete-student")
     public void inActiveStudent(String userId) {
         Student student = studentService.findById(Long.parseLong(userId)).get();
         student.setActive(false);
@@ -80,7 +88,7 @@ public class StudentController {
         studentService.save(student);
     }
 
-    @PostMapping("/student/change-to-student")
+    @PostMapping("/change-to-student")
     public void changeToStudent(User user, String username) {
         Student student = addStudent(user);
         student.setType("Student");

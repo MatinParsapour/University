@@ -8,20 +8,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+
+    private final UserService userService;
+
+
+    private final StudentController studentController;
+
+
+    private final TeacherController teacherController;
 
     @Autowired
-    private StudentController studentController;
-
-    @Autowired
-    private TeacherController teacherController;
+    public UserController(UserService userService, StudentController studentController, TeacherController teacherController) {
+        this.userService = userService;
+        this.studentController = studentController;
+        this.teacherController = teacherController;
+    }
 
     @GetMapping("/register")
     public String register(Model model) {
