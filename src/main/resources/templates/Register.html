@@ -36,18 +36,18 @@
                 <input class="input marginTop signUpInput" type="date" th:field="*{birthday}" placeholder="تاریخ تولد"
                        required>
                 <div class="role">
-                    <label for="student" id="studentLabel">دانشجو</label>
                     <input id="student" th:field="*{type}" onclick="checkRole()" name="role" type="radio"
-                           value="Student">
+                    value="Student">
                     <label for="teacher" id="teacherLabel">استاد</label>
                     <input id="teacher" th:field="*{type}" onclick="checkRole()" name="role" type="radio"
-                           value="Teacher">
+                    value="Teacher">
+                    <label for="student" id="studentLabel">دانشجو</label>
                 </div>
                 <div class="sex">
-                    <label for="male">مذکر</label>
                     <input id="male" th:field="*{gender}" onclick="checkSex()" name="sex" type="radio" value="male">
                     <label for="female">مونث</label>
                     <input id="female" th:field="*{gender}" onclick="checkSex()" name="sex" type="radio" value="female">
+                    <label for="male">مذکر</label>
                 </div>
                 <input class="signUp marginTop signUpInput" id="signUpButton" type="submit" value="ثبت نام">
             </form>
