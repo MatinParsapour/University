@@ -17,4 +17,9 @@ public class ManagerServiceImpl extends BaseServiceImpl<Manager,Long,ManagerRepo
         super(manegerRepository);
         this.managerRepository = manegerRepository;
     }
+
+    @Override
+    public Manager getManagerByUserNameAndPassword(String username, String password) {
+        return managerRepository.findByUserNameAndPassword(username, password);
+    }
 }

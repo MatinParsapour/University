@@ -97,4 +97,9 @@ public class StudentController {
         student.setActive(true);
         studentService.save(student);
     }
+
+    @PostMapping("/get-student-by-username-and-password")
+    public Student getStudentByUserNameAndPassword(String username, String password){
+        return studentService.getStudentByUserNameAndPassword(username,password);
+    }
 }

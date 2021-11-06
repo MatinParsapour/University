@@ -9,5 +9,7 @@ public interface StudentService extends BaseService<Student,Long>{
 
     Student getStudentByUsername(String username);
 
+    Student getStudentByUserNameAndPassword(String username, String password);
+
     List<Student> getAllStudents();
 }

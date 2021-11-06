@@ -1,6 +1,7 @@
 package ir.maktab.University.controllers;
 
 import ir.maktab.University.entities.User;
+import ir.maktab.University.service.ManagerService;
 import ir.maktab.University.service.UserService;
 import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,14 @@ public class UserController {
 
     private final TeacherController teacherController;
 
+    private final ManagerService managerService;
+
     @Autowired
-    public UserController(UserService userService, StudentController studentController, TeacherController teacherController) {
+    public UserController(UserService userService, StudentController studentController, TeacherController teacherController, ManagerService managerService) {
         this.userService = userService;
         this.studentController = studentController;
         this.teacherController = teacherController;
+        this.managerService = managerService;
     }
 
     @GetMapping("/register")
@@ -60,19 +64,18 @@ public class UserController {
     @PostMapping("/validate-user")
     public String validateUser(User user) {
         Security.setIsUserAllow("Yes");
-        User singedUpUser = getRightUser(user.getUserName(), user.getPassword());
-        if (singedUpUser != null && singedUpUser.getType().equals("Student") && studentController.getStudent(singedUpUser.getId()).getStatus().equals("Accepted")) {
-            Security.setUser(singedUpUser);
+        if (studentController.getStudentByUserNameAndPassword(user.getUserName(), user.getPassword()) != null && studentController.getStudentByUserNameAndPassword(user.getUserName(), user.getPassword()).getStatus().equals("Accepted") && studentController.getStudentByUserNameAndPassword(user.getUserName(), user.getPassword()).isActive()) {
+            Security.setUser(studentController.getStudentByUserNameAndPassword(user.getUserName(), user.getPassword()));
             return "redirect:/";
-        } else if (singedUpUser != null && singedUpUser.getType().equals("Teacher") && teacherController.getTeacher(singedUpUser.getId()).getStatus().equals("Accepted")) {
-            Security.setUser(singedUpUser);
+        } else if (teacherController.getTeacherByUserNameAndPassword(user.getUserName(),user.getPassword()) != null && teacherController.getTeacherByUserNameAndPassword(user.getUserName(),user.getPassword()).getStatus().equals("Accepted") && teacherController.getTeacherByUserNameAndPassword(user.getUserName(),user.getPassword()).isActive()) {
+            Security.setUser(teacherController.getTeacherByUserNameAndPassword(user.getUserName(),user.getPassword()));
             return "redirect:/";
-        } else if (singedUpUser != null && singedUpUser.getType().equals("Manager")) {
-            Security.setUser(singedUpUser);
+        } else if (managerService.getManagerByUserNameAndPassword(user.getUserName(),user.getPassword()) != null && managerService.getManagerByUserNameAndPassword(user.getUserName(),user.getPassword()).isActive()) {
+            Security.setUser(managerService.getManagerByUserNameAndPassword(user.getUserName(),user.getPassword()));
             return "redirect:/manager/manager-main";
         } else {
             Security.setIsUserAllow("No");
-            return "redirect:/register";
+            return "redirect:/user/register";
         }
     }
 

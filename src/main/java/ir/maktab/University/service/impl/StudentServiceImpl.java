@@ -26,6 +26,11 @@ public class StudentServiceImpl extends BaseServiceImpl<Student,Long,StudentRepo
     }
 
     @Override
+    public Student getStudentByUserNameAndPassword(String username, String password) {
+        return studentRepository.findByUserNameAndPassword(username, password);
+    }
+
+    @Override
     public List<Student> getAllStudents() {
         return studentRepository.findAllByIsActiveTrue();
     }

@@ -92,4 +92,9 @@ public class TeacherController {
         teacher.setUserName(null);
         teacherService.save(teacher);
     }
+
+    @PostMapping("/get-teacher-by-username-and-password")
+    public Teacher getTeacherByUserNameAndPassword(String username,String password){
+        return teacherService.getTeacherByUserNameAndPassword(username,password);
+    }
 }

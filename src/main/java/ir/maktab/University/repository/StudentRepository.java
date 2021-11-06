@@ -10,5 +10,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findAllByIsActiveTrue();
 
     Student findByUserName(String username);
+
+    Student findByUserNameAndPassword(String usename, String password);
 }
 

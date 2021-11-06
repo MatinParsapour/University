@@ -28,6 +28,11 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher,Long,TeacherRepo
     }
 
     @Override
+    public Teacher getTeacherByUserNameAndPassword(String username, String password) {
+        return teacherRepository.findByUserNameAndPassword(username,password);
+    }
+
+    @Override
     public List<Teacher> getAllTeachers() {
         return teacherRepository.findAllByIsActiveTrue();
     }

@@ -9,5 +9,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
     List<Teacher> findAllByIsActiveTrue();
 
+    Teacher findByUserNameAndPassword(String username, String password);
+
     Teacher findByUserName(String username);
 }
