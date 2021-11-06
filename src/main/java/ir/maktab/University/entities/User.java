@@ -7,14 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Inheritance
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = User.TABLE_NAME)
 @Setter
 @Getter
