@@ -31,3 +31,17 @@ document.getElementById("createCourseButton").addEventListener("click",function 
         alert("تاریخ پایانی دوره باید بعد از تاریخ شروع دوره باشد")
     }
 })
+
+function openTeachersPad() {
+    document.getElementById("teachersPad").style.display = "block"
+    document.getElementById("closeButton").style.display = "block"
+}
+
+function closeCoursesPad() {
+    document.getElementById("teachersPad").style.display = "none"
+    document.getElementById("closeButton").style.display = "none"
+}
+
+function submitForm(){
+    document.getElementById("createCourse").submit();
+}
