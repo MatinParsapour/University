@@ -11,11 +11,13 @@ import java.util.List;
 @Service
 public class StudentServiceImpl extends BaseServiceImpl<Student,Long,StudentRepository> implements StudentService {
 
-    @Autowired
-    private StudentRepository studentRepository;
 
-    public StudentServiceImpl(StudentRepository repository) {
-        super(repository);
+    private final StudentRepository studentRepository;
+
+    @Autowired
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        super(studentRepository);
+        this.studentRepository = studentRepository;
     }
 
     @Override

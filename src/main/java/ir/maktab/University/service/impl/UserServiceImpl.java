@@ -14,11 +14,13 @@ import java.util.Optional;
 
 public class UserServiceImpl extends BaseServiceImpl<User,Long,UserRepository> implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository repository) {
-        super(repository);
+    private final UserRepository userRepository;
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository) {
+        super(userRepository);
+        this.userRepository = userRepository;
     }
 
     @Override

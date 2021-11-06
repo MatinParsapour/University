@@ -14,11 +14,13 @@ import java.util.Optional;
 public class TeacherServiceImpl extends BaseServiceImpl<Teacher,Long,TeacherRepository> implements TeacherService {
 
 
-    @Autowired
-    private TeacherRepository teacherRepository;
 
-    public TeacherServiceImpl(TeacherRepository repository) {
-        super(repository);
+    private final TeacherRepository teacherRepository;
+
+    @Autowired
+    public TeacherServiceImpl(TeacherRepository teacherRepository) {
+        super(teacherRepository);
+        this.teacherRepository = teacherRepository;
     }
     @Override
     public Teacher getTeacherByUserName(String username) {

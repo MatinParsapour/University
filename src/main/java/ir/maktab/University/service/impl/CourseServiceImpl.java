@@ -12,11 +12,12 @@ import java.util.Optional;
 @Service
 public class CourseServiceImpl extends BaseServiceImpl<Course,Long,CourseRepository> implements CourseService {
 
-    @Autowired
-    private CourseRepository courseRepository;
+    private final CourseRepository courseRepository;
 
-    public CourseServiceImpl(CourseRepository repository) {
-        super(repository);
+    @Autowired
+    public CourseServiceImpl(CourseRepository courseRepository) {
+        super(courseRepository);
+        this.courseRepository = courseRepository;
     }
 
     @Override

@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ManagerServiceImpl extends BaseServiceImpl<Manager,Long,ManagerRepository> implements ManagerService {
 
-    @Autowired
-    private ManagerRepository managerRepository;
 
-    public ManagerServiceImpl(ManagerRepository repository) {
-        super(repository);
+    private final ManagerRepository managerRepository;
+
+    @Autowired
+    public ManagerServiceImpl(ManagerRepository manegerRepository) {
+        super(manegerRepository);
+        this.managerRepository = manegerRepository;
     }
 }
