@@ -2,37 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/EditUserInformationStyle.css}">
     <title>Edit user</title>
-    <style>
-        body {
-            background-image: linear-gradient(#8be9e7, #20dad8, #20a5d8, #12395a, #120d14);
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            background-attachment: fixed;
-        }
-
-        .showBox {
-            font-size: 20px;
-            margin-top: 5%;
-            display: flex;
-            align-self: center;
-            border-radius: 5px 5px;
-            width: 95%;
-            height: 500px;
-            background-color: rgb(10, 10, 68, 80%);
-            color: white;
-            flex-direction: column;
-            flex-wrap: wrap;
-        }
-
-        .displayFlex {
-            display: flex;
-        }
-
-        .displayHidden {
-            display: none;
-        }
-    </style>
 </head>
 <body>
 <div>
@@ -43,7 +14,7 @@
                 onclick="showFirstNameForm()" type="button"
                 value="Change first name">
         </p>
-        <form class="displayHidden" id="firstNameForm" action="/change-user-first-name" method="post">
+        <form class="displayHidden" id="firstNameForm" action="/user/change-user-first-name" method="post">
             <input type="hidden" th:value="${user.id}" name="userId">
             <input id="firstNameInput" type="text" name="firstName" placeholder="New first name">
             <input type="submit" onclick="checkFirstNameInput()" value="Change">
@@ -54,7 +25,7 @@
                                                                                                         onclick="showLastNameForm()"
                                                                                                         value="Change last name">
         </p>
-        <form class="displayHidden" id="lastNameForm" action="/change-user-last-name" method="post">
+        <form class="displayHidden" id="lastNameForm" action="/user/change-user-last-name" method="post">
             <input type="hidden" th:value="${user.id}" name="userId">
             <input type="text" id="lastNameInput" name="lastName" placeholder="New last name">
             <input type="submit" onclick="checkLastNameInput()" value="Change">
@@ -65,7 +36,7 @@
                                                                                                onclick="showEmailForm()"
                                                                                                id="changeEmailButton"
                                                                                                value="Change email"></p>
-        <form class="displayHidden" id="emailForm" action="/change-user-email" method="post">
+        <form class="displayHidden" id="emailForm" action="/user/change-user-email" method="post">
             <input type="hidden" th:value="${user.id}" name="userId">
             <input type="text" id="emailInput" name="email" placeholder="New email">
             <input type="submit" onclick="checkEmailInput()" value="Change">

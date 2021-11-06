@@ -8,25 +8,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/manager")
 public class ManagerController {
 
-    @Autowired
-    private ManagerService managerService;
+
+    private final ManagerService managerService;
+
+
+    private final CourseController courseController;
+
+
+    private final TeacherController teacherController;
+
+
+    private final StudentController studentController;
 
     @Autowired
-    private CourseController courseController;
+    public ManagerController(ManagerService managerService, CourseController courseController, TeacherController teacherController, StudentController studentController) {
+        this.managerService = managerService;
+        this.courseController = courseController;
+        this.teacherController = teacherController;
+        this.studentController = studentController;
+    }
 
-    @Autowired
-    private TeacherController teacherController;
-
-    @Autowired
-    private StudentController studentController;
-
-    @GetMapping("/manager/manager-main")
+    @GetMapping("/manager-main")
     public String managerMain(Model model) {
         List<Course> courseList = courseController.courses();
         List<Student> studentList = studentController.students();
