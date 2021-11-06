@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/ShowCourseStyle.css}">
-    <title>Course</title>
+    <title>دوره</title>
 </head>
 <body>
 <div class="courseData">
-    <p class="courseHeader">Course : <span th:text="${course.title}"></span></p>
+    <p class="courseHeader"><span th:text="${course.title}"></span> : عنوان دوره</p>
     <div class="details">
-        <p>Course code : <span th:text="${course.courseCode}"></span></p>
-        <p>Start date : <span th:text="${course.startDate}"></span></p>
-        <p>Finish date : <span th:text="${course.finishDate}"></span></p>
+        <p><span th:text="${course.courseCode}"></span> : کد دوره</p>
+        <p><span th:text="${course.startDate}"></span> : تاریخ شروع دوره</p>
+        <p><span th:text="${course.finishDate}"></span> : تاریخ پایان دوره</p>
         <div>
-            <p>Teacher : </p>
+            <p> استاد :</p>
             <div>
-                <p>Name : <span th:text="${course.teacher.firstName}"></span> <span
-                        th:text="${course.teacher.lastName}"></span></p>
-                <p>Gender : <span th:text="${course.teacher.gender}"></span></p>
-                <p>National code : <span th:text="${course.teacher.nationalCode}"></span></p>
-                <p>Birth day : <span th:text="${course.teacher.birthday}"></span></p>
-                <p>Email : <span th:text="${course.teacher.email}"></span></p>
+                <p><span th:text="${course.teacher.firstName}"></span> <span
+                        th:text="${course.teacher.lastName}"></span> : نام و نام خانوادگی</p>
+                <p><span th:text="${course.teacher.gender}"></span> : جنسیت</p>
+                <p><span th:text="${course.teacher.nationalCode}"></span> : کد ملی</p>
+                <p><span th:text="${course.teacher.birthday}"></span> : تاریخ تولد</p>
+                <p><span th:text="${course.teacher.email}"></span> : ایمیل</p>
             </div>
         </div>
     </div>
-    <input id="addStudentButton" onclick="showChooseStudentField()" type="button" value="Add student">
+    <input id="addStudentButton" onclick="showChooseStudentField()" type="button" value="اضافه کردن دانشجو">
     <div id="studentsList">
         <form action="#" th:action="@{/course/add-student-to-course}" method="post">
             <select name="studentId" required>
@@ -32,52 +32,52 @@
                         th:text="${student.firstName}"></span> <span th:text="${student.lastName}"></span></option>
             </select>
             <input type="hidden" th:value="${course.id}" name="courseId">
-            <input type="submit" value="Save">
+            <input type="submit" value="ذخیره">
         </form>
     </div>
-    <input id="cancelButton" type="button" onclick="hideChooseStudentField()" value="Cancel">
-    <input id="editButton" type="button" onclick="editPad()" value="Edit">
+    <input id="cancelButton" type="button" onclick="hideChooseStudentField()" value="لغو">
+    <input id="editButton" type="button" onclick="editPad()" value="ویرایش">
 </div>
 <div class="studentsData">
     <form th:each="student : ${course.students}" action="#" th:action="@{/course/remove-student-from-course}" class="student"
           method="post">
-        <p>Name : <span th:text="${student.firstName}"></span> <span th:text="${student.lastName}"></span></p>
-        <p>National code : <span th:text="${student.nationalCode}"></span></p>
-        <p>Gender : <span th:text="${student.gender}"></span></p>
-        <p>Birthday : <span th:text="${student.birthday}"></span></p>
-        <p>Email : <span th:text="${student.email}"></span></p>
+        <p><span th:text="${student.firstName}"></span> <span th:text="${student.lastName}"></span> : نام و نام خانوادگی</p>
+        <p><span th:text="${student.nationalCode}"></span> : کد ملی</p>
+        <p><span th:text="${student.gender}"></span> : جنسیت</p>
+        <p><span th:text="${student.birthday}"></span> : تاریخ تولد</p>
+        <p><span th:text="${student.email}"></span> : ایمیل</p>
         <input type="hidden" name="courseId" th:value="${course.id}">
         <input type="hidden" name="studentId" th:value="${student.id}">
-        <input type="submit" value="Remove from course">
+        <input type="submit" value="حذف از دوره">
     </form>
 </div>
 <div id="editPad">
     <div class="editPadInfo">
         <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/course/change-course-name}" method="post">
             <input type="hidden" name="courseId" th:value="${course.id}">
-            <label for="courseNameInput">Course name :</label>
+            <label for="courseNameInput">عنوان دوره :</label>
             <input id="courseNameInput" class="input" type="text" name="courseName">
-            <input type="submit" value="Change course name">
+            <input type="submit" value="تغییر نام دوره">
         </form>
         <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/course/change-course-code}" method="post">
             <input type="hidden" name="courseId" th:value="${course.id}">
-            <label for="courseCodeInput">Course code : </label>
+            <label for="courseCodeInput">کد دوره :</label>
             <input id="courseCodeInput" class="input" type="number" name="courseCode">
-            <input type="submit" value="Change course code">
+            <input type="submit" value="تغییر کد دوره">
         </form>
         <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/course/change-course-start-date}"
               method="post">
             <input type="hidden" name="courseId" th:value="${course.id}">
-            <label for="courseStartDate">Start date : </label>
+            <label for="courseStartDate">تاریخ شروع دوره :</label>
             <input id="courseStartDate" class="input" type="date" name="courseStartDate">
-            <input type="submit" value="Change course start date">
+            <input type="submit" value="تغییر تاریخ شروع دوره">
         </form>
         <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/course/change-course-finish-date}"
               method="post">
             <input type="hidden" name="courseId" th:value="${course.id}">
-            <label for="courseFinishDate">Finish date : </label>
+            <label for="courseFinishDate">تاریخ پایان دوره :</label>
             <input id="courseFinishDate" class="input" type="date" name="courseFinishDate">
-            <input type="submit" value="Change course finish date">
+            <input type="submit" value="تغییر تاریخ پایان دوره">
         </form>
         <form action="#" class="margin-top-5" style="display: flex; width: 40%;" th:action="@{/course/change-course-teacher}"
               method="post">
@@ -87,9 +87,9 @@
                         th:text="${teacher.firstName}"></span> <span th:text="${teacher.lastName}"></span>
                 </option>
             </select>
-            <input type="submit" value="Change course teacher">
+            <input type="submit" value="تغییر استاد دوره">
         </form>
-        <input class="margin-top-5" type="button" value="Close" onclick="closeEditPad()">
+        <input class="margin-top-5" type="button" value="بستن" onclick="closeEditPad()">
     </div>
 </div>
 

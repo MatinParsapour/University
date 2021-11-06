@@ -3,51 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/EditUserInformationStyle.css}">
-    <title>Edit user</title>
+    <title>ویرایش کاربر</title>
 </head>
 <body>
 <div>
     <div id="studentList" class="showBox">
-        <p class="displayFlex" id="firstName">FirstName : <span th:text="${user.firstName}"></span> <input
+        <p class="displayFlex" id="firstName"><span th:text="${user.firstName}"></span> : نام  <input
                 class="displayHidden"
                 id="changeFirstNameButton"
                 onclick="showFirstNameForm()" type="button"
-                value="Change first name">
+                value="تغییر نام">
         </p>
         <form class="displayHidden" id="firstNameForm" action="/user/change-user-first-name" method="post">
             <input type="hidden" th:value="${user.id}" name="userId">
             <input id="firstNameInput" type="text" name="firstName" placeholder="New first name">
-            <input type="submit" onclick="checkFirstNameInput()" value="Change">
+            <input type="submit" onclick="checkFirstNameInput()" value="تغییر">
         </form>
-        <p class="displayFlex" id="lastName">LastName : <span th:text="${user.lastName}"></span> <input type="button"
+        <p class="displayFlex" id="lastName"><span th:text="${user.lastName}"></span> : نام خانوادگی<input type="button"
                                                                                                         class="displayHidden"
                                                                                                         id="changeLastNameButton"
                                                                                                         onclick="showLastNameForm()"
-                                                                                                        value="Change last name">
+                                                                                                        value="تغییر نام خانوادگی">
         </p>
         <form class="displayHidden" id="lastNameForm" action="/user/change-user-last-name" method="post">
             <input type="hidden" th:value="${user.id}" name="userId">
             <input type="text" id="lastNameInput" name="lastName" placeholder="New last name">
-            <input type="submit" onclick="checkLastNameInput()" value="Change">
+            <input type="submit" onclick="checkLastNameInput()" value="تغییر">
         </form>
-        <p>Birthday : <span th:text="${user.birthday}"></span></p>
-        <p class="displayFlex" id="email">Email : <span th:text="${user.email}"></span> <input type="button"
+        <p><span th:text="${user.birthday}"></span>: تاریخ تولد</p>
+        <p class="displayFlex" id="email"><span th:text="${user.email}"></span> : ایمیل<input type="button"
                                                                                                class="displayHidden"
                                                                                                onclick="showEmailForm()"
                                                                                                id="changeEmailButton"
-                                                                                               value="Change email"></p>
+                                                                                               value="تغییر ایمیل"></p>
         <form class="displayHidden" id="emailForm" action="/user/change-user-email" method="post">
             <input type="hidden" th:value="${user.id}" name="userId">
             <input type="text" id="emailInput" name="email" placeholder="New email">
-            <input type="submit" onclick="checkEmailInput()" value="Change">
+            <input type="submit" onclick="checkEmailInput()" value="تغییر">
         </form>
-        <p>Status : <span th:text="${user.status}"></span></p>
-        <p>Gender : <span th:text="${user.gender}"></span></p>
+        <p><span th:text="${user.status}"></span> : وضعیت</p>
+        <p><span th:text="${user.gender}"></span> : جنسیت</p>
     </div>
     <div>
         <div class="displayFlex">
-            <input type="button" value="Edit" onclick="edit()">
-            <input type="button" value="cancel" onclick="cancelEdit()" class="displayHidden" id="cancelButton">
+            <input type="button" value="ویرایش" onclick="edit()">
+            <input type="button" value="لغو" onclick="cancelEdit()" class="displayHidden" id="cancelButton">
         </div>
     </div>
 </div>

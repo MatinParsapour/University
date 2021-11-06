@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/RegisterStyle.css}">
-    <title>Register</title>
+    <title>ورود</title>
 </head>
 <body>
 <div class="form">
     <div class="box alignItems">
-        <p class="boxFont">Sign up</p>
+        <p class="boxFont">ثبت نام</p>
         <div class="Form overflow">
             <p id="Warning" style="color: black; background-color: white"></p>
             <form id="signUpForm" action="#" th:action="@{/user/add-user}" th:object="${user}" method="post"
@@ -18,55 +18,55 @@
                 <br>
                 <br>
                 <input class="input marginTop signUpInput" type="text" th:field="*{firstName}" name="firstName"
-                       placeholder="Firstname" required>
-                <input class="input marginTop signUpInput" th:field="*{lastName}" type="text" placeholder="Lastname"
+                       placeholder="نام" required>
+                <input class="input marginTop signUpInput" th:field="*{lastName}" type="text" placeholder="نام خانوادگی"
                        required>
                 <input id="signUpUserName" class="input marginTop signUpInput" th:field="*{userName}"
-                       onkeyup="checkSignUpUsername()" type="text" placeholder="Username" required>
+                       onkeyup="checkSignUpUsername()" type="text" placeholder="نام کاربری" required>
                 <input class="active input marginTop signUpInput" th:field="*{password}" onkeyup="checkSignUpPassword()"
-                       type="password" id="password" placeholder="Password" required>
+                       type="password" id="password" placeholder="رمز عبور" required>
                 <i id="icon1" class="fa fa-eye-slash"></i>
                 <input class="active input marginTop signUpInput" type="password" id="repeatPassword"
-                       onkeyup="checkPasswords()" placeholder="Repeat password" required>
+                       onkeyup="checkPasswords()" placeholder="تکرار رمز عبور" required>
                 <i id="icon2" class="fa fa-eye-slash"></i>
                 <input id="nationalCode" class="input marginTop signUpInput" th:field="*{nationalCode}" type="number"
-                       placeholder="National code" required>
-                <input class="input marginTop signUpInput" type="email" th:field="*{email}" placeholder="Email"
+                       placeholder="کد ملی" required>
+                <input class="input marginTop signUpInput" type="email" th:field="*{email}" placeholder="ایمیل"
                        required>
-                <input class="input marginTop signUpInput" type="date" th:field="*{birthday}" placeholder="Birth day"
+                <input class="input marginTop signUpInput" type="date" th:field="*{birthday}" placeholder="تاریخ تولد"
                        required>
                 <div class="role">
-                    <label for="student" id="studentLabel">Student</label>
+                    <label for="student" id="studentLabel">دانشجو</label>
                     <input id="student" th:field="*{type}" onclick="checkRole()" name="role" type="radio"
                            value="Student">
-                    <label for="teacher" id="teacherLabel">Teacher</label>
+                    <label for="teacher" id="teacherLabel">استاد</label>
                     <input id="teacher" th:field="*{type}" onclick="checkRole()" name="role" type="radio"
                            value="Teacher">
                 </div>
                 <div class="sex">
-                    <label for="male">male</label>
+                    <label for="male">مذکر</label>
                     <input id="male" th:field="*{gender}" onclick="checkSex()" name="sex" type="radio" value="male">
-                    <label for="female">female</label>
+                    <label for="female">مونث</label>
                     <input id="female" th:field="*{gender}" onclick="checkSex()" name="sex" type="radio" value="female">
                 </div>
-                <input class="signUp marginTop signUpInput" id="signUpButton" type="submit" value="Sign up">
+                <input class="signUp marginTop signUpInput" id="signUpButton" type="submit" value="ثبت نام">
             </form>
         </div>
     </div>
     <div class="box alignItems">
-        <p class="boxFont">Log in</p>
+        <p class="boxFont">ورود</p>
         <div class="Form">
             <div th:switch="${isUserAllow}" style="display: flex; justify-content: center">
-                <h2 th:case="'No'" style="font-size: 16px">The username or password is incorrect</h2>
+                <h2 th:case="'No'" style="font-size: 16px">نام کاربری یا رمز عبور اشتباه است</h2>
             </div>
             <form id="logInForm" action="#" th:action="@{/user/validate-user}" th:object="${user}" method="post">
                 <div class="inputs logInHeight">
                     <input class="input logInInput" type="text" id="logInUserName" onkeyup="checkLogInUsername()"
-                           th:field="*{userName}" placeholder="Username" required>
+                           th:field="*{userName}" placeholder="نام کاربری" required>
                     <input class="active input logInInput" type="password" onkeyup="checkLogInPassword()"
-                           th:field="*{password}" id="logInPassword" placeholder="Password" required>
+                           th:field="*{password}" id="logInPassword" placeholder="رمز عبور" required>
                     <i id="icon3" class="fa fa-eye-slash"></i>
-                    <input class="signUp" type="submit" id="logInButton" value="Log in">
+                    <input class="signUp" type="submit" id="logInButton" value="ورود">
                 </div>
             </form>
         </div>

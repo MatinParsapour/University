@@ -5,12 +5,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/ManagerStyle.css}">
-    <title>Manager</title>
+    <title>مدیریت</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <span class="navbar-brand">University</span>
+        <span class="navbar-brand">دانشگاه</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -18,70 +18,69 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/">خانه</a>
                 </li>
                 <li class="nav-item">
                     <span class="nav-link active" id="students" onclick="showStudents()"
-                          style="cursor: pointer">Student</span>
+                          style="cursor: pointer">دانشجویان</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" onclick="showTeachers()" style="cursor: pointer"
-                       id="teachers">Teachers</a>
+                       id="teachers">اساتید</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" onclick="showCourses()" style="cursor: pointer"
-                       id="courses">Courses</a>
+                       id="courses">دوره ها</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/course/add-course" style="cursor: pointer">Add
-                        course</a>
+                    <a class="nav-link active" aria-current="page" href="/course/add-course" style="cursor: pointer">اضافه کردن دوره</a>
                 </li>
             </ul>
             <form action="/user/search-users" class="d-flex">
-                <input name="field" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <input name="field" class="form-control me-2" type="search" placeholder="جستجو" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">جستجو</button>
             </form>
         </div>
     </div>
 </nav>
 <div th:switch="${students}" id="displayStudents">
-    <h2 th:case="null">No teacher found</h2>
+    <h2 th:case="null">دانشجویی یافت نشد</h2>
     <div th:case="*">
         <div th:each="student : ${students}">
             <div id="studentList" class="showBox">
-                <p>FirstName : <span th:text="${student.firstName}"></span></p>
-                <p>LastName : <span th:text="${student.lastName}"></span></p>
-                <p>Birthday : <span th:text="${student.birthday}"></span></p>
-                <p>Email : <span th:text="${student.email}"></span></p>
-                <p>Status : <span id="studentStatus" th:text="${student.status}" th:value="${student.status}"></span>
-                </p>
-                <p>Gender : <span th:text="${student.gender}"></span></p>
+                <p><span th:text="${student.firstName}"></span> : نام</p>
+                <p><span th:text="${student.lastName}"></span> : نام خانوادگی</p>
+                <p><span th:text="${student.birthday}"></span> : تاریخ تولد</p>
+                <p><span th:text="${student.email}"></span> : ایمیل</p>
+                <p><span id="studentStatus" th:text="${student.status}" th:value="${student.status}"></span>
+                 : وضعیت</p>
+                <p><span th:text="${student.gender}"></span> : جنسیت</p>
             </div>
             <div th:switch="${student.status}">
                 <div th:case="'In progerss'" style="display: flex">
                     <form action="#" th:action="@{/user/reject-user}" method="post">
                         <input type="hidden" th:value="${student.id}" name="userId">
-                        <input type="submit" value="Reject">
+                        <input type="submit" value="رد کردن">
                     </form>
                     <form action="#" th:action="@{/user/accept-user}" method="post">
                         <input type="hidden" th:value="${student.id}" name="userId">
-                        <input type="submit" value="Accept">
+                        <input type="submit" value="تایید کردن">
                     </form>
                 </div>
                 <div th:case="'Rejected'">
                     <form action="#" th:action="@{/user/accept-user}" method="post">
                         <input type="hidden" th:value="${student.id}" name="userId">
-                        <input type="submit" value="Accept">
+                        <input type="submit" value="تایید کردن">
                     </form>
                 </div>
                 <div th:case="'Accepted'" style="display: flex">
                     <form action="#" th:action="@{/user/student-to-teacher}" method="post">
                         <input type="hidden" th:value="${student.id}" name="userId">
-                        <input type="submit" value="Change role to teacher">
+                        <input type="submit" value="تغییر نقش به استاد">
                     </form>
                     <form action="#" th:action="@{/user/edit-user-information}" method="post">
                         <input type="hidden" th:value="${student.id}" name="userId">
-                        <input type="submit" value="Edit">
+                        <input type="submit" value="ویرایش">
                     </form>
                 </div>
             </div>
@@ -90,42 +89,42 @@
 </div>
 
 <div th:switch="${teachers}" class="displayNone" id="displayTeachers">
-    <h2 th:case="null">No student found</h2>
+    <h2 th:case="null">استادی یافت نشد</h2>
     <div th:case="*">
         <div th:each="teacher : ${teachers}">
             <div class="showBox">
-                <p>FirstName : <span th:text="${teacher.firstName}"></span></p>
-                <p>LastName : <span th:text="${teacher.lastName}"></span></p>
-                <p>Birthday : <span th:text="${teacher.birthday}"></span></p>
-                <p>Email : <span th:text="${teacher.email}"></span></p>
-                <p>Status : <span th:text="${teacher.status}"></span></p>
-                <p>Gender : <span th:text="${teacher.gender}"></span></p>
+                <p><span th:text="${teacher.firstName}"></span> : نام</p>
+                <p><span th:text="${teacher.lastName}"></span> : نام خانوادگی</p>
+                <p><span th:text="${teacher.birthday}"></span> : تاریخ تولد</p>
+                <p><span th:text="${teacher.email}"></span> : ایمیل</p>
+                <p><span th:text="${teacher.status}"></span> : وضعیت</p>
+                <p><span th:text="${teacher.gender}"></span> : جنسیت</p>
             </div>
             <div th:switch="${teacher.status}">
                 <div th:case="'In progress'" style="display: flex">
                     <form action="#" th:action="@{/user/reject-user}" method="post">
                         <input type="hidden" th:value="${teacher.id}" name="userId">
-                        <input type="submit" value="Reject">
+                        <input type="submit" value="رد کردن">
                     </form>
                     <form action="#" th:action="@{/user/accept-user}" method="post">
                         <input type="hidden" th:value="${teacher.id}" name="userId">
-                        <input type="submit" value="Accept">
+                        <input type="submit" value="تایید کردن">
                     </form>
                 </div>
                 <div th:case="'Rejected'">
                     <form action="#" th:action="@{/user/accept-user}" method="post">
                         <input type="hidden" th:value="${teacher.id}" name="userId">
-                        <input type="submit" value="Accept">
+                        <input type="submit" value="تایید کردن">
                     </form>
                 </div>
                 <div th:case="'Accepted'" style="display: flex">
                     <form action="#" method="post" th:action="@{/user/teacher-to-student}">
                         <input type="hidden" th:value="${teacher.id}" name="userId">
-                        <input type="submit" value="Change role to student">
+                        <input type="submit" value="تغییر نقش به دانشجو">
                     </form>
                     <form action="#" th:action="@{/user/edit-user-information}" method="post">
                         <input type="hidden" th:value="${teacher.id}" name="userId">
-                        <input type="submit" value="Edit">
+                        <input type="submit" value="ویرایش">
                     </form>
                 </div>
             </div>
@@ -134,24 +133,24 @@
 </div>
 
 <div th:switch="${courses}" class="displayNone" id="displayCourses">
-    <h2 th:case="null">No student found</h2>
+    <h2 th:case="null">هیچ دوره ای یافت نشد</h2>
     <div th:case="*">
         <div th:each="course : ${courses}">
             <div class="showBox">
-                <p>Title : <span th:text="${course.title}"></span></p>
-                <p>Code : <span th:text="${course.courseCode}"></span></p>
-                <p>Start date : <span th:text="${course.startDate}"></span></p>
-                <p>Finish date : <span th:text="${course.finishDate}"></span></p>
+                <p><span th:text="${course.title}"></span> : عنوان دوره</p>
+                <p><span th:text="${course.courseCode}"></span> : کد دوره</p>
+                <p><span th:text="${course.startDate}"></span> : تاریخ شروع دوره</p>
+                <p><span th:text="${course.finishDate}"></span> : تاریخ پایان دوره</p>
             </div>
             <div>
                 <div style="display: flex">
                     <form action="#" th:action="@{/course/display-course}" method="post">
                         <input type="hidden" th:value="${course.id}" name="courseId">
-                        <input type="submit" value="See details">
+                        <input type="submit" value="مشاهده جزئیات">
                     </form>
                     <form action="#" th:action="@{/course/delete-course}" method="post">
                         <input type="hidden" th:value="${course.id}" name="courseId">
-                        <input type="submit" value="Delete course" style="background-color: red">
+                        <input type="submit" value="حذف دوره" style="background-color: red">
                     </form>
                 </div>
             </div>
