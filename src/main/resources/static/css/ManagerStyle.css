@@ -31,5 +31,6 @@ table, th, td {
     background-color: rgb(10, 10, 68, 80%);
     color: white;
     flex-direction: column;
+    align-items: flex-end;
     flex-wrap: wrap;
 }

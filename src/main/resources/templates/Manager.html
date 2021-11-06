@@ -48,13 +48,13 @@
     <div th:case="*">
         <div th:each="student : ${students}">
             <div id="studentList" class="showBox">
-                <p><span th:text="${student.firstName}"></span> : نام</p>
-                <p><span th:text="${student.lastName}"></span> : نام خانوادگی</p>
-                <p><span th:text="${student.birthday}"></span> : تاریخ تولد</p>
                 <p><span th:text="${student.email}"></span> : ایمیل</p>
                 <p><span id="studentStatus" th:text="${student.status}" th:value="${student.status}"></span>
                  : وضعیت</p>
                 <p><span th:text="${student.gender}"></span> : جنسیت</p>
+                <p><span th:text="${student.firstName}"></span> : نام</p>
+                <p><span th:text="${student.lastName}"></span> : نام خانوادگی</p>
+                <p><span th:text="${student.birthday}"></span> : تاریخ تولد</p>
             </div>
             <div th:switch="${student.status}">
                 <div th:case="'In progerss'" style="display: flex">
@@ -93,12 +93,12 @@
     <div th:case="*">
         <div th:each="teacher : ${teachers}">
             <div class="showBox">
-                <p><span th:text="${teacher.firstName}"></span> : نام</p>
-                <p><span th:text="${teacher.lastName}"></span> : نام خانوادگی</p>
-                <p><span th:text="${teacher.birthday}"></span> : تاریخ تولد</p>
                 <p><span th:text="${teacher.email}"></span> : ایمیل</p>
                 <p><span th:text="${teacher.status}"></span> : وضعیت</p>
                 <p><span th:text="${teacher.gender}"></span> : جنسیت</p>
+                <p><span th:text="${teacher.firstName}"></span> : نام</p>
+                <p><span th:text="${teacher.lastName}"></span> : نام خانوادگی</p>
+                <p><span th:text="${teacher.birthday}"></span> : تاریخ تولد</p>
             </div>
             <div th:switch="${teacher.status}">
                 <div th:case="'In progress'" style="display: flex">
@@ -137,10 +137,10 @@
     <div th:case="*">
         <div th:each="course : ${courses}">
             <div class="showBox">
+                <p><span th:text="${course.finishDate}"></span> : تاریخ پایان دوره</p>
                 <p><span th:text="${course.title}"></span> : عنوان دوره</p>
                 <p><span th:text="${course.courseCode}"></span> : کد دوره</p>
                 <p><span th:text="${course.startDate}"></span> : تاریخ شروع دوره</p>
-                <p><span th:text="${course.finishDate}"></span> : تاریخ پایان دوره</p>
             </div>
             <div>
                 <div style="display: flex">
