@@ -101,7 +101,7 @@ body {
     left: 35%;
     background-color: #12395a;
     transform: translate(-50%, -50%);
-    height: 350px;
+    height: 450px;
     width: 46%;
     display: none;
     align-items: center;
@@ -170,4 +170,85 @@ label {
     to {
         transform: translateX(4px) rotate(-3deg);
     }
+}
+
+#studentsPad {
+    position: fixed;
+    top: 20%;
+    left: 35%;
+    background-color: #12395a;
+    transform: translate(-50%, -50%);
+    height: 350px;
+    width: 46%;
+    display: none;
+    align-items: center;
+    margin-left: 15%;
+    margin-top: 5%;
+    border-radius: 5px 5px;
+    overflow: auto;
+}
+
+.studentsPadInfo {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-content: space-between;
+}
+
+.students {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 90%;
+    background-color: rgb(10, 10, 68, 80%);
+    color: white;
+    margin-top: 3%;
+}
+
+#teachersPad {
+    position: fixed;
+    top: 20%;
+    left: 35%;
+    background-color: #10e9e9;
+    transform: translate(-50%, -50%);
+    height: 350px;
+    width: 46%;
+    display: none;
+    align-items: center;
+    margin-left: 15%;
+    margin-top: 15%;
+    border-radius: 5px 5px;
+    overflow: auto;
+}
+
+.teachersPadInfo {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-content: space-between;
+}
+
+.showBox {
+    font-size: 20px;
+    margin-top: 5%;
+    display: flex;
+    align-self: center;
+    border-radius: 5px 5px;
+    width: 100%;
+    height: 150px;
+    background-color: rgb(10, 10, 68, 80%);
+    color: white;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.teachers {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 90%;
+    background-color: rgb(10, 10, 68, 80%);
+    color: white;
+    margin-top: 3%;
 }

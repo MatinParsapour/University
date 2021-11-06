@@ -41,3 +41,23 @@ $(document).ready(function () {
             }, 500, 'ease').removeClass('move-pen');
     });
 })
+
+function openStudentsPad() {
+    document.getElementById("studentsPad").style.display = "block"
+    document.getElementById("closeButton").style.display = "block"
+    document.getElementById("editPadInfo").style.display = "none"
+}
+
+function closeStudentsPad() {
+    document.getElementById("studentsPad").style.display = "none"
+    document.getElementById("closeButton").style.display = "none"
+}
+function openTeachersPad() {
+    document.getElementById("teachersPad").style.display = "block"
+    document.getElementById("closeTeachersPadButton").style.display = "block"
+}
+
+function closeTeachersPad() {
+    document.getElementById("teachersPad").style.display = "none"
+    document.getElementById("closeTeachersPadButton").style.display = "none"
+}
