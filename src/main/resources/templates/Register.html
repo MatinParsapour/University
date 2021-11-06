@@ -8,52 +8,6 @@
 <body>
 <div class="form">
     <div class="box alignItems">
-        <p class="boxFont">ثبت نام</p>
-        <div class="Form overflow">
-            <p id="Warning" style="color: black; background-color: white"></p>
-            <form id="signUpForm" action="#" th:action="@{/user/add-user}" th:object="${user}" method="post"
-                  class="inputs formContent">
-                <br>
-                <br>
-                <br>
-                <br>
-                <input class="input marginTop signUpInput" type="text" th:field="*{firstName}" name="firstName"
-                       placeholder="نام" required>
-                <input class="input marginTop signUpInput" th:field="*{lastName}" type="text" placeholder="نام خانوادگی"
-                       required>
-                <input id="signUpUserName" class="input marginTop signUpInput" th:field="*{userName}"
-                       onkeyup="checkSignUpUsername()" type="text" placeholder="نام کاربری" required>
-                <input class="active input marginTop signUpInput" th:field="*{password}" onkeyup="checkSignUpPassword()"
-                       type="password" id="password" placeholder="رمز عبور" required>
-                <i id="icon1" class="fa fa-eye-slash"></i>
-                <input class="active input marginTop signUpInput" type="password" id="repeatPassword"
-                       onkeyup="checkPasswords()" placeholder="تکرار رمز عبور" required>
-                <i id="icon2" class="fa fa-eye-slash"></i>
-                <input id="nationalCode" class="input marginTop signUpInput" th:field="*{nationalCode}" type="number"
-                       placeholder="کد ملی" required>
-                <input class="input marginTop signUpInput" type="email" th:field="*{email}" placeholder="ایمیل"
-                       required>
-                <input class="input marginTop signUpInput" type="date" th:field="*{birthday}" placeholder="تاریخ تولد"
-                       required>
-                <div class="role">
-                    <input id="student" th:field="*{type}" onclick="checkRole()" name="role" type="radio"
-                    value="Student">
-                    <label for="teacher" id="teacherLabel">استاد</label>
-                    <input id="teacher" th:field="*{type}" onclick="checkRole()" name="role" type="radio"
-                    value="Teacher">
-                    <label for="student" id="studentLabel">دانشجو</label>
-                </div>
-                <div class="sex">
-                    <input id="male" th:field="*{gender}" onclick="checkSex()" name="sex" type="radio" value="male">
-                    <label for="female">مونث</label>
-                    <input id="female" th:field="*{gender}" onclick="checkSex()" name="sex" type="radio" value="female">
-                    <label for="male">مذکر</label>
-                </div>
-                <input class="signUp marginTop signUpInput" id="signUpButton" type="submit" value="ثبت نام">
-            </form>
-        </div>
-    </div>
-    <div class="box alignItems">
         <p class="boxFont">ورود</p>
         <div class="Form">
             <div th:switch="${isUserAllow}" style="display: flex; justify-content: center">
@@ -69,6 +23,7 @@
                     <input class="signUp" type="submit" id="logInButton" value="ورود">
                 </div>
             </form>
+            <a href="/user/sign-up-user" style="font-size: 25px; display: flex; justify-content: center; align-items: center;">حساب ندارید؟ ساخت حساب جدید</a>
         </div>
     </div>
 </div>

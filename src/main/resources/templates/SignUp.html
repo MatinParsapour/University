@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/SignUpStyle.css}">
+    <title>ثبت نام</title>
+</head>
+<body>
+<div class="form">
+    <div class="box alignItems">
+        <p class="boxFont">ثبت نام</p>
+        <div class="Form">
+            <form id="signUpForm" class="signUpForm" action="#" th:action="@{/user/add-user}" th:object="${user}" method="post">
+                <input class="input signUpInput" type="text" th:field="*{firstName}" name="firstName"
+                       placeholder="نام" required>
+                <input class="input marginTop signUpInput" th:field="*{lastName}" type="text" placeholder="نام خانوادگی"
+                       required>
+                <input id="signUpUserName" class="input marginTop signUpInput" th:field="*{userName}"
+                       onkeyup="checkSignUpUsername()" type="text" placeholder="نام کاربری" required>
+                <input class="active input marginTop signUpInput" th:field="*{password}" onkeyup="checkSignUpPassword()"
+                       type="password" id="password" placeholder="رمز عبور" required>
+                <i id="icon1" class="fa fa-eye-slash"></i>
+                <input class="active input marginTop signUpInput" type="password" id="repeatPassword"
+                       onkeyup="checkPasswords()" placeholder="تکرار رمز عبور" required>
+                <i id="icon2" class="fa fa-eye-slash"></i>
+                <input id="nationalCode" class="input marginTop signUpInput" th:field="*{nationalCode}" type="number"
+                       placeholder="کد ملی" required>
+                <input class="input marginTop signUpInput" type="email" th:field="*{email}" placeholder="ایمیل"
+                       required>
+                <input class="input marginTop signUpInput" type="date" th:field="*{birthday}" placeholder="تاریخ تولد"
+                       required>
+                <div class="role">
+                    <input id="student" th:field="*{type}" onclick="checkRole()" name="role" type="radio"
+                           value="Student">
+                    <label for="teacher" id="teacherLabel">استاد</label>
+                    <input id="teacher" th:field="*{type}" onclick="checkRole()" name="role" type="radio"
+                           value="Teacher">
+                    <label for="student" id="studentLabel">دانشجو</label>
+                </div>
+                <div class="sex">
+                    <input id="male" th:field="*{gender}" onclick="checkSex()" name="sex" type="radio" value="male">
+                    <label for="female">مونث</label>
+                    <input id="female" th:field="*{gender}" onclick="checkSex()" name="sex" type="radio" value="female">
+                    <label for="male">مذکر</label>
+                </div>
+                <input class="signUp marginTop signUpInput" id="signUpButton" type="submit" value="ثبت نام">
+            </form>
+            <form action="#" th:action="@{/}">
+                <input class="backToHome marginTop signUpInput" id="homeButton" type="submit" value="برگشت به خانه">
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/SignUpJS.js}"></script>
+
+</body>
+</html>

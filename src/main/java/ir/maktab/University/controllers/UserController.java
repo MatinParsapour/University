@@ -168,4 +168,10 @@ public class UserController {
         model.addAttribute("user", user);
         return "EditUserInformation";
     }
+
+    @GetMapping("/sign-up-user")
+    public String signUpUser(Model model){
+        model.addAttribute("user",new User());
+        return "SignUp";
+    }
 }

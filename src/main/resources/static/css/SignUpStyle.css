@@ -1,24 +1,22 @@
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     background-image: linear-gradient(#8be9e7, #20dad8, #20a5d8, #12395a, #120d14);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
-    margin: 0px;
+    display: flex;
+    justify-content: center;
 }
 
 .form {
-    margin-top: 5%;
-    margin-left: 5%;
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
 }
 
 .box {
     width: 40%;
-    height: 400px;
+    height: 700px;
     border-radius: 5px 5px;
     display: flex;
     justify-content: center;
@@ -35,22 +33,18 @@ body {
     align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .Form {
     display: flex;
     width: 80%;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
-    height: 60%;
+    height: 80%;
     border-radius: 5px 5px;
     background-color: rgb(164, 164, 238);
-}
-
-.overflow {
-    overflow: auto;
-    flex: 1;
 }
 
 .input {
@@ -63,13 +57,27 @@ body {
     height: 40px;
 }
 
-.logInInput {
-    height: 40px;
-}
-
-
 .marginTop {
     margin-bottom: 5px;
+}
+
+.role {
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.signUpForm{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90%;
+    justify-content: center;
+}
+
+.sex {
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .signUp {
@@ -79,33 +87,15 @@ body {
     height: 40px;
 }
 
-.inputs {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
+.backToHome{
+    border-radius: 5px 5px;
+    border-color: white;
     width: 100%;
+    height: 40px;
 }
 
-.formContent {
+.formContent{
     display: flex;
-    min-height: min-content;
-}
-
-.logInHeight {
-    height: 150px;
-}
-
-.role {
-    font-size: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.sex {
-    font-size: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.createNewAccount{
-
+    flex-direction: column;
+    justify-content: center;
 }
