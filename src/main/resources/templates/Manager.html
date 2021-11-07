@@ -36,13 +36,53 @@
                     <a class="nav-link active" aria-current="page" href="/course/add-course" style="cursor: pointer">اضافه کردن دوره</a>
                 </li>
             </ul>
-            <form action="/user/search-users" class="d-flex">
-                <input name="field" class="form-control me-2" type="search" placeholder="جستجو" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">جستجو</button>
+            <form class="d-flex">
+                <button class="btn btn-outline-success" type="button" onclick="openSearchBoxPad()">جستجو</button>
             </form>
         </div>
     </div>
 </nav>
+
+<div id="searchBoxPad">
+    <input id="closeButton" class="margin-top-5" type="button" value="بستن" onclick="closeSearchBoxPad()">
+    <div class="searchBoxPadInfo">
+        <form action="/user/search-users" class="d-flex">
+            <div class="displayFlex flexDirectionColumn">
+                <div>
+                    <div class="displayFlex">
+                        <input name="field" class="form-control me-2" type="search" placeholder="جستجو" aria-label="Search">
+                        <button id="search" class="btn btn-outline-success" type="submit">جستجو</button>
+                    </div>
+                </div>
+                <div class="filters">
+                    <div class="displayFlex">
+                        <div class="displayFlex flexDirectionColumn filter">
+                            <label for="Accepted">تایید شده</label>
+                            <input id = "Accepted" name = "status" type = "radio" value = "Accepted">
+                            <label for="Rejected">رد شده</label>
+                            <input id = "Rejected" name = "status" type="radio" value = "Rejected">
+                            <label for="In progress">در حال بررسی</label>
+                            <input id = "In progress" name = "status" type = "radio" value = "In progress">
+                        </div>
+                        <div class="displayFlex flexDirectionColumn filter">
+                            <label for="Student">دانشجو</label>
+                            <input id = "Student" name = "type" type="radio" value = "Student">
+                            <label for="Teacher">استاد</label>
+                            <input id = "Teacher" name = "type" type = "radio" value = "Teacher">
+                        </div>
+                        <div class="displayFlex flexDirectionColumn filter">
+                            <label for="male">مذکر</label>
+                            <input id = "male" name = "sex" type="radio" value = "male">
+                            <label for="female">مونت</label>
+                            <input id = "female" name = "sex" type = "radio" value = "female">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </form>
+    </div>
+</div>
 <div th:switch="${students}" id="displayStudents">
     <h2 th:case="null">دانشجویی یافت نشد</h2>
     <div th:case="*">

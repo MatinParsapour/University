@@ -46,29 +46,29 @@ function checkSex() {
 document.getElementById("signUpButton").addEventListener("click", function (event) {
     if (document.getElementById("signUpUserName").value.length < 4) {
         event.preventDefault()
-        alert("Username should be more than 4 characters")
+        alert("نام کاربری باید بیش از 4 کاراکتر باشد")
         document.getElementById("signUpUserName").style.borderColor = "red"
     }
     if (document.getElementById("password").value.length < 8 || document.getElementById("password").value.length > 16) {
         event.preventDefault()
-        alert("Password should be between 8 to 16 characters")
+        alert("رمز عبور باید بین 8 تا 16 کاراکتر باشد")
         document.getElementById("password").style.borderColor = "red"
     }
     if (document.getElementById("password").value != document.getElementById("repeatPassword").value) {
         event.preventDefault()
-        alert("Passwords don't match")
+        alert("رمز عبور یکسان نیست")
         document.getElementById("password").style.borderColor = "red"
         document.getElementById("repeatPassword").style.borderColor = "red"
     }
     if (!document.getElementById("student").checked && !document.getElementById("teacher").checked) {
         event.preventDefault()
-        alert("Select if you are student or teacher")
+        alert("دانشجو یا استاد بودن را مشخص کنید")
         document.getElementById("studentLabel").style.color = "red"
         document.getElementById("teacherLabel").style.color = "red"
     }
     if (!document.getElementById("female").checked && !document.getElementById("male").checked) {
         event.preventDefault()
-        alert("You should choose your gender")
+        alert("جنسیت خود را مشخص کنید")
         document.getElementById("male").style.color = "red"
         document.getElementById("female").style.color = "red"
     }
@@ -77,12 +77,12 @@ document.getElementById("signUpButton").addEventListener("click", function (even
 document.getElementById("logInButton").addEventListener("click", function (event) {
     if (document.getElementById("logInUserName").value.length < 4) {
         event.preventDefault()
-        alert("Enter a valid username")
+        alert("یک نام کاربری صحیح وارد نمایید")
         document.getElementById("logInUserName").style.borderColor = "red"
     }
     if (document.getElementById("logInPassword").value.length < 8 || document.getElementById("logInPassword").value.length > 16) {
         event.preventDefault()
-        alert("Enter a valid password")
+        alert("یک رمز عبور صحیح وارد نمایید")
         document.getElementById("logInPassword").style.borderColor = "red"
     }
 })
