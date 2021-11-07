@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -34,7 +33,7 @@ public class UserServiceImpl extends BaseServiceImpl<User,Long,UserRepository> i
     }
 
     @Override
-    public List<User> searchUsers(String field) {
-        return userRepository.findAllByFirstNameLikeOrLastNameLikeOrStatusLikeOrGenderLikeOrEmailLikeAndIsActiveTrue("%" + field + "%", "%" + field + "%", "%" + field + "%", "%" + field + "%", "%" + field + "%");
+    public List<User> searchUsers(String field, String status, String type, String sex) {
+        return userRepository.findAllByFirstNameLikeOrLastNameLikeAndStatusAndTypeAndGender("%" + field + "%", "%" + field + "%", status,type,sex);
     }
 }

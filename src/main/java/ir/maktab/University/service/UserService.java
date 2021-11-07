@@ -11,5 +11,5 @@ public interface UserService extends BaseService<User,Long>{
 
     User getUserByUserName(String username);
 
-    List<User> searchUsers(String field);
+    List<User> searchUsers(String field,String status, String type, String sex);
 }

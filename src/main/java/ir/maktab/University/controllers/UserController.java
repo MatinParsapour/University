@@ -128,8 +128,8 @@ public class UserController {
     }
 
     @GetMapping("/search-users")
-    public String searchUser(String field, Model model) {
-        List<User> users = userService.searchUsers(field);
+    public String searchUser(String field, String status, String type, String sex, Model model) {
+        List<User> users = userService.searchUsers(field,status,type,sex);
         if (users.size() == 0) {
             model.addAttribute("users", null);
         } else {
