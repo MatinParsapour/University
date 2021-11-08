@@ -10,7 +10,15 @@ public class MainController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("user", Security.getUser());
+        if(Security.getManager() != null){
+            model.addAttribute("user", Security.getManager());
+        }else if(Security.getTeacher() != null){
+            model.addAttribute("user",Security.getTeacher());
+        }else if(Security.getStudent() != null){
+            model.addAttribute("user",Security.getStudent());
+        }else{
+            model.addAttribute("user",null);
+        }
         return "Home";
     }
 }
