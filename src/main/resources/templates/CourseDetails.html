@@ -2,44 +2,91 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/CourseDetailsStyle.css}">
     <title>جزئیات دوره</title>
 </head>
 <body>
-<div class="courseData">
-    <p class="courseHeader"><span th:text="${course.title}"></span> : عنوان</p>
-    <div class="details">
-        <p><span th:text="${course.courseCode}"></span> : کد دوره</p>
-        <p><span th:text="${course.startDate}"></span> : تاریخ شروع</p>
-        <p><span th:text="${course.finishDate}"></span> : تاریخ پایان</p>
-    </div>
-</div>
-<div class="studentsData">
-    <div th:each="student : ${course.students}" action="#" th:action="@{/remove-student-from-course}"
-          class="student" method="post">
-        <p><span th:text="${student.firstName}"></span> <span th:text="${student.lastName}"></span> : نام و نام خانوادگی</p>
-        <p><span th:text="${student.nationalCode}"></span> : کد ملی</p>
-        <p><span th:text="${student.gender}"></span> : جنسیت</p>
-        <p><span th:text="${student.birthday}"></span> : تاریخ تولد</p>
-        <p><span th:text="${student.email}"></span> : ایمیل</p>
-    </div>
-</div>
-<div class="quizesData">
-    <div class="quiz" th:each="quizzes : ${course.quizzes}">
-        <div>
-            <p><span th:text="${quizzes.title}"></span>  : عنوان</p>
-            <p><span th:text="${quizzes.description}"></span> : توضیحات</p>
-            <p><span th:text="${quizzes.quizTime}"></span> : زمان</p>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <span class="navbar-brand">دانشگاه</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/teacher/main">خانه</a>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-link active" id="students" onclick="openCreateQuizPad()"
+                          style="cursor: pointer">افزودن آزمون جدید</span>
+                </li>
         </div>
-        <form action="#" th:action="@{/quiz/delete-quiz}" method="post">
-            <input type="hidden" name="quizId" th:value="${quizzes.id}">
-            <input type="submit" value="حذف آزمون">
-        </form>
-        <form action="#" th:action="@{/quiz/edit-quiz}" method="post">
-            <input type="hidden" name="quizId" th:value="${quizzes.id}">
-            <input type="submit" value="ویرایش آزمون">
+    </div>
+</nav>
+
+<div class="container">
+    <div class="courseData">
+        <p class="courseHeader"><span th:text="${course.title}"></span> : عنوان</p>
+        <div class="details">
+            <p><span th:text="${course.courseCode}"></span> : کد دوره</p>
+            <p><span th:text="${course.startDate}"></span> : تاریخ شروع</p>
+            <p><span th:text="${course.finishDate}"></span> : تاریخ پایان</p>
+        </div>
+    </div>
+    <div class="studentsData">
+        <div th:each="student : ${course.students}" action="#" th:action="@{/remove-student-from-course}"
+             class="student" method="post">
+            <p><span th:text="${student.firstName}"></span> <span th:text="${student.lastName}"></span> : نام و نام خانوادگی</p>
+            <p><span th:text="${student.nationalCode}"></span> : کد ملی</p>
+            <p><span th:text="${student.gender}"></span> : جنسیت</p>
+            <p><span th:text="${student.birthday}"></span> : تاریخ تولد</p>
+            <p><span th:text="${student.email}"></span> : ایمیل</p>
+        </div>
+    </div>
+    <div class="quizesData">
+        <div class="quiz" th:each="quizzes : ${course.quizzes}">
+            <div>
+                <p><span th:text="${quizzes.title}"></span>  : عنوان</p>
+                <p><span th:text="${quizzes.description}"></span> : توضیحات</p>
+                <p><span th:text="${quizzes.quizTime}"></span> : زمان</p>
+            </div>
+            <form action="#" th:action="@{/quiz/delete-quiz}" method="post">
+                <input type="hidden" name="quizId" th:value="${quizzes.id}">
+                <input type="submit" value="حذف آزمون">
+            </form>
+            <form action="#" th:action="@{/quiz/edit-quiz}" method="post">
+                <input type="hidden" name="quizId" th:value="${quizzes.id}">
+                <input type="submit" value="ویرایش آزمون">
+            </form>
+        </div>
+    </div>
+</div>
+<div id="coursesPad">
+    <input id="closeButton" class="margin-top-5" type="button" value="بستن" onclick="closeCreateQuizPad()">
+    <div class="coursesPadInfo">
+        <form action="#" th:action="@{/quiz/create-quiz}" method="post" th:object="${quiz}" class="inputs d-flex">
+            <div class="inputs displayFlex flexDirectionColumn">
+                <input class="inputs" type="text" th:field="*{title}" placeholder="عنوان آزمون را بنویسید">
+                <textarea class="inputs" th:field="*{description}" name="message" id="message" cols="30" rows="10" placeholder="توضیحات آزمون را بنویسید"></textarea>
+                <label for="minutes" style="color: white"> : دقیقه</label>
+                <input class="inputs" type="number" name="minutes" id="minutes">
+                <label for="seconds" style="color: white"> : ثانیه</label>
+                <input class="inputs" type="number" name="seconds" id="seconds">
+            </div>
+            <input type="hidden" name="courseId" th:value="${course.id}">
+            <input type="submit" value="ایجاد آزمون">
         </form>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+</script>
+<script th:src="@{/js/CourseDetailsJS.js}"></script>
+
 </body>
 </html>
