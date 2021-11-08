@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Teacher extends User {
     @Column(name = STATUS)
     private String status;
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher",fetch = FetchType.EAGER)
     private List<Course> course;
 
     @Column(name = IS_ACTIVE)
