@@ -13,9 +13,9 @@ public class ManagerServiceImpl extends BaseServiceImpl<Manager,Long,ManagerRepo
     private final ManagerRepository managerRepository;
 
     @Autowired
-    public ManagerServiceImpl(ManagerRepository manegerRepository) {
-        super(manegerRepository);
-        this.managerRepository = manegerRepository;
+    public ManagerServiceImpl(ManagerRepository managerRepository) {
+        super(managerRepository);
+        this.managerRepository = managerRepository;
     }
 
     @Override
