@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/CourseDetailsStyle.css}">
+    <title>جزئیات دوره</title>
+</head>
+<body>
+<div class="courseData">
+    <p class="courseHeader"><span th:text="${course.title}"></span> : عنوان</p>
+    <div class="details">
+        <p><span th:text="${course.courseCode}"></span> : کد دوره</p>
+        <p><span th:text="${course.startDate}"></span> : تاریخ شروع</p>
+        <p><span th:text="${course.finishDate}"></span> : تاریخ پایان</p>
+    </div>
+</div>
+<div class="studentsData">
+    <div th:each="student : ${course.students}" action="#" th:action="@{/remove-student-from-course}"
+          class="student" method="post">
+        <p><span th:text="${student.firstName}"></span> <span th:text="${student.lastName}"></span> : نام و نام خانوادگی</p>
+        <p><span th:text="${student.nationalCode}"></span> : کد ملی</p>
+        <p><span th:text="${student.gender}"></span> : جنسیت</p>
+        <p><span th:text="${student.birthday}"></span> : تاریخ تولد</p>
+        <p><span th:text="${student.email}"></span> : ایمیل</p>
+    </div>
+</div>
+<div class="quizesData">
+    <div class="quiz" th:each="quizzes : ${course.quizzes}">
+        <div>
+            <p><span th:text="${quizzes.title}"></span>  : عنوان</p>
+            <p><span th:text="${quizzes.description}"></span> : توضیحات</p>
+            <p><span th:text="${quizzes.quizTime}"></span> : زمان</p>
+        </div>
+        <form action="#" th:action="@{/quiz/delete-quiz}" method="post">
+            <input type="hidden" name="quizId" th:value="${quizzes.id}">
+            <input type="submit" value="حذف آزمون">
+        </form>
+        <form action="#" th:action="@{/quiz/edit-quiz}" method="post">
+            <input type="hidden" name="quizId" th:value="${quizzes.id}">
+            <input type="submit" value="ویرایش آزمون">
+        </form>
+    </div>
+</div>
+</body>
+</html>
