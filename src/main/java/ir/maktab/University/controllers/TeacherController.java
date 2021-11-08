@@ -1,13 +1,16 @@
 package ir.maktab.University.controllers;
 
+import ir.maktab.University.entities.Course;
 import ir.maktab.University.entities.Teacher;
 import ir.maktab.University.entities.User;
 import ir.maktab.University.service.TeacherService;
+import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -21,6 +24,12 @@ public class TeacherController {
     @Autowired
     public TeacherController(TeacherService teacherService) {
         this.teacherService = teacherService;
+    }
+
+    @GetMapping("/main")
+    public ModelAndView teacherMain(){
+        List<Course> courses = Security.getTeacher().getCourse();
+        return new ModelAndView("Teacher","courses",courses);
     }
 
     @PostMapping("/teacher-allow")
