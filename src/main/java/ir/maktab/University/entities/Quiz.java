@@ -33,8 +33,7 @@ public class Quiz extends BaseEntity<Long> {
     private String description;
 
     @Column(name = QUIZ_TIME)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-    private LocalTime quizTime;
+    private Double quizTime;
 
     @Column(name = IS_ACTIVE)
     private Boolean isActive;
