@@ -52,4 +52,7 @@ public class Course extends BaseEntity<Long> {
 
     @ManyToOne
     private Manager manager;
+
+    @OneToMany(mappedBy = "course")
+    private Set<Quiz> quizzes;
 }
