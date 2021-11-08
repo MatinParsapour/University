@@ -62,16 +62,16 @@ public class UserController {
     }
 
     @PostMapping("/validate-user")
-    public String validateUser(User user) {
+    public String validateUser(User user, Model model) {
         Security.setIsUserAllow("Yes");
         if (studentController.getStudentByUserNameAndPassword(user.getUserName(), user.getPassword()) != null && studentController.getStudentByUserNameAndPassword(user.getUserName(), user.getPassword()).getStatus().equals("Accepted") && studentController.getStudentByUserNameAndPassword(user.getUserName(), user.getPassword()).isActive()) {
-            Security.setUser(studentController.getStudentByUserNameAndPassword(user.getUserName(), user.getPassword()));
+            Security.setStudent(studentController.getStudentByUserNameAndPassword(user.getUserName(), user.getPassword()));
             return "redirect:/";
         } else if (teacherController.getTeacherByUserNameAndPassword(user.getUserName(),user.getPassword()) != null && teacherController.getTeacherByUserNameAndPassword(user.getUserName(),user.getPassword()).getStatus().equals("Accepted") && teacherController.getTeacherByUserNameAndPassword(user.getUserName(),user.getPassword()).isActive()) {
-            Security.setUser(teacherController.getTeacherByUserNameAndPassword(user.getUserName(),user.getPassword()));
-            return "redirect:/";
+            Security.setTeacher(teacherController.getTeacherByUserNameAndPassword(user.getUserName(),user.getPassword()));
+            return "redirect:/teacher/main";
         } else if (managerService.getManagerByUserNameAndPassword(user.getUserName(),user.getPassword()) != null && managerService.getManagerByUserNameAndPassword(user.getUserName(),user.getPassword()).isActive()) {
-            Security.setUser(managerService.getManagerByUserNameAndPassword(user.getUserName(),user.getPassword()));
+            Security.setManager(managerService.getManagerByUserNameAndPassword(user.getUserName(),user.getPassword()));
             return "redirect:/manager/manager-main";
         } else {
             Security.setIsUserAllow("No");
