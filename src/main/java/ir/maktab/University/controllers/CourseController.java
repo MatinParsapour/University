@@ -1,9 +1,11 @@
 package ir.maktab.University.controllers;
 
 import ir.maktab.University.entities.Course;
+import ir.maktab.University.entities.Manager;
 import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.Teacher;
 import ir.maktab.University.service.CourseService;
+import ir.maktab.University.service.ManagerService;
 import ir.maktab.University.service.StudentService;
 import ir.maktab.University.service.TeacherService;
 import ir.maktab.University.util.Security;
@@ -30,11 +32,14 @@ public class CourseController {
 
     private final TeacherService teacherService;
 
+    private final ManagerService managerService;
+
     @Autowired
-    public CourseController(CourseService courseService, StudentService studentService, TeacherService teacherService) {
+    public CourseController(CourseService courseService, StudentService studentService, TeacherService teacherService, ManagerService managerService) {
         this.courseService = courseService;
         this.studentService = studentService;
         this.teacherService = teacherService;
+        this.managerService = managerService;
     }
 
     @PostMapping("/display-course")
@@ -69,7 +74,12 @@ public class CourseController {
             Teacher teacher = teacherService.findById(Long.parseLong(teacherId)).get();
             course.setTeacher(teacher);
             course.setActive(true);
-            courseService.save(course);
+            Course setCourse = courseService.save(course);
+            teacher.getCourse().add(setCourse);
+            Manager manager = Security.getManager();
+            teacherService.save(teacher);
+            manager.getCourses().add(setCourse);
+            managerService.save(manager);
             return "redirect:/manager/manager-main";
         } else {
             return "WarningPage";
@@ -143,6 +153,8 @@ public class CourseController {
         Teacher teacher = teacherService.findById(teacherId).get();
         course.setTeacher(teacher);
         courseService.save(course);
+        teacher.getCourse().add(course);
+        teacherService.save(teacher);
         return "redirect:/manager/manager-main";
     }
 }
