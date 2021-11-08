@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/EditQuizStyle.css}">
+    <title>ویرایش آزمون</title>
+</head>
+<body>
+<div>
+    <div id="studentList" class="showBox">
+        <p class="displayFlex" id="quizTitle"><span th:text="${quiz.title}"></span> : عنوان <input
+                class="displayHidden"
+                id="changeQuizTitle"
+                onclick="showTitleForm()" type="button"
+                value="تغییر عنوان آزمون">
+        </p>
+        <form class="displayHidden" id="titleForm" action="/quiz/change-quiz-title" method="post">
+            <input type="hidden" th:value="${quiz.id}" name="quizId">
+            <input id="newTitle" type="text" name="newTitle" placeholder="عنوان جدید">
+            <input type="submit" onclick="checkQuizTitleInput()" value="تغییر">
+        </form>
+        <p class="displayFlex" id="description"><span th:text="${quiz.description}"></span> : توضیحات<input type="button"
+                                                                                                         class="displayHidden"
+                                                                                                         id="changeQuizDescription"
+                                                                                                         onclick="showDescriptionForm()"
+                                                                                                         value="تغییر توضیحات دوره">
+        </p>
+        <form class="displayHidden" id="descriptionForm" action="/quiz/change-quiz-description" method="post">
+            <input type="hidden" th:value="${quiz.id}" name="quizId">
+            <textarea class="inputs" name="message" id="message" cols="30" rows="10" placeholder="توضیحات آزمون را بنویسید"></textarea>
+            <input type="submit" onclick="checkQuizDescriptionInput()" value="تغییر">
+        </form>
+        <p class="displayFlex" id="time"><span th:text="${quiz.quizTime}"></span> : زمان آزمون<input type="button"
+                                                                                                         class="displayHidden"
+                                                                                                         id="changeQuizTime"
+                                                                                                         onclick="showTimeForm()"
+                                                                                                         value="تغییر زمان دوره">
+        </p>
+        <form class="displayHidden" id="timeForm" action="/quiz/change-quiz-time" method="post">
+            <input type="hidden" th:value="${quiz.id}" name="quizId">
+            <label for="minutes"> : دقیقه</label>
+            <input type="number" name="minutes" id="minutes">
+            <label for="seconds"> : ثانیه</label>
+            <input type="number" name="seconds" id="seconds">
+            <input type="submit" onclick="checkQuizTimeInputs()" value="تغییر">
+        </form>
+    </div>
+</div>
+<input type="button" value="ویرایش" onclick="showButtons()">
+<input class="displayHidden" id="cancelButton" type="button" value="لغو" onclick="cancelEdit()">
+<script  th:src="@{/js/EditQuizJS.js}"></script>
+</body>
+</html>
