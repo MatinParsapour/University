@@ -1,9 +1,6 @@
 package ir.maktab.University.controllers;
 
-import ir.maktab.University.entities.Course;
-import ir.maktab.University.entities.Manager;
-import ir.maktab.University.entities.Student;
-import ir.maktab.University.entities.Teacher;
+import ir.maktab.University.entities.*;
 import ir.maktab.University.service.CourseService;
 import ir.maktab.University.service.ManagerService;
 import ir.maktab.University.service.StudentService;
@@ -162,6 +159,7 @@ public class CourseController {
     public String courseDetails(Model model, String courseId){
         Course course = courseService.findById(Long.parseLong(courseId)).get();
         model.addAttribute("course",course);
+        model.addAttribute("quiz",new Quiz());
         return "CourseDetails";
     }
 }
