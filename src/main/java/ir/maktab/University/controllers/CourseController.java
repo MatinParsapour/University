@@ -157,4 +157,11 @@ public class CourseController {
         teacherService.save(teacher);
         return "redirect:/manager/manager-main";
     }
+
+    @PostMapping("/course-details")
+    public String courseDetails(Model model, String courseId){
+        Course course = courseService.findById(Long.parseLong(courseId)).get();
+        model.addAttribute("course",course);
+        return "CourseDetails";
+    }
 }
