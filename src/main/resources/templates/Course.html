@@ -13,7 +13,7 @@
       novalidate>
     <div class="col-md-4">
         <label for="validationCustom01" class="form-label">عنوان دوره :</label>
-        <input type="text" class="form-control" id="validationCustom01" th:field="*{title}"
+        <input name="courseTitle" type="text" class="form-control" id="validationCustom01" th:field="*{title}"
                placeholder="عنوان دوره را وارد کنید" required>
         <div class="valid-feedback">
             خوب است
@@ -21,7 +21,7 @@
     </div>
     <div class="col-md-4">
         <label for="validationCustom02" class="form-label">کد دوره : </label>
-        <input type="number" class="form-control" id="validationCustom02" th:field="*{courseCode}"
+        <input name="courseCode" type="number" class="form-control" id="validationCustom02" th:field="*{courseCode}"
                placeholder="کد دوره را وارد کنید" required>
         <div class="valid-feedback">
             خوب است
@@ -30,7 +30,7 @@
     <div class="col-md-4">
         <label for="validationCustomUsername" class="form-label">تاریخ شروع دوره :</label>
         <div class="input-group has-validation">
-            <input type="date" th:field="*{startDate}" class="form-control" id="validationCustomUsername"
+            <input name="startDate" type="date" th:field="*{startDate}" class="form-control" id="validationCustomUsername"
                    aria-describedby="inputGroupPrepend" required>
             <div class="invalid-feedback">
                 لطفا یک تاریخ را انتخاب کنید
@@ -39,34 +39,13 @@
     </div>
     <div class="col-md-6">
         <label for="validationCustom03" class="form-label">تاریخ پایان دوره :</label>
-        <input th:field="*{finishDate}" type="date" class="form-control" id="validationCustom03" required>
+        <input name="finishDate" th:field="*{finishDate}" type="date" class="form-control" id="validationCustom03" required>
         <div class="invalid-feedback">
             لطفا یک تاریخ را انتخاب کنید
         </div>
     </div>
-    <div class="col-md-3">
-        <div id="teachersPad">
-            <input id="closeButton" class="margin-top-5" type="button" value="بستن" onclick="closeCoursesPad()">
-            <div class="teachersPadInfo" th:each="teacher : ${teachers}">
-                <div class="teachers">
-                    <p><span th:text="${teacher.firstName}"></span> : نام</p>
-                    <p><span th:text="${teacher.lastName}"></span> : نام خانوادگی</p>
-                    <p><span th:text="${teacher.nationalCode}"></span> : کد ملی</p>
-                    <p><span th:text="${teacher.gender}"></span> : جنسیت</p>
-                    <p><span th:text="${teacher.email}"></span> : ایمیل</p>
-                    <p><span th:text="${teacher.birthday}"></span> : تاریخ تولد</p>
-                </div>
-                <div>
-                    <div style="display: flex">
-                        <input type="hidden" name="teacherId" th:value="${teacher.id}">
-                        <input type="button" value="ایجاد دوره" onclick="submitForm()">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="col-12">
-        <button id="createCourseButton" class="btn btn-primary" onclick="openTeachersPad()" type="button">انتخاب استاد
+        <button id="createCourseButton" class="btn btn-primary" type="submit">ایجاد دوره
         </button>
     </div>
 </form>
