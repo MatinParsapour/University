@@ -94,7 +94,7 @@
                 <p><span th:text="${student.gender}"></span> : جنسیت</p>
                 <p><span th:text="${student.firstName}"></span> : نام</p>
                 <p><span th:text="${student.lastName}"></span> : نام خانوادگی</p>
-                <p><span th:text="${student.birthday}"></span> : تاریخ تولد</p>
+                <p><span th:text="${student.birthday.getDay()}"></span>/<span th:text="${student.birthday.getMonth()}"></span>/<span th:text="${student.birthday.getYear()}"></span> : تاریخ تولد</p>
             </div>
             <div th:switch="${student.status}">
                 <div th:case="'In progerss'" style="display: flex">
