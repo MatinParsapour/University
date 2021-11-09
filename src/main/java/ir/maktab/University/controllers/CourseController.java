@@ -65,28 +65,40 @@ public class CourseController {
     }
 
     @PostMapping("/create-course")
-    public String createCourse(Course course, String teacherId) {
+    public String createCourse(Course course, Model model) {
         Course definedCourse = courseService.getCourseByCourseCode(course.getCourseCode());
         if (definedCourse == null) {
-            Teacher teacher = teacherService.findById(Long.parseLong(teacherId)).get();
-            course.setTeacher(teacher);
             course.setActive(true);
+            course.setManager(Security.getManager());
             Course setCourse = courseService.save(course);
-            teacher.getCourse().add(setCourse);
             Manager manager = Security.getManager();
-            teacherService.save(teacher);
             manager.getCourses().add(setCourse);
             managerService.save(manager);
-            return "redirect:/manager/manager-main";
+            List<Teacher> teachers = teacherService.getAllTeachers();
+            model.addAttribute("teachers", teachers);
+            model.addAttribute("course",setCourse);
+            return "SelectTeacher";
         } else {
             return "WarningPage";
         }
+    }
+
+    @PostMapping("/set-teacher-to-course")
+    public String setTeacherToCourse(long teacherId,long courseId){
+        Teacher teacher = teacherService.findById(teacherId).get();
+        Course course = courseService.findById(courseId).get();
+        course.setTeacher(teacher);
+        teacher.getCourse().add(course);
+        teacherService.save(teacher);
+        courseService.save(course);
+        return "redirect:/manager/manager-main";
     }
 
     @GetMapping("/add-course")
     public String addCourse(Model model) {
         List<Teacher> teachers = teacherService.getAllTeachers();
         model.addAttribute("teachers", teachers);
+        model.addAttribute("teacher",new Teacher());
         model.addAttribute("course", new Course());
         return "Course";
     }
