@@ -82,6 +82,9 @@ public class UserController {
     @GetMapping("/log-out")
     public String logOut() {
         Security.setUser(null);
+        Security.setStudent(null);
+        Security.setManager(null);
+        Security.setTeacher(null);
         return "redirect:/";
     }
 
