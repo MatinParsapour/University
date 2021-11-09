@@ -98,17 +98,17 @@
             </div>
             <div th:switch="${student.status}">
                 <div th:case="'In progerss'" style="display: flex">
-                    <form action="#" th:action="@{/user/reject-user}" method="post">
+                    <form action="#" th:action="@{/student/reject-student}" method="post">
                         <input type="hidden" th:value="${student.id}" name="userId">
                         <input type="submit" value="رد کردن">
                     </form>
-                    <form action="#" th:action="@{/user/accept-user}" method="post">
+                    <form action="#" th:action="@{/student/accept-student}" method="post">
                         <input type="hidden" th:value="${student.id}" name="userId">
                         <input type="submit" value="تایید کردن">
                     </form>
                 </div>
                 <div th:case="'Rejected'">
-                    <form action="#" th:action="@{/user/accept-user}" method="post">
+                    <form action="#" th:action="@{/student/accept-student}" method="post">
                         <input type="hidden" th:value="${student.id}" name="userId">
                         <input type="submit" value="تایید کردن">
                     </form>
@@ -142,17 +142,17 @@
             </div>
             <div th:switch="${teacher.status}">
                 <div th:case="'In progress'" style="display: flex">
-                    <form action="#" th:action="@{/user/reject-user}" method="post">
+                    <form action="#" th:action="@{/teacher/reject-teacher}" method="post">
                         <input type="hidden" th:value="${teacher.id}" name="userId">
                         <input type="submit" value="رد کردن">
                     </form>
-                    <form action="#" th:action="@{/user/accept-user}" method="post">
+                    <form action="#" th:action="@{/teacher/accept-teacher}" method="post">
                         <input type="hidden" th:value="${teacher.id}" name="userId">
                         <input type="submit" value="تایید کردن">
                     </form>
                 </div>
                 <div th:case="'Rejected'">
-                    <form action="#" th:action="@{/user/accept-user}" method="post">
+                    <form action="#" th:action="@{/teacher/accept-teacher}" method="post">
                         <input type="hidden" th:value="${teacher.id}" name="userId">
                         <input type="submit" value="تایید کردن">
                     </form>
