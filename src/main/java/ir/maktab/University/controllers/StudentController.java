@@ -67,17 +67,19 @@ public class StudentController {
     }
 
     @PostMapping("/reject-student")
-    public void rejectStudent(String userId) {
+    public String rejectStudent(String userId) {
         Student student = studentService.findById(Long.parseLong(userId)).get();
         student.setStatus("Rejected");
         studentService.save(student);
+        return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/accept-student")
-    public void acceptStudent(String userId) {
+    public String acceptStudent(String userId) {
         Student student = studentService.findById(Long.parseLong(userId)).get();
         student.setStatus("Accepted");
         studentService.save(student);
+        return "redirect:/manager/manager-main";
     }
 
     @PostMapping("/delete-student")
