@@ -42,6 +42,4 @@ function closeCoursesPad() {
     document.getElementById("closeButton").style.display = "none"
 }
 
-function submitForm(){
-    document.getElementById("createCourse").submit();
-}
+
