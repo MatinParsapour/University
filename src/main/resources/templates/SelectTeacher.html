@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/SelectTeacherStyle.css}">
+    <title>انتخاب استاد</title>
+</head>
+<body>
+<div th:switch="${teachers}">
+    <h2 th:case="null">استادی یافت نشد</h2>
+    <div th:case="*">
+        <div th:each="teacher : ${teachers}">
+            <div class="showBox">
+                <p><span th:text="${teacher.email}"></span> : ایمیل</p>
+                <p><span th:text="${teacher.status}"></span> : وضعیت</p>
+                <p><span th:text="${teacher.gender}"></span> : جنسیت</p>
+                <p><span th:text="${teacher.firstName}"></span> : نام</p>
+                <p><span th:text="${teacher.lastName}"></span> : نام خانوادگی</p>
+                <p><span th:text="${teacher.birthday}"></span> : تاریخ تولد</p>
+            </div>
+            <form id="selectTeacher" method="post" action="#" th:action="@{/course/set-teacher-to-course}">
+                <input type="hidden" name="teacherId" th:value="${teacher.id}">
+                <input type="hidden" name="courseId" th:value="${course.id}">
+                <input type="submit" value="انتخاب استاد">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
