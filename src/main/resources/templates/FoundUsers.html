@@ -12,7 +12,7 @@
         <div th:each="user : ${users}" id="studentList" class="showBox">
             <p><span th:text="${user.firstName}"></span> : نام</p>
             <p><span th:text="${user.lastName}"></span> : نام خانوادگی</p>
-            <p><span th:text="${user.birthday}"></span> : تاریخ تولد</p>
+            <p><span th:text="${#calendars.format(user.birthday, 'dd-MM-yyyy')}"></span> : تاریخ تولد</p>
             <p><span th:text="${user.email}"></span> : ایمیل</p>
             <p><span id="studentStatus" th:text="${user.status}"></span> : وضعیت</p>
             <p><span th:text="${user.gender}"></span> : جنسیت</p>

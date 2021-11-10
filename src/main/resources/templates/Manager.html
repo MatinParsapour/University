@@ -94,7 +94,7 @@
                 <p><span th:text="${student.gender}"></span> : جنسیت</p>
                 <p><span th:text="${student.firstName}"></span> : نام</p>
                 <p><span th:text="${student.lastName}"></span> : نام خانوادگی</p>
-                <p><span th:text="${student.birthday.getDay()}"></span>/<span th:text="${student.birthday.getMonth()}"></span>/<span th:text="${student.birthday.getYear()}"></span> : تاریخ تولد</p>
+                <p><span th:text="${#calendars.format(student.birthday, 'dd-MM-yyyy')}"></span> : تاریخ تولد</p>
             </div>
             <div th:switch="${student.status}">
                 <div th:case="'In progerss'" style="display: flex">
@@ -138,7 +138,7 @@
                 <p><span th:text="${teacher.gender}"></span> : جنسیت</p>
                 <p><span th:text="${teacher.firstName}"></span> : نام</p>
                 <p><span th:text="${teacher.lastName}"></span> : نام خانوادگی</p>
-                <p><span th:text="${teacher.birthday}"></span> : تاریخ تولد</p>
+                <p><span th:text="${#calendars.format(teacher.birthday, 'dd-MM-yyyy')}"></span> : تاریخ تولد</p>
             </div>
             <div th:switch="${teacher.status}">
                 <div th:case="'In progress'" style="display: flex">
@@ -177,10 +177,10 @@
     <div th:case="*">
         <div th:each="course : ${courses}">
             <div class="showBox">
-                <p><span th:text="${course.finishDate}"></span> : تاریخ پایان دوره</p>
+                <p><span th:text="${#calendars.format(course.finishDate, 'dd-MM-yyyy')}"></span> : تاریخ پایان دوره</p>
                 <p><span th:text="${course.title}"></span> : عنوان دوره</p>
                 <p><span th:text="${course.courseCode}"></span> : کد دوره</p>
-                <p><span th:text="${course.startDate}"></span> : تاریخ شروع دوره</p>
+                <p><span th:text="${#calendars.format(course.startDate, 'dd-MM-yyyy')}"></span> : تاریخ شروع دوره</p>
             </div>
             <div>
                 <div style="display: flex">

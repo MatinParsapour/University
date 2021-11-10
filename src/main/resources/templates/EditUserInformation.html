@@ -30,7 +30,7 @@
             <input type="text" id="lastNameInput" name="lastName" placeholder="New last name">
             <input type="submit" onclick="checkLastNameInput()" value="تغییر">
         </form>
-        <p><span th:text="${user.birthday}"></span>: تاریخ تولد</p>
+        <p><span th:text="${#calendars.format(user.birthday, 'dd-MM-yyyy')}"></span>: تاریخ تولد</p>
         <p class="displayFlex" id="email"><span th:text="${user.email}"></span> : ایمیل<input type="button"
                                                                                                class="displayHidden"
                                                                                                onclick="showEmailForm()"

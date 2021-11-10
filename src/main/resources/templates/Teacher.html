@@ -34,8 +34,8 @@
     <div th:case="*">
         <div th:each="course : ${courses}">
             <div id="studentList" class="showBox">
-                <p><span th:text="${course.startDate}"></span> : تاریخ شروع</p>
-                <p><span th:text="${course.finishDate}"></span> : تاریخ پایان</p>
+                <p><span th:text="${#calendars.format(course.startDate, 'dd-MM-yyyy')}"></span> : تاریخ شروع</p>
+                <p><span th:text="${#calendars.format(course.finishDate, 'dd-MM-yyyy')}"></span> : تاریخ پایان</p>
                 <p><span th:text="${course.courseCode}"></span> : کد دوره</p>
                 <p><span th:text="${course.title}"></span> : نام دوره</p>
             </div>
