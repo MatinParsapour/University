@@ -53,8 +53,8 @@ public class UserController {
             return "SignUpSuccessful";
         } else {
             teacherController.addTeacher(user);
+            return "SignUpSuccessful";
         }
-        return "redirect:/";
     }
 
     @PostMapping("/get-correct-user")
