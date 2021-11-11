@@ -25,9 +25,8 @@ public class QuizController {
     }
 
     @PostMapping("/create-quiz")
-    public String createQuiz(Quiz quiz, String minutes, String seconds, long courseId){
-        Double quizTime = Double.parseDouble(minutes + "." + seconds);
-        quiz.setQuizTime(quizTime);
+    public String createQuiz(Quiz quiz, String minutes, long courseId){
+        quiz.setQuizTime(Double.parseDouble(minutes));
         quiz.setIsActive(true);
         Course course = courseService.findById(courseId).get();
         quiz.setCourse(course);
@@ -66,9 +65,9 @@ public class QuizController {
         return "redirect:/teacher/main";
     }
     @PostMapping("/change-quiz-time")
-    public String changeQuizTime(long quizId, String minutes, String seconds){
+    public String changeQuizTime(long quizId, String minutes){
         Quiz quiz = quizService.findById(quizId).get();
-        quiz.setQuizTime(Double.parseDouble(minutes + "." + seconds));
+        quiz.setQuizTime(Double.parseDouble(minutes));
         quizService.save(quiz);
         return "redirect:/teacher/main";
     }

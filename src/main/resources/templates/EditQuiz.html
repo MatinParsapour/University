@@ -38,10 +38,8 @@
         </p>
         <form class="displayHidden" id="timeForm" action="/quiz/change-quiz-time" method="post">
             <input type="hidden" th:value="${quiz.id}" name="quizId">
-            <label for="minutes"> : دقیقه</label>
             <input type="number" name="minutes" id="minutes">
-            <label for="seconds"> : ثانیه</label>
-            <input type="number" name="seconds" id="seconds">
+            <label for="minutes"> : دقیقه</label>
             <input type="submit" onclick="checkQuizTimeInputs()" value="تغییر">
         </form>
     </div>
