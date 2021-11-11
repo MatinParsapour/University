@@ -46,10 +46,11 @@ public class UserController {
     @PostMapping("/add-user")
     public String addUser(User user) {
         if(userService.getUserByUserName(user.getUserName()) != null){
-            return "redirect:/register";
+            return "DoplicateUserName";
         }
         if (user.getType().equals("Student")) {
             studentController.addStudent(user);
+            return "SignUpSuccessful";
         } else {
             teacherController.addTeacher(user);
         }
