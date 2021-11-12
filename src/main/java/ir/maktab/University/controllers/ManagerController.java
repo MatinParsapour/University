@@ -36,6 +36,11 @@ public class ManagerController {
         this.studentController = studentController;
     }
 
+    /**
+     * Find all courses and teachers and students for manager
+     * @param model set courses and teachers and students in model
+     * @return a String then go to main page for manager
+     */
     @GetMapping("/manager-main")
     public String managerMain(Model model) {
         List<Course> courseList = courseController.courses();

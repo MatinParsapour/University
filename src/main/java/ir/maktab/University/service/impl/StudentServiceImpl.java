@@ -1,10 +1,15 @@
 package ir.maktab.University.service.impl;
 
+import ir.maktab.University.entities.Course;
+import ir.maktab.University.entities.Role;
 import ir.maktab.University.entities.Student;
+import ir.maktab.University.entities.User;
 import ir.maktab.University.repository.StudentRepository;
 import ir.maktab.University.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,12 +31,72 @@ public class StudentServiceImpl extends BaseServiceImpl<Student,Long,StudentRepo
     }
 
     @Override
-    public Student getStudentByUserNameAndPassword(String username, String password) {
-        return studentRepository.findByUserNameAndPassword(username, password);
+    public List<Student> getAllStudents() {
+        return studentRepository.findAllByIsActiveTrue();
     }
 
     @Override
-    public List<Student> getAllStudents() {
-        return studentRepository.findAllByIsActiveTrue();
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void addCourseToStudent(Course course, Student student) {
+        student.getCourseList().add(course);
+        save(student);
+    }
+
+    @Override
+    public Boolean isStudentAllow(String username) {
+        Student student = getStudentByUsername(username);
+        return student.getStatus().equals("Accepted");
+    }
+
+    @Override
+    public Student createStudent(User user) {
+        Student student = new Student();
+        Role role = new Role();
+        role.setRoleName("STUDENT");
+        student.setStatus("In progerss");
+        student.setFirstName(user.getFirstName());
+        student.setLastName(user.getLastName());
+        student.setBirthday(user.getBirthday());
+        student.setUserName(user.getUserName());
+        student.setPassword(user.getPassword());
+        student.setNationalCode(user.getNationalCode());
+        student.setGender(user.getGender());
+        student.setEmail(user.getEmail());
+        student.setType(user.getType());
+        student.setActive(true);
+        student.getRoles().add(role);
+        return save(student);
+    }
+
+    @Override
+    public void rejectStudent(long userId) {
+        Student student = findById(userId).get();
+        student.setStatus("Rejected");
+        save(student);
+    }
+
+    @Override
+    public void acceptStudent(long userId) {
+        Student student = findById(userId).get();
+        student.setStatus("Accepted");
+        save(student);
+    }
+
+    @Override
+    public void inActiveStudent(long studentId) {
+        Student student = findById(studentId).get();
+        student.setActive(false);
+        student.setUserName(null);
+        save(student);
+    }
+
+    @Override
+    public void changeRoleToStudent(User user, String username) {
+        Student student = createStudent(user);
+        student.setType("Student");
+        student.setStatus("Accepted");
+        student.setUserName(username);
+        student.setActive(true);
+        save(student);
     }
 }

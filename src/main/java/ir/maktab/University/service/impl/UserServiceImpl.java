@@ -6,6 +6,9 @@ import ir.maktab.University.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -35,5 +38,18 @@ public class UserServiceImpl extends BaseServiceImpl<User,Long,UserRepository> i
     @Override
     public List<User> searchUsers(String field, String status, String type, String sex) {
         return userRepository.findAllByFirstNameLikeOrLastNameLikeAndStatusAndTypeAndGender("%" + field + "%", "%" + field + "%", status,type,sex);
+    }
+
+    @Override
+    public void editUserInformation(long userId, String firstName, String lastName, String birthday, String email, long nationalCode) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date birthDate = format.parse(birthday);
+        User user = findById(userId).get();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setBirthday(birthDate);
+        user.setNationalCode(nationalCode);
+        save(user);
     }
 }

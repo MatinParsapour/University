@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 
+    /**
+     * Check if a user(Teacher, Student, Manager) is logged in or not
+     * @param model set the user in model to show in page
+     * @return a String then go to main page
+     */
     @GetMapping("/")
     public String home(Model model) {
         if(Security.getManager() != null){

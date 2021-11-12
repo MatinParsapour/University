@@ -1,5 +1,6 @@
 package ir.maktab.University.controllers;
 
+import ir.maktab.University.entities.Role;
 import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.User;
 import ir.maktab.University.service.StudentService;
@@ -27,81 +28,73 @@ public class StudentController {
         this.courseController = courseController;
     }
 
-    @PostMapping("/get-student")
-    public Student getStudent(long id) {
-        return studentService.findById(id).get();
-    }
-
-
+    /**
+     * return a true if the user with username is accepted by manager
+     * @param username the username that searched for
+     * @return true if student accepted
+     */
     @PostMapping("/student-allow")
     public Boolean isAllow(String username) {
-        Student student = studentService.getStudentByUsername(username);
-        if (student.getStatus().equals("Accepted")) {
-            return true;
-        } else {
-            return false;
-        }
+        return studentService.isStudentAllow(username);
     }
 
+    /**
+     * Find all students
+     * @return a list of students
+     */
     @GetMapping("/get-students")
     public List<Student> students() {
         return studentService.getAllStudents();
     }
 
 
+    /**
+     * Create a new student based on the form that user filled in sign up form
+     * @param user the information about user in sign up form
+     * @return a student that saved in data base
+     */
     public Student addStudent(User user) {
-        Student student = new Student();
-        student.setStatus("In progerss");
-        student.setFirstName(user.getFirstName());
-        student.setLastName(user.getLastName());
-        student.setBirthday(user.getBirthday());
-        student.setUserName(user.getUserName());
-        student.setPassword(user.getPassword());
-        student.setNationalCode(user.getNationalCode());
-        student.setGender(user.getGender());
-        student.setEmail(user.getEmail());
-        student.setType(user.getType());
-        student.setActive(true);
-        studentService.save(student);
-        return student;
+        return studentService.createStudent(user);
     }
 
+    /**
+     * Find the student and reject the student
+     * @param userId id of user that manager chose
+     * @return a String to redirect to main page for manager
+     */
     @PostMapping("/reject-student")
-    public String rejectStudent(String userId) {
-        Student student = studentService.findById(Long.parseLong(userId)).get();
-        student.setStatus("Rejected");
-        studentService.save(student);
+    public String rejectStudent(long userId) {
+        studentService.rejectStudent(userId);
         return "redirect:/manager/manager-main";
     }
 
+    /**
+     * Find the student and accept the student
+     * @param userId id of user that manager chose
+     * @return a String to redirect to main page for manager
+     */
     @PostMapping("/accept-student")
-    public String acceptStudent(String userId) {
-        Student student = studentService.findById(Long.parseLong(userId)).get();
-        student.setStatus("Accepted");
-        studentService.save(student);
+    public String acceptStudent(long userId) {
+        studentService.acceptStudent(userId);
         return "redirect:/manager/manager-main";
     }
 
+    /**
+     * Find the student that manager is looking for and in active the student
+     * @param userId id of the user
+     */
     @PostMapping("/delete-student")
-    public void inActiveStudent(String userId) {
-        Student student = studentService.findById(Long.parseLong(userId)).get();
-        student.setActive(false);
-        student.setUserName(null);
-        studentService.save(student);
+    public void inActiveStudent(long userId) {
+        studentService.inActiveStudent(userId);
     }
 
+    /**
+     * Get all the information of previous user and add it to new student
+     * @param user the information of user
+     * @param username the username of user
+     */
     @PostMapping("/change-to-student")
     public void changeToStudent(User user, String username) {
-        Student student = addStudent(user);
-        student.setType("Student");
-        student.setStatus("Accepted");
-        student.setUserName(username);
-        student.setActive(true);
-        studentService.save(student);
-    }
-
-    @PostMapping("/get-student-by-username-and-password")
-    public Student getStudentByUserNameAndPassword(String username, String password){
-        return studentService.getStudentByUserNameAndPassword(username,password);
+        studentService.changeRoleToStudent(user,username);
     }
 }

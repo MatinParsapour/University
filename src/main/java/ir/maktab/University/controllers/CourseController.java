@@ -39,6 +39,14 @@ public class CourseController {
         this.managerService = managerService;
     }
 
+    /**
+     * Display the information about the course that manager chose
+     * Manager can change teacher of course and can add or delete
+     * Student from course
+     * @param model set course, teachers and students to display for manager
+     * @param courseId the course that manager chose to display information about it
+     * @return a String to redirect to the pager
+     */
     @PostMapping("/display-course")
     public String displayCourse(Model model, String courseId) {
         List<Student> students = studentService.getAllStudents();
@@ -55,25 +63,32 @@ public class CourseController {
         return courseService.getAllCourses();
     }
 
+    /**
+     * Connect to service and remove student from course
+     * @param courseId the id of course that manager wants to delete student from and gets from site
+     * @param studentId the id of student that will delete form course and gets from site
+     * @return a String to go to the main page for manager
+     */
     @PostMapping("/remove-student-from-course")
-    public String removeStudentFromCourse(String courseId, String studentId) {
-        Student student = studentService.findById(Long.parseLong(studentId)).get();
-        Course course = courseService.findById(Long.parseLong(courseId)).get();
-        course.getStudents().remove(student);
-        courseService.save(course);
+    public String removeStudentFromCourse(long courseId, long studentId) {
+        courseService.removeStudentFromCourse(courseId,studentId);
         return "redirect:/manager/manager-main";
     }
 
+    /**
+     * The course that manager set information about it come to this method
+     * Check if the course code is already defined or not
+     * If already defined redirect to another page else
+     * The course will create
+     * @param course an entity that filled with title and code and start date and finish date
+     * @param model that sets a list of teachers and the course that created for manager to set teacher
+     * @return a String to go to the page
+     */
     @PostMapping("/create-course")
     public String createCourse(Course course, Model model) {
         Course definedCourse = courseService.getCourseByCourseCode(course.getCourseCode());
         if (definedCourse == null) {
-            course.setActive(true);
-            course.setManager(Security.getManager());
-            Course setCourse = courseService.save(course);
-            Manager manager = Security.getManager();
-            manager.getCourses().add(setCourse);
-            managerService.save(manager);
+            Course setCourse = courseService.createCourse(course);
             List<Teacher> teachers = teacherService.getAllTeachers();
             model.addAttribute("teachers", teachers);
             model.addAttribute("course",setCourse);
@@ -83,93 +98,78 @@ public class CourseController {
         }
     }
 
+    /**
+     * Set the two way relationship between course and teacher
+     * It will rol back if during setting disorder occurs
+     * @param teacherId the id of teacher manager wants to add to student
+     * @param courseId the course that manager created before
+     * @return a String to redirect to main page for manager
+     */
     @PostMapping("/set-teacher-to-course")
     public String setTeacherToCourse(long teacherId,long courseId){
-        Teacher teacher = teacherService.findById(teacherId).get();
-        Course course = courseService.findById(courseId).get();
-        course.setTeacher(teacher);
-        teacher.getCourse().add(course);
-        teacherService.save(teacher);
-        courseService.save(course);
+        courseService.setTeacherToCourse(teacherId,courseId);
         return "redirect:/manager/manager-main";
     }
 
+    /**
+     * Display the page for manager to create new course
+     * @param model create new course
+     * @return a String to redirect to the page for manager to create new course
+     */
     @GetMapping("/add-course")
     public String addCourse(Model model) {
-        List<Teacher> teachers = teacherService.getAllTeachers();
-        model.addAttribute("teachers", teachers);
-        model.addAttribute("teacher",new Teacher());
         model.addAttribute("course", new Course());
         return "Course";
     }
 
+    /**
+     * Set the two way relationship between course and student
+     * @param studentId id of student manager chose to add to course
+     * @param courseId id of course that manager chose to add student to
+     * @return a String to redirect to main page for manager
+     */
     @PostMapping("/add-student-to-course")
-    public String addStudentToCourse(String studentId, String courseId) {
-        Student student = studentService.findById(Long.parseLong(studentId)).get();
-        Course course = courseService.findById(Long.parseLong(courseId)).get();
-        course.getStudents().add(student);
-        courseService.save(course);
+    public String addStudentToCourse(long studentId, long courseId) {
+        courseService.addStudentToCourse(studentId,courseId);
         return "redirect:/manager/manager-main";
     }
 
+    /**
+     * Deactivate course that manager chose to delete
+     * @param courseId id of course
+     * @return a String to redirect to main page for manager
+     */
     @PostMapping("/delete-course")
-    public String deleteCourse(String courseId) {
-        Course course = courseService.findById(Long.parseLong(courseId)).get();
-        course.setActive(false);
-        courseService.save(course);
+    public String deleteCourse(long courseId) {
+        courseService.deActivateCourse(courseId);
         return "redirect:/manager/manager-main";
     }
 
-    @PostMapping("/change-course-name")
-    public String changeCourseName(String courseId, String courseName) {
-        Course course = courseService.findById(Long.parseLong(courseId)).get();
-        course.setTitle(courseName);
-        courseService.save(course);
+    /**
+     * Edit the course information about course
+     * @param courseId id of course that manager wants to edit
+     * @param newTitle the title that may change
+     * @param newCourseCode the course code that may change
+     * @param newStartDate the start date that may change
+     * @param newFinishDate the finish date that may change
+     * @return a String to redirect to main page for manager
+     * @throws ParseException
+     */
+    @PostMapping("/change-course-details")
+    public String changeCourseDetails(long courseId, String newTitle, long newCourseCode, String newStartDate, String newFinishDate) throws ParseException {
+        courseService.editCourseDetails(courseId,newTitle,newCourseCode,newStartDate,newFinishDate);
         return "redirect:/manager/manager-main";
     }
 
-    @PostMapping("/change-course-code")
-    public String changeCourseCode(String courseId, long courseCode) {
-        Course course = courseService.findById(Long.parseLong(courseId)).get();
-        course.setCourseCode(courseCode);
-        courseService.save(course);
-        return "redirect:/manager/manager-main";
-    }
-
-    @PostMapping("/change-course-start-date")
-    public String changeCourseStartDate(String courseId, String courseStartDate) throws ParseException {
-        Course course = courseService.findById(Long.parseLong(courseId)).get();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDate = format.parse(courseStartDate);
-        course.setStartDate(startDate);
-        courseService.save(course);
-        return "redirect:/manager/manager-main";
-    }
-
-    @PostMapping("/change-course-finish-date")
-    public String changeCourseFinishDate(String courseId, String courseFinishDate) throws ParseException {
-        Course course = courseService.findById(Long.parseLong(courseId)).get();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date finishDate = format.parse(courseFinishDate);
-        course.setFinishDate(finishDate);
-        courseService.save(course);
-        return "redirect:/manager/manager-main";
-    }
-
-    @PostMapping("/change-course-teacher")
-    public String changeCourseTeacher(long courseId, long teacherId) {
-        Course course = courseService.findById(courseId).get();
-        Teacher teacher = teacherService.findById(teacherId).get();
-        course.setTeacher(teacher);
-        courseService.save(course);
-        teacher.getCourse().add(course);
-        teacherService.save(teacher);
-        return "redirect:/manager/manager-main";
-    }
-
+    /**
+     * Display the information about course for teacher
+     * @param model set the course and a new quiz in model to create a new quiz
+     * @param courseId id of course that teacher wants to see details
+     * @return a String then go to the page to show course details
+     */
     @PostMapping("/course-details")
-    public String courseDetails(Model model, String courseId){
-        Course course = courseService.findById(Long.parseLong(courseId)).get();
+    public String courseDetails(Model model, long courseId){
+        Course course = courseService.findById(courseId).get();
         model.addAttribute("course",course);
         model.addAttribute("quiz",new Quiz());
         return "CourseDetails";
