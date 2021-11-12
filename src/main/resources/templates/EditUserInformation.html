@@ -2,55 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/EditUserInformationStyle.css}">
     <title>ویرایش کاربر</title>
 </head>
 <body>
 <div>
-    <div id="studentList" class="showBox">
-        <p class="displayFlex" id="firstName"><span th:text="${user.firstName}"></span> : نام  <input
-                class="displayHidden"
-                id="changeFirstNameButton"
-                onclick="showFirstNameForm()" type="button"
-                value="تغییر نام">
-        </p>
-        <form class="displayHidden" id="firstNameForm" action="/user/change-user-first-name" method="post">
-            <input type="hidden" th:value="${user.id}" name="userId">
-            <input id="firstNameInput" type="text" name="firstName" placeholder="New first name">
-            <input type="submit" onclick="checkFirstNameInput()" value="تغییر">
+    <div class="showBox">
+        <form  action="#" method="post" th:action="@{/user/change-user-details}">
+            <label for="exampleFormControlInput1" class="form-label">نام : </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="firstName" th:value="${user.firstName}">
+            <label for="exampleFormControlInput1" class="form-label">نام خانوادگی : </label>
+            <input type="text" class="form-control" name="lastName" th:value="${user.lastName}">
+            <label for="exampleFormControlInput1" class="form-label">تاریخ تولد : </label>
+            <input type="date" class="form-control" name="birthday" th:value="${#calendars.format(user.birthday, 'yyyy-MM-dd')}">
+            <label for="exampleFormControlInput1" class="form-label">ایمیل : </label>
+            <input type="email" class="form-control" name="email" th:value="${user.email}">
+            <label for="exampleFormControlInput1" class="form-label">کد ملی : </label>
+            <input type="number" class="form-control" name="nationalCode" th:value="${user.nationalCode}">
+            <input name="userId" type="hidden" th:value="${user.id}">
+            <p> جنیست : <span th:text="${user.gender}"></span></p>
+            <p>  وضعیت : <span th:text="${user.status}"></span></p>
+            <input type="submit" value="تغییر">
         </form>
-        <p class="displayFlex" id="lastName"><span th:text="${user.lastName}"></span> : نام خانوادگی<input type="button"
-                                                                                                        class="displayHidden"
-                                                                                                        id="changeLastNameButton"
-                                                                                                        onclick="showLastNameForm()"
-                                                                                                        value="تغییر نام خانوادگی">
-        </p>
-        <form class="displayHidden" id="lastNameForm" action="/user/change-user-last-name" method="post">
-            <input type="hidden" th:value="${user.id}" name="userId">
-            <input type="text" id="lastNameInput" name="lastName" placeholder="New last name">
-            <input type="submit" onclick="checkLastNameInput()" value="تغییر">
-        </form>
-        <p><span th:text="${#calendars.format(user.birthday, 'dd-MM-yyyy')}"></span>: تاریخ تولد</p>
-        <p class="displayFlex" id="email"><span th:text="${user.email}"></span> : ایمیل<input type="button"
-                                                                                               class="displayHidden"
-                                                                                               onclick="showEmailForm()"
-                                                                                               id="changeEmailButton"
-                                                                                               value="تغییر ایمیل"></p>
-        <form class="displayHidden" id="emailForm" action="/user/change-user-email" method="post">
-            <input type="hidden" th:value="${user.id}" name="userId">
-            <input type="text" id="emailInput" name="email" placeholder="New email">
-            <input type="submit" onclick="checkEmailInput()" value="تغییر">
-        </form>
-        <p><span th:text="${user.status}"></span> : وضعیت</p>
-        <p><span th:text="${user.gender}"></span> : جنسیت</p>
-    </div>
-    <div>
-        <div class="displayFlex">
-            <input type="button" value="ویرایش" onclick="edit()">
-            <input type="button" value="لغو" onclick="cancelEdit()" class="displayHidden" id="cancelButton">
-        </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+crossorigin="anonymous"></script>
 <script  th:src="@{/js/EditUserInformationJS.js}">
 
 </script>
