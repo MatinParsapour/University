@@ -74,7 +74,7 @@
                 <input class="inputs" type="text" th:field="*{title}" placeholder="عنوان آزمون را بنویسید">
                 <textarea class="inputs" th:field="*{description}" name="message" id="message" cols="30" rows="10" placeholder="توضیحات آزمون را بنویسید"></textarea>
                 <label for="minutes" style="color: white"> : دقیقه</label>
-                <input class="inputs" type="number" name="minutes" id="minutes">
+                <input class="inputs" type="number" th:field="*{quizTime}" id="minutes">
             </div>
             <input type="hidden" name="courseId" th:value="${course.id}">
             <input type="submit" value="ایجاد آزمون">
