@@ -61,3 +61,19 @@ function closeTeachersPad() {
     document.getElementById("teachersPad").style.display = "none"
     document.getElementById("closeTeachersPadButton").style.display = "none"
 }
+
+document.getElementById("changeButton").addEventListener("click",function (event){
+    let valueStartDate = document.getElementById("newStartDate").value;
+    let valueFinishDate = document.getElementById("newFinishDate").value;
+    var startDate = new Date(valueStartDate);
+    var finishDate = new Date(valueFinishDate);
+    if(startDate.getDate() < new Date().getDate() || startDate.val() === ""){
+        event.preventDefault();
+        alert("تاریخ انتخابی اشتباه است " +
+            "باید بزرگتر از تاریخ فعلی باشد")
+    }
+    if(finishDate.getDate() < startDate.getDate() || finishDate.val() === ""){
+        event.preventDefault();
+        alert("تاریخ پایانی دوره باید بعد از تاریخ شروع دوره باشد")
+    }
+})

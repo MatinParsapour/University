@@ -64,31 +64,17 @@
 </div>
 <div id="editPad">
     <div id="editPadInfo" class="editPadInfo">
-        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/course/change-course-name}" method="post">
+        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/course/change-course-details}" method="post">
+            <label for="exampleFormControlInput1" class="form-label"> عنوان : </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="newTitle" th:value="${course.title}">
+            <label for="exampleFormControlInput1" class="form-label">کد دوره : </label>
+            <input type="number" class="form-control" name="newCourseCode" th:value="${course.courseCode}">
+            <label for="exampleFormControlInput1" class="form-label">تاریخ شروع دوره : </label>
+            <input type="date" class="form-control" id="newStartDate" name="newStartDate" th:value="${#calendars.format(course.startDate, 'yyyy-MM-dd')}">
+            <label for="exampleFormControlInput1" class="form-label">تاریخ پایان دوره : </label>
+            <input type="date" class="form-control" id="newFinishDate" name="newFinishDate" th:value="${#calendars.format(course.finishDate, 'yyyy-MM-dd')}">
             <input type="hidden" name="courseId" th:value="${course.id}">
-            <label for="courseNameInput">عنوان دوره :</label>
-            <input id="courseNameInput" class="input" type="text" name="courseName">
-            <input type="submit" value="تغییر نام دوره">
-        </form>
-        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/course/change-course-code}" method="post">
-            <input type="hidden" name="courseId" th:value="${course.id}">
-            <label for="courseCodeInput">کد دوره :</label>
-            <input id="courseCodeInput" class="input" type="number" name="courseCode">
-            <input type="submit" value="تغییر کد دوره">
-        </form>
-        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/course/change-course-start-date}"
-              method="post">
-            <input type="hidden" name="courseId" th:value="${course.id}">
-            <label for="courseStartDate">تاریخ شروع دوره :</label>
-            <input id="courseStartDate" class="input" type="date" name="courseStartDate">
-            <input type="submit" value="تغییر تاریخ شروع دوره">
-        </form>
-        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/course/change-course-finish-date}"
-              method="post">
-            <input type="hidden" name="courseId" th:value="${course.id}">
-            <label for="courseFinishDate">تاریخ پایان دوره :</label>
-            <input id="courseFinishDate" class="input" type="date" name="courseFinishDate">
-            <input type="submit" value="تغییر تاریخ پایان دوره">
+            <input type="submit" id="changeButton" value="تغییر">
         </form>
         <input id="openTeachersPadButton" class="margin-top-5" type="button" value="تغییر استاد" onclick="openTeachersPad()">
         <input class="margin-top-5" type="button" onclick="closeEditPad()" value="بستن">
@@ -105,7 +91,7 @@
                 </div>
                 <div>
                     <div style="display: flex">
-                        <form action="#" th:action="@{/course/change-course-teacher}" method="post">
+                        <form action="#" th:action="@{/course/set-teacher-to-course}" method="post">
                             <input type="hidden" name="courseId" th:value="${course.id}">
                             <input type="hidden" name="teacherId" th:value="${teacher.id}">
                             <input type="submit" value="تغییر استاد">
