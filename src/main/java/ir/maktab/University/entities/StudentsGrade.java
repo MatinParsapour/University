@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -23,8 +25,8 @@ public class StudentsGrade extends BaseEntity<Long> {
     private Double studentPoint;
 
     @ManyToMany
-    private List<Student> studentList;
+    private Set<Student> studentList = new HashSet<>();
 
     @ManyToMany(mappedBy = "studentsGradeList")
-    private List<Grade> grades;
+    private Set<Grade> grades = new HashSet<>();
 }
