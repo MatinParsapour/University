@@ -1,6 +1,7 @@
 package ir.maktab.University.service.impl;
 
 import ir.maktab.University.entities.*;
+import ir.maktab.University.entities.dto.TeacherDTO;
 import ir.maktab.University.repository.TeacherRepository;
 import ir.maktab.University.service.TeacherService;
 import ir.maktab.University.util.Security;
@@ -10,7 +11,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -25,6 +25,12 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher,Long,TeacherRepo
         super(teacherRepository);
         this.teacherRepository = teacherRepository;
     }
+
+    @Override
+    public List<TeacherDTO> getAllTeacherDTOs() {
+        return teacherRepository.findTeacherDTOs();
+    }
+
     @Override
     public Teacher getTeacherByUserName(String username) {
         return teacherRepository.findByUserName(username);

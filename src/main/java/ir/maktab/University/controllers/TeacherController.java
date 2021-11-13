@@ -4,6 +4,7 @@ import ir.maktab.University.entities.Course;
 import ir.maktab.University.entities.Role;
 import ir.maktab.University.entities.Teacher;
 import ir.maktab.University.entities.User;
+import ir.maktab.University.entities.dto.TeacherDTO;
 import ir.maktab.University.service.TeacherService;
 import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,8 @@ public class TeacherController {
      * @return a list of teachers
      */
     @GetMapping("/get-teachers")
-    public List<Teacher> teachers() {
-        return teacherService.getAllTeachers();
+    public List<TeacherDTO> teachers() {
+        return teacherService.getAllTeacherDTOs();
     }
 
     /**

@@ -1,11 +1,17 @@
 package ir.maktab.University.service;
 
 import ir.maktab.University.entities.*;
+import ir.maktab.University.entities.dto.TeacherDTO;
 
 import java.util.List;
 
 public interface TeacherService extends BaseService<Teacher,Long> {
 
+    /**
+     * Find all teachers based on dto
+     * @return a list of teacher dtos
+     */
+    List<TeacherDTO> getAllTeacherDTOs();
     /**
      * search for the teacher by username
      * @param username the username that searched for
