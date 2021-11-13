@@ -1,6 +1,7 @@
 package ir.maktab.University.service.impl;
 
 import ir.maktab.University.entities.Descriptive;
+import ir.maktab.University.entities.MultipleChoices;
 import ir.maktab.University.entities.QuestionHeader;
 import ir.maktab.University.repository.QuestionHeaderRepository;
 import ir.maktab.University.service.QuestionHeaderService;
@@ -31,6 +32,15 @@ public class QuestionHeaderServiceImpl extends BaseServiceImpl<QuestionHeader,Lo
     public void createNewQuestionHeaderByDescriptive(Descriptive descriptive,double grade) {
         QuestionHeader questionHeader = new QuestionHeader();
         questionHeader.setDescriptive(descriptive);
+        QuestionHeader savedQuestionHeader = save(questionHeader);
+        questionsBankService.addQuestionHeaderToQuestionBank(savedQuestionHeader);
+        questionService.createNewQuestion(savedQuestionHeader,grade);
+    }
+
+    @Override
+    public void createNewQuestionHeaderByMultipleChoices(MultipleChoices multipleChoices, double grade) {
+        QuestionHeader questionHeader = new QuestionHeader();
+        questionHeader.setMultipleChoices(multipleChoices);
         QuestionHeader savedQuestionHeader = save(questionHeader);
         questionsBankService.addQuestionHeaderToQuestionBank(savedQuestionHeader);
         questionService.createNewQuestion(savedQuestionHeader,grade);
