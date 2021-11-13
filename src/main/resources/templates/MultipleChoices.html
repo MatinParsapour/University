@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/MultipleChoicesStyle.css}"/>
+    <title>چند گزینه ای</title>
+</head>
+<body>
+<form action="#" method="post" th:action="@{/multiple-choices/add-multiple-choices}" th:object="${multipleChoices}" class="create-question-form">
+    <label for="problem">عنوان سوال : </label>
+    <textarea name="title" class="border-radius-5 fontSize-16 resize-none" th:field="*{title}" id="title" cols="30" rows="8"
+              placeholder="صورت سوال را وارد کنید"></textarea>
+    <label for="problem">صورت سوال : </label>
+    <textarea name="problem" class="border-radius-5 fontSize-16 resize-none" th:field="*{header}" id="problem" cols="30" rows="8"
+              placeholder="صورت سوال را وارد کنید"></textarea>
+    <div class="container">
+        <div class='element' id='div_1'>
+            <input type='text' name="option" placeholder='گزینه را وارد کنید' >
+            <input type="button" id='txt_1' class='add' value="اضافه کردن گزینه">
+        </div>
+    </div>
+    <label for="grade">نمره سوال :</label>
+    <input class="height-30" type="number" name="grade" id="grade" step="0.01" placeholder="نمره سوال را وارد کنید"/>
+    <div>
+        <input type="hidden" name="quizId" th:value="${quiz.id}">
+        <input class="green-button button margin-top-10 border-radius-5" type="submit" id="acceptButton" value="تایید">
+</form>
+<form action="#" th:action="@{/teacher/main}">
+    <input class="red-button button margin-top-10 border-radius-5" type="submit" value="لغو">
+</form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script th:src="@{/js/MultipleChoicesJS.js}"></script>
+</body>
+</html>
