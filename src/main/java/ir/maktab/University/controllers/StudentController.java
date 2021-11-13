@@ -3,6 +3,7 @@ package ir.maktab.University.controllers;
 import ir.maktab.University.entities.Role;
 import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.User;
+import ir.maktab.University.entities.dto.StudentDTO;
 import ir.maktab.University.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,8 +44,8 @@ public class StudentController {
      * @return a list of students
      */
     @GetMapping("/get-students")
-    public List<Student> students() {
-        return studentService.getAllStudents();
+    public List<StudentDTO> students() {
+        return studentService.getAllStudentDTOs();
     }
 
 

@@ -3,11 +3,18 @@ package ir.maktab.University.service;
 import ir.maktab.University.entities.Course;
 import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.User;
+import ir.maktab.University.entities.dto.StudentDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface StudentService extends BaseService<Student,Long>{
+
+    /**
+     * Find all students based on dto
+     * @return a list of dto
+     */
+    List<StudentDTO> getAllStudentDTOs();
 
     /**
      * Search for student by username

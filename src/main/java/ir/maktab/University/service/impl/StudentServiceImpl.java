@@ -4,6 +4,7 @@ import ir.maktab.University.entities.Course;
 import ir.maktab.University.entities.Role;
 import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.User;
+import ir.maktab.University.entities.dto.StudentDTO;
 import ir.maktab.University.repository.StudentRepository;
 import ir.maktab.University.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class StudentServiceImpl extends BaseServiceImpl<Student,Long,StudentRepo
     public StudentServiceImpl(StudentRepository studentRepository) {
         super(studentRepository);
         this.studentRepository = studentRepository;
+    }
+
+    @Override
+    public List<StudentDTO> getAllStudentDTOs() {
+        return studentRepository.findStudentDTOs();
     }
 
     @Override
