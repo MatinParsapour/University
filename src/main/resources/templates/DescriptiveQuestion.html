@@ -16,7 +16,7 @@
     <label for="correctAnswer">جواب صحیح :</label>
     <textarea name="correctAnswer" class="border-radius-5 fontSize-16 resize-none" th:field="*{correctAnswer}" id="correctAnswer" cols="30" rows="8"
               placeholder="جواب صحیح سوال را وارد کنید"></textarea>
-    <label for="correctAnswer">نمره سوال :</label>
+    <label for="grade">نمره سوال :</label>
     <input class="height-30" type="number" name="grade" id="grade" step="0.01" placeholder="نمره سوال را وارد کنید"/>
     <div>
         <input type="hidden" name="quizId" th:value="${quiz.id}">
