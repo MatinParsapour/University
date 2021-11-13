@@ -39,7 +39,7 @@ public class Quiz extends BaseEntity<Long> {
     @ManyToOne
     private Course course;
 
-    @OneToMany
-    private List<Questions> questions;
+    @OneToOne
+    private Questions questions;
 
 }
