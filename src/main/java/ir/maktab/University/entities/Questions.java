@@ -9,7 +9,9 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -20,9 +22,9 @@ import java.util.List;
 public class Questions extends BaseEntity<Long> {
     public static final String TABLE_NAME = "questions_table";
 
-    @OneToMany(mappedBy = "questions")
-    private List<Question> questionList;
+    @OneToMany
+    private Set<Question> questionList = new HashSet<>();
 
-    @OneToMany(mappedBy = "questions")
-    private List<Grade> gradeList;
+    @OneToMany
+    private Set<Grade> gradeList = new HashSet<>();
 }

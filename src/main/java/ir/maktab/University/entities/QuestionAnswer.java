@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -26,5 +27,5 @@ public class QuestionAnswer extends BaseEntity<Long> {
     private Student student;
 
     @ManyToMany(mappedBy = "questionAnswerList")
-    private List<Question> question;
+    private Set<Question> question = new HashSet<>();
 }

@@ -10,8 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -32,7 +32,7 @@ public class MultipleChoices extends BaseEntity<Long> {
     private String header;
 
     @ElementCollection
-    private  List<Options> options;
+    private Set<Options> options = new HashSet<>();
 
     @Column(name = CORRECT_ANSWER)
     private String getCorrectAnswer;
