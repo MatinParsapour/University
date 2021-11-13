@@ -5,7 +5,9 @@ import ir.maktab.University.entities.Manager;
 
 public interface ManagerService extends BaseService<Manager,Long> {
 
-    Manager getManagerByUserNameAndPassword(String username, String password);
-
+    /**
+     * Add the course to manager
+     * @param course the course that has been created
+     */
     void addCourseToManager(Course course);
 }

@@ -23,11 +23,6 @@ public class ManagerServiceImpl extends BaseServiceImpl<Manager,Long,ManagerRepo
     }
 
     @Override
-    public Manager getManagerByUserNameAndPassword(String username, String password) {
-        return managerRepository.findByUserNameAndPassword(username, password);
-    }
-
-    @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void addCourseToManager(Course course) {
         Manager manager = Security.getManager();
