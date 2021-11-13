@@ -58,6 +58,10 @@ public class CourseController {
         return "ShowCourse";
     }
 
+    /**
+     * Return a list of all courses
+     * @return list of courses
+     */
     @GetMapping("/get-courses")
     public List<Course> courses() {
         return courseService.getAllCourses();
