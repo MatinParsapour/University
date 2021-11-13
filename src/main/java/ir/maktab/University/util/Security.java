@@ -1,9 +1,6 @@
 package ir.maktab.University.util;
 
-import ir.maktab.University.entities.Manager;
-import ir.maktab.University.entities.Student;
-import ir.maktab.University.entities.Teacher;
-import ir.maktab.University.entities.User;
+import ir.maktab.University.entities.*;
 
 
 public class Security {
@@ -12,6 +9,15 @@ public class Security {
     private static Student student;
     private static Manager manager;
     private static String isUserAllow;
+    private static Quiz quiz;
+
+    public static Quiz getQuiz() {
+        return quiz;
+    }
+
+    public static void setQuiz(Quiz quiz) {
+        Security.quiz = quiz;
+    }
 
     public static String getIsUserAllow() {
         return isUserAllow;
