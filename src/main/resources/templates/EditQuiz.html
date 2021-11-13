@@ -8,6 +8,22 @@
     <title>ویرایش آزمون</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <span class="navbar-brand">دانشگاه</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" style="cursor: pointer"  onclick="openQuestionDirectionPad()">افزودن سوال</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div>
     <div id="studentList" class="showBox">
         <form action="#" th:action="@{/quiz/change-quiz-properties}" method="post">
@@ -21,6 +37,29 @@
             <input type="submit" value="تغییر">
         </form>
     </div>
+</div>
+<div id="selectQuestionDirection">
+    <div class="questionDirection">
+        <form action="#" th:action="@{/question-bank/select-question}" method="post">
+            <input type="hidden" name="quizId" th:value="${quiz.id}">
+            <input type="submit" value="انتخاب از بانک سوالات">
+        </form>
+        <input type="button" onclick="openQuestionTypePad()" value="ایجاد سوال جدید">
+    </div>
+    <input type="button" value="لغو" onclick="closeQuestionDirectionPad()">
+</div>
+<div id="questionType">
+    <div class="questionDirection">
+        <form action="#" th:action="@{/multiple-choices/create-new-multiple-choices}" method="post">
+            <input type="hidden" name="quizId" th:value="${quiz.id}">
+            <input type="submit" value="سوالات چند گزینه ای">
+        </form>
+        <form action="#" th:action="@{/descriptive/create-new-descriptive}" method="post">
+            <input type="hidden" name="quizId" th:value="${quiz.id}">
+            <input type="submit" value="سوالات تشریحی">
+        </form>
+    </div>
+    <input type="button" value="لغو" onclick="closeQuestionTypePad()">
 </div>
 <input type="button" value="ویرایش" onclick="showButtons()">
 <input class="displayHidden" id="cancelButton" type="button" value="لغو" onclick="cancelEdit()">

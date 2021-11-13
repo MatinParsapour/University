@@ -25,3 +25,42 @@ body {
 .displayHidden {
     display: none;
 }
+
+#selectQuestionDirection {
+    position: fixed;
+    top: 20%;
+    left: 35%;
+    background-color: #55c0c0;
+    transform: translate(-50%, -50%);
+    height: 350px;
+    width: 46%;
+    display: none;
+    align-items: center;
+    margin-left: 15%;
+    margin-top: 5%;
+    border-radius: 5px 5px;
+    overflow: auto;
+}
+
+.questionDirection{
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#questionType{
+    position: fixed;
+    top: 20%;
+    left: 35%;
+    background-color: #55c0c0;
+    transform: translate(-50%, -50%);
+    height: 350px;
+    width: 46%;
+    display: none;
+    align-items: center;
+    margin-left: 15%;
+    margin-top: 5%;
+    border-radius: 5px 5px;
+    overflow: auto;
+}

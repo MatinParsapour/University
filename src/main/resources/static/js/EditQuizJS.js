@@ -46,3 +46,21 @@ function checkQuizTimeInputs(){
         alert("ورودی ها را پر کنید")
     }
 }
+
+function openQuestionDirectionPad(){
+    document.getElementById("selectQuestionDirection").style.display = "block"
+}
+
+function closeQuestionDirectionPad(){
+    document.getElementById("selectQuestionDirection").style.display = "none"
+}
+
+function openQuestionTypePad(){
+    document.getElementById("selectQuestionDirection").style.display = "none"
+    document.getElementById("questionType").style.display = "block"
+}
+
+function closeQuestionTypePad(){
+    document.getElementById("selectQuestionDirection").style.display = "block"
+    document.getElementById("questionType").style.display = "none"
+}
