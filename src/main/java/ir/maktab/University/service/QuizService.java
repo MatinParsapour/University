@@ -1,5 +1,6 @@
 package ir.maktab.University.service;
 
+import ir.maktab.University.entities.Questions;
 import ir.maktab.University.entities.Quiz;
 
 public interface QuizService extends BaseService<Quiz, Long> {
@@ -23,4 +24,10 @@ public interface QuizService extends BaseService<Quiz, Long> {
      * @param quizTime    the time of quiz that may changed
      */
     void editQuiz(long quizId, String title, String description, Double quizTime);
+
+    /**
+     * Add new object of questions to quiz
+     * @param questions object of questions includes an object of question and object of grade
+     */
+    void addQuestions(Questions questions);
 }

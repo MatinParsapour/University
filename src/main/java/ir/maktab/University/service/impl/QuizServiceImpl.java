@@ -1,10 +1,12 @@
 package ir.maktab.University.service.impl;
 
 import ir.maktab.University.entities.Course;
+import ir.maktab.University.entities.Questions;
 import ir.maktab.University.entities.Quiz;
 import ir.maktab.University.repository.QuizRepository;
 import ir.maktab.University.service.CourseService;
 import ir.maktab.University.service.QuizService;
+import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -43,5 +45,12 @@ public class QuizServiceImpl extends BaseServiceImpl<Quiz,Long, QuizRepository>
         quiz.setTitle(title);
         quiz.setDescription(description);
         quiz.setQuizTime(quizTime);
+    }
+
+    @Override
+    public void addQuestions(Questions questions) {
+        Quiz quiz = Security.getQuiz();
+        quiz.setQuestions(questions);
+        save(quiz);
     }
 }
