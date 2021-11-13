@@ -1,12 +1,8 @@
 package ir.maktab.University.service;
 
-import ir.maktab.University.entities.Course;
-import ir.maktab.University.entities.Student;
-import ir.maktab.University.entities.Teacher;
-import ir.maktab.University.entities.User;
+import ir.maktab.University.entities.*;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TeacherService extends BaseService<Teacher,Long> {
 
@@ -67,4 +63,10 @@ public interface TeacherService extends BaseService<Teacher,Long> {
      * @param username the username of user
      */
     void changeRoleToTeacher(User user, String username);
+
+    /**
+     * Add a new question bank for teacher that doesn't have any questions bank
+     * @param questionsBank the question bank that has been created
+     */
+    void addQuestionsBankToTeacher(QuestionsBank questionsBank);
 }

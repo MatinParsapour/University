@@ -3,6 +3,7 @@ package ir.maktab.University.service.impl;
 import ir.maktab.University.entities.*;
 import ir.maktab.University.repository.TeacherRepository;
 import ir.maktab.University.service.TeacherService;
+import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -97,6 +98,13 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher,Long,TeacherRepo
         teacher.setType("Teacher");
         teacher.setStatus("Accepted");
         teacher.setUserName(username);
+        save(teacher);
+    }
+
+    @Override
+    public void addQuestionsBankToTeacher(QuestionsBank questionsBank) {
+        Teacher teacher = Security.getTeacher();
+        teacher.setQuestionsBank(questionsBank);
         save(teacher);
     }
 }
