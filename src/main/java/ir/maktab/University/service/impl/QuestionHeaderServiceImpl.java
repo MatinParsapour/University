@@ -5,10 +5,9 @@ import ir.maktab.University.entities.QuestionHeader;
 import ir.maktab.University.repository.QuestionHeaderRepository;
 import ir.maktab.University.service.QuestionHeaderService;
 import ir.maktab.University.service.QuestionService;
+import ir.maktab.University.service.QuestionsBankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class QuestionHeaderServiceImpl extends BaseServiceImpl<QuestionHeader,Long, QuestionHeaderRepository>
@@ -18,11 +17,14 @@ public class QuestionHeaderServiceImpl extends BaseServiceImpl<QuestionHeader,Lo
 
     private final QuestionService questionService;
 
+    private final QuestionsBankService questionsBankService;
+
     @Autowired
-    public QuestionHeaderServiceImpl(QuestionHeaderRepository questionHeaderRepository, QuestionService questionService) {
+    public QuestionHeaderServiceImpl(QuestionHeaderRepository questionHeaderRepository, QuestionService questionService, QuestionsBankService questionsBankService) {
         super(questionHeaderRepository);
         this.questionHeaderRepository = questionHeaderRepository;
         this.questionService = questionService;
+        this.questionsBankService = questionsBankService;
     }
 
     @Override
@@ -30,6 +32,7 @@ public class QuestionHeaderServiceImpl extends BaseServiceImpl<QuestionHeader,Lo
         QuestionHeader questionHeader = new QuestionHeader();
         questionHeader.setDescriptive(descriptive);
         QuestionHeader savedQuestionHeader = save(questionHeader);
+        questionsBankService.addQuestionHeaderToQuestionBank(savedQuestionHeader);
         questionService.createNewQuestion(savedQuestionHeader,grade);
     }
 }
