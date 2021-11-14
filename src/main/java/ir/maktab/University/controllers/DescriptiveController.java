@@ -54,4 +54,18 @@ public class DescriptiveController {
         descriptiveService.createNewDescriptive(descriptive,grade);
         return "redirect:/teacher/main";
     }
+
+    /**
+     * Get all the data from front and set it to question and save to data base
+     * @param questionId id of the descriptive question
+     * @param title the title that may changed
+     * @param header the problem that may changed
+     * @param correctAnswer the correct answer that may changed
+     * @return a String then redirect to main page for teacher
+     */
+    @PostMapping("/edit-question")
+    public String editQuestion(long questionId, String title, String header, String correctAnswer){
+        descriptiveService.editQuestion(questionId,title,header,correctAnswer);
+        return "redirect:/teacher/main";
+    }
 }

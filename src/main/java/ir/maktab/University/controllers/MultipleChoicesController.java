@@ -55,4 +55,18 @@ public class MultipleChoicesController {
         multipleChoicesService.createNewMultipleChoices(multipleChoices,grade,option);
         return "redirect:/teacher/main";
     }
+
+    /**
+     * Get all data from front and send to service to update multiple choices question
+     * @param questionId id of the multiple choices question
+     * @param title the title that may changed
+     * @param header the header that may changed
+     * @param options the options that may changed
+     * @return a String then redirect to main page for teacher
+     */
+    @PostMapping("/edit-question")
+    public String editQuestion(long questionId, String title, String header, String options){
+        multipleChoicesService.editQuestion(questionId,title,header,options);
+        return "redirect:/teacher/main";
+    }
 }
