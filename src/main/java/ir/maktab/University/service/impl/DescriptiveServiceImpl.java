@@ -38,4 +38,9 @@ public class DescriptiveServiceImpl extends BaseServiceImpl<Descriptive,Long, De
         descriptive.setHeader(header);
         save(descriptive);
     }
+
+    @Override
+    public void setDescriptiveQuestion(long questionId, double grade) {
+        questionHeaderService.addNewDescriptiveQuestion(findById(questionId).get(),grade);
+    }
 }

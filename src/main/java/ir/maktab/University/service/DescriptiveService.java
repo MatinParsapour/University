@@ -19,4 +19,11 @@ public interface DescriptiveService extends BaseService<Descriptive,Long> {
      * @param correctAnswer the correct answer that may changed
      */
     void editQuestion(long questionId, String title, String header, String correctAnswer);
+
+    /**
+     * Find the question in the questions bank and set for quiz
+     * @param questionId id of the question
+     * @param grade point of the question
+     */
+    void setDescriptiveQuestion(long questionId, double grade);
 }
