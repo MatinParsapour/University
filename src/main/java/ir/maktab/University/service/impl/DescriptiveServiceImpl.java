@@ -29,4 +29,13 @@ public class DescriptiveServiceImpl extends BaseServiceImpl<Descriptive,Long, De
         Descriptive savedDescriptive = save(descriptive);
         questionHeaderService.createNewQuestionHeaderByDescriptive(savedDescriptive,grade);
     }
+
+    @Override
+    public void editQuestion(long questionId, String title, String header, String correctAnswer) {
+        Descriptive descriptive = findById(questionId).get();
+        descriptive.setTitle(title);
+        descriptive.setCorrectAnswer(correctAnswer);
+        descriptive.setHeader(header);
+        save(descriptive);
+    }
 }

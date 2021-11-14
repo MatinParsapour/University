@@ -37,4 +37,16 @@ public class MultipleChoicesServiceImpl extends BaseServiceImpl<MultipleChoices,
         MultipleChoices savedMultipleChoices = save(multipleChoices);
         questionHeaderService.createNewQuestionHeaderByMultipleChoices(savedMultipleChoices,grade);
     }
+
+    @Override
+    public void editQuestion(long questionId, String title, String header, String options) {
+        MultipleChoices multipleChoices = findById(questionId).get();
+        List<String> option = Arrays.asList(options.split(","));
+        for(String questionOptions : option){
+            Options newOptions = new Options();
+            newOptions.setOptions(questionOptions);
+            multipleChoices.getOptions().add(newOptions);
+        }
+        save(multipleChoices);
+    }
 }

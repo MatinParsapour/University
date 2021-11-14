@@ -11,4 +11,13 @@ public interface MultipleChoicesService extends BaseService<MultipleChoices,Long
      * @param grade point of the question
      */
     void createNewMultipleChoices(MultipleChoices multipleChoices, double grade, String option);
+
+    /**
+     * Get all data from controller and set it to multiple choices question and save it
+     * @param questionId the id of question
+     * @param title the title that may changed
+     * @param header the problem that may changed
+     * @param options the options that may changed
+     */
+    void editQuestion(long questionId, String title, String header, String options);
 }
