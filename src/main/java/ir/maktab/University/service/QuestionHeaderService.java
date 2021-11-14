@@ -20,4 +20,20 @@ public interface QuestionHeaderService extends BaseService<QuestionHeader,Long> 
      * @param grade the point of the question
      */
     void createNewQuestionHeaderByMultipleChoices(MultipleChoices multipleChoices, double grade);
+
+    /**
+     * Find the question header based on descriptive entity
+     * And save it to question
+     * @param descriptive the descriptive question question header find by it
+     * @param grade point of the question
+     */
+    void addNewDescriptiveQuestion(Descriptive descriptive,double grade);
+
+    /**
+     * Find the question header based on multiple choices entity
+     * And save it to question
+     * @param multipleChoices the multiple choices question question header find by it
+     * @param grade point of the question
+     */
+    void addNewMultipleChoicesQuestion(MultipleChoices multipleChoices,double grade);
 }

@@ -45,4 +45,16 @@ public class QuestionHeaderServiceImpl extends BaseServiceImpl<QuestionHeader,Lo
         questionsBankService.addQuestionHeaderToQuestionBank(savedQuestionHeader);
         questionService.createNewQuestion(savedQuestionHeader,grade);
     }
+
+    @Override
+    public void addNewDescriptiveQuestion(Descriptive descriptive, double grade) {
+        QuestionHeader questionHeader = questionHeaderRepository.findByDescriptive(descriptive);
+        questionService.addNewQuestion(questionHeader,grade);
+    }
+
+    @Override
+    public void addNewMultipleChoicesQuestion(MultipleChoices multipleChoices, double grade) {
+        QuestionHeader questionHeader = questionHeaderRepository.findByMultipleChoices(multipleChoices);
+        questionService.addNewQuestion(questionHeader,grade);
+    }
 }
