@@ -37,7 +37,7 @@ public class QuestionsServiceImpl extends BaseServiceImpl<Questions,Long, Questi
             Questions questions = Security.getQuiz().getQuestions();
             questions.getQuestionList().add(question);
             questions.getGradeList().add(newGrade);
-            Questions savedQuestions = save(questions);
+            save(questions);
         }else{
             Questions questions = new Questions();
             questions.getQuestionList().add(question);
