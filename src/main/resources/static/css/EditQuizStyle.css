@@ -5,7 +5,7 @@
     align-self: center;
     border-radius: 5px 5px;
     width: 95%;
-    height: 500px;
+    height: 50%;
     background-color: rgb(10, 10, 68, 80%);
     color: white;
     flex-direction: column;
@@ -63,4 +63,13 @@ body {
     margin-top: 5%;
     border-radius: 5px 5px;
     overflow: auto;
+}
+.displayNone {
+    display: none;
+}
+
+.backGroundBlue{
+    background-color: rgb(10, 10, 68, 80%);!important;
+    border-color: rgb(10, 10, 68, 80%);!important;
+    color: white;!important;
 }
