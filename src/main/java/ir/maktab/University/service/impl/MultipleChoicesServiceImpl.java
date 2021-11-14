@@ -49,4 +49,9 @@ public class MultipleChoicesServiceImpl extends BaseServiceImpl<MultipleChoices,
         }
         save(multipleChoices);
     }
+
+    @Override
+    public void setDescriptiveQuestion(long questionId, double grade) {
+        questionHeaderService.addNewMultipleChoicesQuestion(findById(questionId).get(), grade);
+    }
 }

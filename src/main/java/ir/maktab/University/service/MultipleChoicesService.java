@@ -20,4 +20,11 @@ public interface MultipleChoicesService extends BaseService<MultipleChoices,Long
      * @param options the options that may changed
      */
     void editQuestion(long questionId, String title, String header, String options);
+
+    /**
+     * Find the question in the questions bank and set for quiz
+     * @param questionId id of the question
+     * @param grade point of the question
+     */
+    void setDescriptiveQuestion(long questionId, double grade);
 }

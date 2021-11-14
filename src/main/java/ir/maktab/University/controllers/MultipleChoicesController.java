@@ -69,4 +69,20 @@ public class MultipleChoicesController {
         multipleChoicesService.editQuestion(questionId,title,header,options);
         return "redirect:/teacher/main";
     }
+
+    /**
+     * Get quiz id and question id and grade to find the question
+     * And find quiz and set question to quiz plus point of the
+     * question
+     * @param quizId id of quiz that question add to
+     * @param questionId id of question that add to quiz
+     * @param grade point of question
+     * @return a String then redirect to main page of teacher
+     */
+    @PostMapping("/add-to-quiz")
+    public String addQuestionToQuiz(long quizId, long questionId, double grade){
+        Security.setQuiz(quizService.findById(quizId).get());
+        multipleChoicesService.setDescriptiveQuestion(questionId, grade);
+        return "redirect:/teacher/main";
+    }
 }
