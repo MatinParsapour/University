@@ -44,4 +44,21 @@ public class QuestionsBankServiceImpl extends BaseServiceImpl<QuestionsBank,Long
     public boolean checkTeacherQuestionsBank() {
         return Security.getTeacher().getQuestionsBank() != null;
     }
+
+    @Override
+    public boolean checkQuestionsBankCourses(QuestionsBank questionsBank) {
+        for(Course course : questionsBank.getCourses()){
+            if(course.getId().equals(Security.getQuiz().getCourse().getId())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public QuestionsBank getAllQuestionsBank(long quizId) {
+        Quiz quiz = quizService.findById(quizId).get();
+        Course course = courseService.getCourseByQuiz(quiz);
+        return questionsBankRepository.findAllByCourses(course);
+    }
 }
