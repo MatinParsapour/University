@@ -2,10 +2,7 @@ package ir.maktab.University.service.impl;
 
 import ir.maktab.University.entities.*;
 import ir.maktab.University.repository.CourseRepository;
-import ir.maktab.University.service.CourseService;
-import ir.maktab.University.service.ManagerService;
-import ir.maktab.University.service.StudentService;
-import ir.maktab.University.service.TeacherService;
+import ir.maktab.University.service.*;
 import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +13,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CourseServiceImpl extends BaseServiceImpl<Course,Long,CourseRepository> implements CourseService {
@@ -117,6 +113,11 @@ public class CourseServiceImpl extends BaseServiceImpl<Course,Long,CourseReposit
     public void addQuizToCourse(Course course, Quiz quiz) {
         course.getQuizzes().add(quiz);
         save(course);
+    }
+
+    @Override
+    public Course getCourseByQuiz(Quiz quiz) {
+        return courseRepository.findByQuizzes(quiz);
     }
 
 }

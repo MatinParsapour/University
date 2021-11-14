@@ -78,4 +78,11 @@ public interface CourseService extends BaseService<Course, Long>{
      * @param quiz the quiz that saved in data base
      */
     void addQuizToCourse(Course course, Quiz quiz);
+
+    /**
+     * Search for a course that has the quiz
+     * @param quiz search for course by this
+     * @return a course that has the quiz
+     */
+    Course getCourseByQuiz(Quiz quiz);
 }
