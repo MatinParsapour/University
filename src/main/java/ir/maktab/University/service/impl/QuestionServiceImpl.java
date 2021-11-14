@@ -31,4 +31,10 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question,Long, Question
         Question savedQuestion = save(question);
         questionsService.addToQuestions(savedQuestion,grade);
     }
+
+    @Override
+    public void addNewQuestion(QuestionHeader questionHeader, double grade) {
+        Question question = questionRepository.findByQuestionHeader(questionHeader);
+        questionsService.addToQuestions(question,grade);
+    }
 }

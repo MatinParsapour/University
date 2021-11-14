@@ -12,4 +12,11 @@ public interface QuestionService extends BaseService<Question,Long> {
      * @param grade the point of the question
      */
     void createNewQuestion(QuestionHeader questionHeader,double grade);
+
+    /**
+     * Add the question header to question
+     * @param questionHeader the question header add to question
+     * @param grade the point of question
+     */
+    void addNewQuestion(QuestionHeader questionHeader, double grade);
 }
