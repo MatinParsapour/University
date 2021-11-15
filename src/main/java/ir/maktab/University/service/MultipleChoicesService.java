@@ -8,9 +8,10 @@ public interface MultipleChoicesService extends BaseService<MultipleChoices,Long
     /**
      * Object of multiple choices will save to database
      * @param multipleChoices object of multiple choices includes : title, header(problem), options, correct answer
+     * @param correctAnswer the correct answer teacher selected
      * @param grade point of the question
      */
-    void createNewMultipleChoices(MultipleChoices multipleChoices, double grade, String option);
+    void createNewMultipleChoices(MultipleChoices multipleChoices, double grade, String option,String correctAnswer);
 
     /**
      * Get all data from controller and set it to multiple choices question and save it
