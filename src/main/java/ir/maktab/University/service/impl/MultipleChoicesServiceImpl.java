@@ -27,13 +27,14 @@ public class MultipleChoicesServiceImpl extends BaseServiceImpl<MultipleChoices,
     }
 
     @Override
-    public void createNewMultipleChoices(MultipleChoices multipleChoices, double grade, String option) {
+    public void createNewMultipleChoices(MultipleChoices multipleChoices, double grade, String option, String correctAnswer) {
         List<String> options = Arrays.asList(option.split(","));
         for(String questionOptions : options){
             Options newOptions = new Options();
             newOptions.setOptions(questionOptions);
             multipleChoices.getOptions().add(newOptions);
         }
+        multipleChoices.setCorrectAnswer(correctAnswer);
         MultipleChoices savedMultipleChoices = save(multipleChoices);
         questionHeaderService.createNewQuestionHeaderByMultipleChoices(savedMultipleChoices,grade);
     }
