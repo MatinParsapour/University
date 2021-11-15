@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class MultipleChoicesServiceImpl extends BaseServiceImpl<MultipleChoices,Long, MultipleChoicesRepository>
@@ -42,6 +43,9 @@ public class MultipleChoicesServiceImpl extends BaseServiceImpl<MultipleChoices,
     @Override
     public void editQuestion(long questionId, String title, String header, String options) {
         MultipleChoices multipleChoices = findById(questionId).get();
+        Set<Options> multipleChoicesOptions = multipleChoices.getOptions();
+        multipleChoices.getOptions().removeAll(multipleChoicesOptions);
+        save(multipleChoices);
         List<String> option = Arrays.asList(options.split(","));
         for(String questionOptions : option){
             Options newOptions = new Options();
