@@ -35,5 +35,5 @@ public class MultipleChoices extends BaseEntity<Long> {
     private Set<Options> options = new HashSet<>();
 
     @Column(name = CORRECT_ANSWER)
-    private String getCorrectAnswer;
+    private String CorrectAnswer;
 }
