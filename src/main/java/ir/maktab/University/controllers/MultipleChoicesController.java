@@ -47,12 +47,13 @@ public class MultipleChoicesController {
      * @param multipleChoices an object of descriptive includes : title, header(problem), correct answer
      * @param grade point of the question
      * @param option the options that teacher entered
+     * @param correctAnswer the correct answer for this question teacher selected
      * @return a String to return to main page for teacher
      */
     @PostMapping("/add-multiple-choices")
-    public String addMultipleChoices(long quizId, MultipleChoices multipleChoices, double grade, String option){
+    public String addMultipleChoices(long quizId, MultipleChoices multipleChoices, double grade, String option, String correctAnswer){
         Security.setQuiz(quizService.findById(quizId).get());
-        multipleChoicesService.createNewMultipleChoices(multipleChoices,grade,option);
+        multipleChoicesService.createNewMultipleChoices(multipleChoices,grade,option,correctAnswer);
         return "redirect:/teacher/main";
     }
 
