@@ -17,11 +17,11 @@ body {
     justify-content: space-around;
 }
 
-.green-button{
+.green-button {
     background-color: green;
 }
 
-.red-button{
+.red-button {
     background-color: red;
 }
 
@@ -45,6 +45,28 @@ body {
     border-radius: 5px 5px;
 }
 
-.height-30{
+.height-30 {
     height: 30px;
+}
+
+#selectCorrectAnswer {
+    width: 20%;
+}
+
+:root {
+    --select-border: #777;
+}
+
+#correctAnswer {
+    width: 100%;
+    min-width: 15ch;
+    max-width: 30ch;
+    border: 1px solid var(--select-border);
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1.1;
+    background-color: #fff;
+    background-image: linear-gradient(to top, #075509, #0a2d40);
 }
