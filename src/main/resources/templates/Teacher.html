@@ -30,7 +30,7 @@
     </div>
 </nav>
 <div th:switch="${courses}" id="displayStudents">
-    <h2 th:case="null">دانشجویی یافت نشد</h2>
+    <h2 th:case="null">دوره ای یافت نشد</h2>
     <div th:case="*">
         <div th:each="course : ${courses}">
             <div id="studentList" class="showBox">
