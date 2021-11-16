@@ -41,7 +41,7 @@ public class MultipleChoicesServiceImpl extends BaseServiceImpl<MultipleChoices,
     }
 
     @Override
-    public void editQuestion(long questionId, String title, String header, String options) {
+    public void editQuestion(long questionId, String title, String header, String options, String correctAnswer) {
         MultipleChoices multipleChoices = findById(questionId).get();
         Set<Options> multipleChoicesOptions = multipleChoices.getOptions();
         multipleChoices.getOptions().removeAll(multipleChoicesOptions);
@@ -52,6 +52,7 @@ public class MultipleChoicesServiceImpl extends BaseServiceImpl<MultipleChoices,
             newOptions.setOptions(questionOptions);
             multipleChoices.getOptions().add(newOptions);
         }
+        multipleChoices.setCorrectAnswer(correctAnswer);
         save(multipleChoices);
     }
 

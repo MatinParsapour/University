@@ -66,8 +66,8 @@ public class MultipleChoicesController {
      * @return a String then redirect to main page for teacher
      */
     @PostMapping("/edit-question")
-    public String editQuestion(long questionId, String title, String header, String options){
-        multipleChoicesService.editQuestion(questionId,title,header,options);
+    public String editQuestion(long questionId, String title, String header, String options, String correctAnswer){
+        multipleChoicesService.editQuestion(questionId,title,header,options,correctAnswer);
         return "redirect:/teacher/main";
     }
 

@@ -1,7 +1,6 @@
 package ir.maktab.University.service;
 
 import ir.maktab.University.entities.MultipleChoices;
-import ir.maktab.University.entities.QuestionAnswer;
 
 public interface MultipleChoicesService extends BaseService<MultipleChoices,Long> {
 
@@ -19,8 +18,9 @@ public interface MultipleChoicesService extends BaseService<MultipleChoices,Long
      * @param title the title that may changed
      * @param header the problem that may changed
      * @param options the options that may changed
+     * @param correctAnswer
      */
-    void editQuestion(long questionId, String title, String header, String options);
+    void editQuestion(long questionId, String title, String header, String options, String correctAnswer);
 
     /**
      * Find the question in the questions bank and set for quiz
