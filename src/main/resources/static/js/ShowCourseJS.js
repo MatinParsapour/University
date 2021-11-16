@@ -77,3 +77,17 @@ document.getElementById("changeButton").addEventListener("click",function (event
         alert("تاریخ پایانی دوره باید بعد از تاریخ شروع دوره باشد")
     }
 })
+
+$('#editPadForm')
+    .each(function(){
+        $(this).data('serialized', $(this).serialize())
+    })
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+            .prop('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+    })
+    .find('input:submit, button:submit')
+    .prop('disabled', true)
+;
