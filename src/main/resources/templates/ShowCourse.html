@@ -70,12 +70,12 @@
             <label for="exampleFormControlInput1" class="form-label"> عنوان : </label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="newTitle" th:value="${course.title}">
             <label for="exampleFormControlInput1" class="form-label">کد دوره : </label>
-            <input type="number" class="form-control" name="newCourseCode" th:value="${course.courseCode}">
+            <input id="courseCode" type="number" class="form-control" name="newCourseCode" th:value="${course.courseCode}">
             <label for="exampleFormControlInput1" class="form-label">تاریخ شروع دوره : </label>
             <input type="date" class="form-control" id="newStartDate" name="newStartDate" th:value="${#calendars.format(course.startDate, 'yyyy-MM-dd')}">
             <label for="exampleFormControlInput1" class="form-label">تاریخ پایان دوره : </label>
             <input type="date" class="form-control" id="newFinishDate" name="newFinishDate" th:value="${#calendars.format(course.finishDate, 'yyyy-MM-dd')}">
-            <input type="hidden" name="courseId" th:value="${course.id}">
+            <input id="courseId" type="hidden" name="courseId" th:value="${course.id}">
             <input type="submit" id="changeButton" value="تغییر">
         </form>
         <input id="openTeachersPadButton" class="margin-top-5" type="button" value="تغییر استاد" onclick="openTeachersPad()">

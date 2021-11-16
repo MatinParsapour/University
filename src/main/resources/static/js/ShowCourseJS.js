@@ -63,16 +63,15 @@ function closeTeachersPad() {
 }
 
 document.getElementById("changeButton").addEventListener("click",function (event){
-    let valueStartDate = document.getElementById("newStartDate").value;
-    let valueFinishDate = document.getElementById("newFinishDate").value;
-    var startDate = new Date(valueStartDate);
-    var finishDate = new Date(valueFinishDate);
-    if(startDate.getDate() < new Date().getDate() || startDate.val() === ""){
+    var startDate = new Date(document.getElementById("newStartDate").value);
+    var finishDate = new Date(document.getElementById("newFinishDate").value);
+    var now = new Date();
+    if(startDate < now){
         event.preventDefault();
         alert("تاریخ انتخابی اشتباه است " +
             "باید بزرگتر از تاریخ فعلی باشد")
     }
-    if(finishDate.getDate() < startDate.getDate() || finishDate.val() === ""){
+    if(finishDate < startDate){
         event.preventDefault();
         alert("تاریخ پایانی دوره باید بعد از تاریخ شروع دوره باشد")
     }
@@ -91,3 +90,26 @@ $('#editPadForm')
     .find('input:submit, button:submit')
     .prop('disabled', true)
 ;
+
+$(document).ready(function (){
+    $("#editPadForm").on("submit",function (event){
+        var courseId = $("#courseId").val();
+        var title = $("#exampleFormControlInput1").val();
+        var courseCode = $("#courseCode").val();
+        var startDate = new Date($("#newStartDate").val());
+        var finishDate = new Date($("#newFinishDate").val());
+        $.ajax({
+            method: "post",
+            url: "http://localhost:8080/course-rest/update-course-data",
+            data: {courseId: courseId, title: title, courseCode: courseCode, startDate: startDate, finishDate: finishDate},
+            success: function (){
+                alert("اطلاعات تغیر کرد")
+                location.reload();
+            },
+            error: function (){
+                alert("یک اشتباهی بوجود آمده")
+            }
+        });
+        event.preventDefault()
+    })
+})
