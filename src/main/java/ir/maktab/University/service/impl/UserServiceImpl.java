@@ -41,14 +41,12 @@ public class UserServiceImpl extends BaseServiceImpl<User,Long,UserRepository> i
     }
 
     @Override
-    public void editUserInformation(long userId, String firstName, String lastName, String birthday, String email, long nationalCode) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date birthDate = format.parse(birthday);
+    public void editUserInformation(long userId, String firstName, String lastName, Date birthday, String email, long nationalCode) {
         User user = findById(userId).get();
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
-        user.setBirthday(birthDate);
+        user.setBirthday(birthday);
         user.setNationalCode(nationalCode);
         save(user);
     }

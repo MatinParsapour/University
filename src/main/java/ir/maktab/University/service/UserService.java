@@ -2,9 +2,8 @@ package ir.maktab.University.service;
 
 import ir.maktab.University.entities.User;
 
-import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService extends BaseService<User,Long>{
 
@@ -42,5 +41,5 @@ public interface UserService extends BaseService<User,Long>{
      * @param email the email that may changed
      * @param nationalCode the national code that may changed
      */
-    void editUserInformation(long userId, String firstName, String lastName, String birthday, String email, long nationalCode) throws ParseException;
+    void editUserInformation(long userId, String firstName, String lastName, Date birthday, String email, long nationalCode);
 }
