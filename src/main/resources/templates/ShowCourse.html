@@ -66,7 +66,7 @@
 </div>
 <div id="editPad">
     <div id="editPadInfo" class="editPadInfo">
-        <form action="#" class="margin-top-5" style="display: flex;" th:action="@{/course/change-course-details}" method="post">
+        <form action="#" class="flexDirectionColumn margin-top-5" style="display: flex;" th:action="@{/course/change-course-details}" method="post">
             <label for="exampleFormControlInput1" class="form-label"> عنوان : </label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="newTitle" th:value="${course.title}">
             <label for="exampleFormControlInput1" class="form-label">کد دوره : </label>
