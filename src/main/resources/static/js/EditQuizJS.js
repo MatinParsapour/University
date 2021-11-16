@@ -78,7 +78,33 @@ function checkInputs(){
     return true
 }
 
-$('form')
+$('#editDescriptiveForm')
+    .each(function(){
+        $(this).data('serialized', $(this).serialize())
+    })
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+            .prop('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+    })
+    .find('input:submit, button:submit')
+    .prop('disabled', true)
+;
+$('#editMultipleChoicesForm')
+    .each(function(){
+        $(this).data('serialized', $(this).serialize())
+    })
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+            .prop('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+    })
+    .find('input:submit, button:submit')
+    .prop('disabled', true)
+;
+$('#editQuizForm')
     .each(function(){
         $(this).data('serialized', $(this).serialize())
     })

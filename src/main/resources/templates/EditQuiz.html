@@ -40,7 +40,7 @@
             <div class="showBox" th:switch="${question.questionHeader.multipleChoices}">
                 <div th:case="null">
                     <p>نوع سوال : تشریحی</p>
-                    <form action="#" method="post" th:action="@{/descriptive/edit-question}">
+                    <form id="editDescriptiveForm" action="#" method="post" th:action="@{/descriptive/edit-question}">
                         <label for="descriptiveTitle">عنوان :</label>
                         <input name="title" class="backGroundBlue form-control" type="text" id="descriptiveTitle" aria-label="default input example" th:value="${question.questionHeader.descriptive.title}">
                         <label for="descriptiveHeader">صورت سوال :</label>
@@ -53,7 +53,7 @@
                 </div>
                 <div th:case="*">
                     <p>نوع سوال : چند گزینه ای</p>
-                    <form action="#" method="post" th:action="@{/multiple-choices/edit-question}">
+                    <form id="editMultipleChoicesForm" action="#" method="post" th:action="@{/multiple-choices/edit-question}">
                         <label for="multipleChoicesTitle">عنوان :</label>
                         <input onkeyup="showOptions()" name="title" class="backGroundBlue form-control" type="text" id="multipleChoicesTitle" aria-label="default input example" th:value="${question.questionHeader.multipleChoices.title}">
                         <label for="multipleChoicesHeader">صورت سوال :</label>
@@ -75,7 +75,7 @@
 </div>
 <div>
     <div id="quizData" class="showBox">
-        <form action="#" th:action="@{/quiz/change-quiz-properties}" method="post">
+        <form id="editQuizForm" action="#" th:action="@{/quiz/change-quiz-properties}" method="post">
             <label for="exampleFormControlInput1" class="form-label">عنوان : </label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="title" th:value="${quiz.title}">
             <label for="exampleFormControlInput1" class="form-label">توضیحات : </label>
