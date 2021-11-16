@@ -10,18 +10,18 @@
 <body>
 <div>
     <div class="showBox">
-        <form  action="#" method="post" th:action="@{/user/change-user-details}">
+        <form id="updateUserInformation">
             <label for="exampleFormControlInput1" class="form-label">نام : </label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="firstName" th:value="${user.firstName}">
             <label for="exampleFormControlInput1" class="form-label">نام خانوادگی : </label>
-            <input type="text" class="form-control" name="lastName" th:value="${user.lastName}">
+            <input id="userLastName" type="text" class="form-control" name="lastName" th:value="${user.lastName}">
             <label for="exampleFormControlInput1" class="form-label">تاریخ تولد : </label>
-            <input type="date" class="form-control" name="birthday" th:value="${#calendars.format(user.birthday, 'yyyy-MM-dd')}">
+            <input id="userBirthDay" type="date" class="form-control" name="birthday" th:value="${#calendars.format(user.birthday, 'yyyy-MM-dd')}">
             <label for="exampleFormControlInput1" class="form-label">ایمیل : </label>
-            <input type="email" class="form-control" name="email" th:value="${user.email}">
+            <input id="userEmail" type="email" class="form-control" name="email" th:value="${user.email}">
             <label for="exampleFormControlInput1" class="form-label">کد ملی : </label>
-            <input type="number" class="form-control" name="nationalCode" th:value="${user.nationalCode}">
-            <input name="userId" type="hidden" th:value="${user.id}">
+            <input id="userNationalCode" type="number" class="form-control" name="nationalCode" th:value="${user.nationalCode}">
+            <input id="userId" name="userId" type="hidden" th:value="${user.id}">
             <p> جنیست : <span th:text="${user.gender}"></span></p>
             <p>  وضعیت : <span th:text="${user.status}"></span></p>
             <input type="submit" value="تغییر">
