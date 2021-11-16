@@ -31,7 +31,7 @@ $(document).ready(function () {
         $(".element:last").after("<div class='element' id='div_" + nextindex + "'></div>");
 
         $("#div_" + nextindex).append(
-            "<input th:field='${options}' class='optionInput' type='text' name = 'option' placeholder='گزینه جدید را وارد کنید' id='" + nextindex +
+            "<input th:field='${options}' class='optionInput backGroundBlue form-control' type='text' name = 'option' placeholder='گزینه جدید را وارد کنید' id='" + nextindex +
             "'>&nbsp;<input type='button' id='remov_" + nextindex + "' class='remove' value='حذف گزینه'>");
     });
 
@@ -57,7 +57,7 @@ function setCorrectAnswer(){
         newDiv.setAttribute("id", "selectCorrectAnswer")
 
         var selectTag = "";
-        selectTag = "<select id='correctAnswer' name='correctAnswer'>"
+        selectTag = "<select id='correctAnswer' class='backGroundBlue form-control' name='correctAnswer'>"
         for (let i = 0; i < inputs.length; i++) {
             selectTag += "<option value ='" + inputs[i].value + "'>" + inputs[i].value + "</option>";
         }

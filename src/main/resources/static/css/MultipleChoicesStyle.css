@@ -25,7 +25,7 @@ body {
     background-color: red;
 }
 
-.margin-top-10 {
+.margin-top-3 {
     margin-top: 3%;
 }
 
@@ -68,5 +68,5 @@ body {
     cursor: pointer;
     line-height: 1.1;
     background-color: #fff;
-    background-image: linear-gradient(to top, #075509, #0a2d40);
+    background-image: linear-gradient(to top, #a018c6, #42a5db);
 }
