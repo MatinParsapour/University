@@ -12,17 +12,6 @@ html {
     height: 100%;
 }
 
-body {
-    font-family: 'Arvo';
-    background: #4f3b5b;
-    background: -moz-radial-gradient(center, ellipse cover, #4f3b5b 0%, #231733 100%);
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #4f3b5b), color-stop(100%, #231733));
-    background: -webkit-radial-gradient(center, ellipse cover, #4f3b5b 0%, #231733 100%);
-    background: -o-radial-gradient(center, ellipse cover, #4f3b5b 0%, #231733 100%);
-    background: -ms-radial-gradient(center, ellipse cover, #4f3b5b 0%, #231733 100%);
-    background: radial-gradient(ellipse at center, #4f3b5b 0%, #231733 100%);
-}
-
 .wrap {
     width: 300px;
 }
@@ -129,6 +118,10 @@ body {
     transition: all .3s ease-in-out;
     position: relative;
     font-size: 13px;
+}
+.flexDirectionColumn{
+    display: flex;
+    flex-direction: column;
 }
 
 .editPadInfo {

@@ -2,7 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-image: linear-gradient(#8be9e7, #20dad8, #20a5d8, #12395a, #120d14);
+    background-image: url("images/Login.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
