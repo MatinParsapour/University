@@ -5,7 +5,6 @@ import ir.maktab.University.service.CourseService;
 import ir.maktab.University.service.ManagerService;
 import ir.maktab.University.service.StudentService;
 import ir.maktab.University.service.TeacherService;
-import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -146,22 +142,6 @@ public class CourseController {
     @PostMapping("/delete-course")
     public String deleteCourse(long courseId) {
         courseService.deActivateCourse(courseId);
-        return "redirect:/manager/manager-main";
-    }
-
-    /**
-     * Edit the course information about course
-     * @param courseId id of course that manager wants to edit
-     * @param newTitle the title that may change
-     * @param newCourseCode the course code that may change
-     * @param newStartDate the start date that may change
-     * @param newFinishDate the finish date that may change
-     * @return a String to redirect to main page for manager
-     * @throws ParseException
-     */
-    @PostMapping("/change-course-details")
-    public String changeCourseDetails(long courseId, String newTitle, long newCourseCode, String newStartDate, String newFinishDate) throws ParseException {
-        courseService.editCourseDetails(courseId,newTitle,newCourseCode,newStartDate,newFinishDate);
         return "redirect:/manager/manager-main";
     }
 
