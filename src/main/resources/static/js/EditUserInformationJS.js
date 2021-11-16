@@ -33,6 +33,7 @@ $(document).ready(function (){
             data: {firstName: firstName, lastName: lastName, birthday: birthDay, email: email, nationalCode: nationalCode, id: id},
             success: function (){
                 alert("اطلاعات تغییر کرد")
+                location.reload();
             },
             error: function (){
                 alert("یه اشتباهی بوجود امده")
