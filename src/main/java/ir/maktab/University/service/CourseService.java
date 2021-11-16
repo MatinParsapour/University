@@ -3,9 +3,8 @@ package ir.maktab.University.service;
 import ir.maktab.University.entities.Course;
 import ir.maktab.University.entities.Quiz;
 
-import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public interface CourseService extends BaseService<Course, Long>{
 
@@ -70,7 +69,7 @@ public interface CourseService extends BaseService<Course, Long>{
      * @param newStartDate the start date that may change
      * @param newFinishDate the finish date that may change
      */
-    void editCourseDetails(long courseId, String newTitle, long newCourseCode, String newStartDate, String newFinishDate) throws ParseException;
+    void editCourseDetails(long courseId, String newTitle, long newCourseCode, Date newStartDate, Date newFinishDate);
 
     /**
      * Add quiz to the list of course quizzes

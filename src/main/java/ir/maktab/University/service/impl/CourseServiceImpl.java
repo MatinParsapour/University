@@ -96,15 +96,12 @@ public class CourseServiceImpl extends BaseServiceImpl<Course,Long,CourseReposit
     }
 
     @Override
-    public void editCourseDetails(long courseId, String newTitle, long newCourseCode, String newStartDate, String newFinishDate) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDate = format.parse(newStartDate);
-        Date finishDate = format.parse(newFinishDate);
+    public void editCourseDetails(long courseId, String newTitle, long newCourseCode, Date newStartDate, Date newFinishDate){
         Course course = findById(courseId).get();
         course.setTitle(newTitle);
         course.setCourseCode(newCourseCode);
-        course.setStartDate(startDate);
-        course.setFinishDate(finishDate);
+        course.setStartDate(newStartDate);
+        course.setFinishDate(newFinishDate);
         save(course);
     }
 
