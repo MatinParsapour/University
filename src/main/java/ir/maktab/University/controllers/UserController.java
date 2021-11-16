@@ -1,17 +1,13 @@
 package ir.maktab.University.controllers;
 
-import ir.maktab.University.Security.AuthenticationProviderSecurity;
-import ir.maktab.University.Security.UserDetailsSecurity;
-import ir.maktab.University.Security.UserDetailsServiceSecurity;
-import ir.maktab.University.entities.Manager;
-import ir.maktab.University.entities.Teacher;
-import ir.maktab.University.entities.User;
-import ir.maktab.University.service.ManagerService;
-import ir.maktab.University.service.UserService;
+import ir.maktab.University.config.AuthenticationProviderSecurity;
+import ir.maktab.University.config.UserDetailsSecurity;
+import ir.maktab.University.config.UserDetailsServiceSecurity;
+import ir.maktab.University.entities.*;
+import ir.maktab.University.service.*;
 import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -224,23 +220,6 @@ public class UserController {
             model.addAttribute("users", users);
         }
         return "FoundUsers";
-    }
-
-    /**
-     * Get all the information that manager changed and update the user
-     * @param userId the id of user that manager wants to change information of it
-     * @param firstName the firstname that may changed
-     * @param lastName the lastname that may changed
-     * @param birthday the birthday that may changed
-     * @param email the email that may changed
-     * @param nationalCode the national that may changed
-     * @return a String to redirect to main page for manager
-     * @throws ParseException
-     */
-    @PostMapping("/change-user-details")
-    public String changeUserDetails(long userId, String firstName, String lastName, String birthday, String email, long nationalCode) throws ParseException {
-        userService.editUserInformation(userId,firstName,lastName,birthday,email,nationalCode);
-        return "redirect:/manager/manager-main";
     }
 
     /**
