@@ -40,3 +40,54 @@ function openEditPad(){
     document.getElementById("displayTeachers").style.display = "none"
     document.getElementById("quizData").style.display = "block"
 }
+
+function showOptions(){
+    if(!checkInputs()){
+        alert("گزینه ها را بنویسید")
+    }else {
+        var inputs = document.getElementsByClassName("optionInput")
+        var newDiv = document.createElement('div')
+        newDiv.setAttribute("id", "selectCorrectAnswer")
+
+        var selectTag = "";
+        selectTag = "<select id='correctAnswer' name='correctAnswer' class='backGroundBlue form-control'>"
+        for (let i = 0; i < inputs.length; i++) {
+            selectTag += "<option value ='" + inputs[i].value + "'>" + inputs[i].value + "</option>";
+        }
+        selectTag += "</select>"
+        newDiv.innerHTML = selectTag
+        var elementById = document.getElementById("selectCorrectAnswer");
+        if (elementById === null) {
+            document.getElementById("multipleChoicesForm").appendChild(newDiv)
+            document.getElementById("correctAnswerLabel").style.display = "block"
+        } else {
+            document.getElementById("multipleChoicesForm").replaceChild(newDiv, elementById)
+            document.getElementById("correctAnswerLabel").style.display = "block"
+        }
+    }
+}
+
+function checkInputs(){
+    var inputs = document.getElementsByClassName("optionInput")
+
+    for(let i = 0; i < inputs.length; i++){
+        if (inputs[i].value.length === 0){
+            return false
+        }
+    }
+    return true
+}
+
+$('form')
+    .each(function(){
+        $(this).data('serialized', $(this).serialize())
+    })
+    .on('change input', function(){
+        $(this)
+            .find('input:submit, button:submit')
+            .prop('disabled', $(this).serialize() == $(this).data('serialized'))
+        ;
+    })
+    .find('input:submit, button:submit')
+    .prop('disabled', true)
+;

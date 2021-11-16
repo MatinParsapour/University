@@ -73,3 +73,7 @@ body {
     border-color: rgb(10, 10, 68, 80%);!important;
     color: white;!important;
 }
+
+#correctAnswerLabel{
+    display: none;
+}
