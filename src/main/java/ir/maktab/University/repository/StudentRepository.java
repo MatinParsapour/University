@@ -12,7 +12,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query(value = "SELECT new ir.maktab.University.entities.dto.StudentDTO(" +
             "s.id, s.firstName, s.lastName, s.birthday," +
             "s.nationalCode, s.email, s.gender, s.status)" +
-            "FROM Student s")
+            "FROM Student s WHERE s.isActive = true")
     List<StudentDTO> findStudentDTOs();
 
     List<Student> findAllByIsActiveTrue();
