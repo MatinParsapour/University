@@ -45,6 +45,7 @@ public class QuizServiceImpl extends BaseServiceImpl<Quiz,Long, QuizRepository>
         quiz.setTitle(title);
         quiz.setDescription(description);
         quiz.setQuizTime(quizTime);
+        save(quiz);
     }
 
     @Override
