@@ -1,6 +1,8 @@
 package ir.maktab.University.controllers;
 
 import ir.maktab.University.entities.*;
+import ir.maktab.University.entities.dto.StudentDTO;
+import ir.maktab.University.entities.dto.TeacherDTO;
 import ir.maktab.University.service.CourseService;
 import ir.maktab.University.service.ManagerService;
 import ir.maktab.University.service.StudentService;
@@ -45,8 +47,8 @@ public class CourseController {
      */
     @PostMapping("/display-course")
     public String displayCourse(Model model, String courseId) {
-        List<Student> students = studentService.getAllStudents();
-        List<Teacher> teachers = teacherService.getAllTeachers();
+        List<StudentDTO> students = studentService.getAllStudentDTOs();
+        List<TeacherDTO> teachers = teacherService.getAllTeacherDTOs();
         Course course = courseService.findById(Long.parseLong(courseId)).get();
         model.addAttribute("students", students);
         model.addAttribute("course", course);
@@ -89,7 +91,7 @@ public class CourseController {
         Course definedCourse = courseService.getCourseByCourseCode(course.getCourseCode());
         if (definedCourse == null) {
             Course setCourse = courseService.createCourse(course);
-            List<Teacher> teachers = teacherService.getAllTeachers();
+            List<TeacherDTO> teachers = teacherService.getAllTeacherDTOs();
             model.addAttribute("teachers", teachers);
             model.addAttribute("course",setCourse);
             return "SelectTeacher";
