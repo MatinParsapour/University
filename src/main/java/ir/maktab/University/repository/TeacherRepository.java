@@ -11,7 +11,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
     @Query(value = "SELECT new ir.maktab.University.entities.dto.TeacherDTO(" +
             "t.id, t.firstName, t.lastName, t.birthday, t.nationalCode," +
-            "t.email, t.gender, t.status) FROM Teacher t")
+            "t.email, t.gender, t.status) FROM Teacher t WHERE t.isActive = true")
     List<TeacherDTO> findTeacherDTOs();
 
     List<Teacher> findAllByIsActiveTrue();
