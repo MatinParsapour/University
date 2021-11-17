@@ -1,13 +1,12 @@
 package ir.maktab.University.service.impl;
 
 import ir.maktab.University.entities.User;
+import ir.maktab.University.entities.dto.extra.NecessaryUserDTO;
 import ir.maktab.University.repository.UserRepository;
 import ir.maktab.University.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -32,12 +31,12 @@ public class UserServiceImpl extends BaseServiceImpl<User,Long,UserRepository> i
 
     @Override
     public User getUserByUserName(String username) {
-        return userRepository.findByUserName(username);
+        return userRepository.findByUserNameAndIsActiveTrue(username);
     }
 
     @Override
-    public List<User> searchUsers(String field, String status, String type, String sex) {
-        return userRepository.findAllByFirstNameLikeOrLastNameLikeAndStatusAndTypeAndGender("%" + field + "%", "%" + field + "%", status,type,sex);
+    public List<NecessaryUserDTO> searchUsers(String field, String status, String type, String sex) {
+        return userRepository.findAllUsersByCondition(field,status,type,sex);
     }
 
     @Override

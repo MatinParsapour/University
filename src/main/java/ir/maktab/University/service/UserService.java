@@ -1,6 +1,7 @@
 package ir.maktab.University.service;
 
 import ir.maktab.University.entities.User;
+import ir.maktab.University.entities.dto.extra.NecessaryUserDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -30,7 +31,7 @@ public interface UserService extends BaseService<User,Long>{
      * @param sex male, female
      * @return a list of users found with these filters
      */
-    List<User> searchUsers(String field,String status, String type, String sex);
+    List<NecessaryUserDTO> searchUsers(String field, String status, String type, String sex);
 
     /**
      * Get the new information and set them in the user and save them
