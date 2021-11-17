@@ -80,8 +80,9 @@ public class TeacherController {
      * @param userId id of user that manager chose
      */
     @PostMapping("/reject-teacher")
-    public void rejectTeacher(long userId) {
+    public void rejectTeacher(long userId, HttpServletResponse response) throws IOException {
         teacherService.rejectTeacher(userId);
+        response.sendRedirect("/manager/manager-main");
     }
 
     /**
@@ -89,8 +90,9 @@ public class TeacherController {
      * @param userId id of user that manager chose
      */
     @PostMapping("/accept-teacher")
-    public void acceptTeacher(long userId) {
+    public void acceptTeacher(long userId, HttpServletResponse response) throws IOException {
         teacherService.acceptTeacher(userId);
+        response.sendRedirect("/manager/manager-main");
     }
 
     /**
