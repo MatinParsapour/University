@@ -4,6 +4,7 @@ import ir.maktab.University.entities.Role;
 import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.User;
 import ir.maktab.University.entities.dto.StudentDTO;
+import ir.maktab.University.entities.dto.UserDTO;
 import ir.maktab.University.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,7 +55,7 @@ public class StudentController {
      * @param user the information about user in sign up form
      * @return a student that saved in data base
      */
-    public Student addStudent(User user) {
+    public Student addStudent(UserDTO user) {
         return studentService.createStudent(user);
     }
 
