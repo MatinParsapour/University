@@ -8,8 +8,9 @@
 <body>
 <form action="#" method="post" th:action="@{/descriptive/add-descriptive}" th:object="${descriptive}" class="create-question-form">
     <label for="problem">عنوان سوال : </label>
-    <textarea name="title" class="border-radius-5 fontSize-16 resize-none" th:field="*{title}" id="title" cols="30" rows="8"
-              placeholder="صورت سوال را وارد کنید"></textarea>
+    <input name="title" maxlength="40" class="border-radius-5 fontSize-16 resize-none" th:field="*{title}" id="title" cols="30" rows="8"
+           onkeyup="displayTitleLength()" placeholder="عنوان سوال را وارد کنید (40 کاراکتر)">
+    <p> میزان کاراکتر باقی مانده : <span id="lengthOfInput">40</span></p>
     <label for="problem">صورت سوال : </label>
     <textarea name="problem" class="border-radius-5 fontSize-16 resize-none" th:field="*{header}" id="problem" cols="30" rows="8"
               placeholder="صورت سوال را وارد کنید"></textarea>
