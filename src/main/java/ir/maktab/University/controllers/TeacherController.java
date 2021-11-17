@@ -5,12 +5,15 @@ import ir.maktab.University.entities.Role;
 import ir.maktab.University.entities.Teacher;
 import ir.maktab.University.entities.User;
 import ir.maktab.University.entities.dto.TeacherDTO;
+import ir.maktab.University.entities.dto.UserDTO;
 import ir.maktab.University.service.TeacherService;
 import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -68,7 +71,7 @@ public class TeacherController {
      * @param user the information about user in sign up form
      * @return a student that saved in data base
      */
-    public Teacher addTeacher(User user) {
+    public Teacher addTeacher(UserDTO user) {
         return teacherService.createTeacher(user);
     }
 
