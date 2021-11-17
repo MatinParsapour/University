@@ -4,6 +4,9 @@ import ir.maktab.University.config.AuthenticationProviderSecurity;
 import ir.maktab.University.config.UserDetailsSecurity;
 import ir.maktab.University.config.UserDetailsServiceSecurity;
 import ir.maktab.University.entities.*;
+import ir.maktab.University.entities.dto.UserDTO;
+import ir.maktab.University.entities.dto.extra.NecessaryUserDTO;
+import ir.maktab.University.entities.dto.extra.UserUPDTO;
 import ir.maktab.University.service.*;
 import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.text.ParseException;
 import java.util.List;
 
 @Controller
@@ -30,6 +32,8 @@ public class UserController {
 
     private final TeacherController teacherController;
 
+    private final TeacherService teacherService;
+
     private final ManagerService managerService;
 
     private final UserDetailsServiceSecurity userDetailsServiceSecurity;
@@ -38,12 +42,13 @@ public class UserController {
 
     @Autowired
     public UserController(UserService userService, StudentController studentController,
-                          TeacherController teacherController, ManagerService managerService,
+                          TeacherController teacherController, TeacherService teacherService, ManagerService managerService,
                           UserDetailsServiceSecurity userDetailsServiceSecurity,
                           AuthenticationProviderSecurity authenticationProviderSecurity) {
         this.userService = userService;
         this.studentController = studentController;
         this.teacherController = teacherController;
+        this.teacherService = teacherService;
         this.managerService = managerService;
         this.userDetailsServiceSecurity = userDetailsServiceSecurity;
         this.authenticationProviderSecurity = authenticationProviderSecurity;
@@ -58,7 +63,7 @@ public class UserController {
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("isUserAllow",Security.getIsUserAllow());
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserUPDTO());
         return "Register";
     }
 
@@ -69,7 +74,7 @@ public class UserController {
      * @return a String to return to proper page
      */
     @PostMapping("/add-user")
-    public String addUser(User user) {
+    public String addUser(UserDTO user) {
         if(userService.getUserByUserName(user.getUserName()) != null){
             return "DoplicateUserName";
         }
@@ -99,7 +104,7 @@ public class UserController {
      * @return a String to return to relate page to manager teacher or student
      */
     @PostMapping("/validate-user")
-    public String validateUser(User user) {
+    public String validateUser(UserUPDTO user) {
         authenticationProviderSecurity.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getUserName(),user.getPassword()
@@ -144,7 +149,7 @@ public class UserController {
             studentController.rejectStudent(userId);
             return "redirect:/manager/manager-main";
         } else {
-            teacherController.rejectTeacher(userId);
+            teacherService.rejectTeacher(userId);
             return "redirect:/manager/manager-main";
         }
     }
@@ -161,7 +166,7 @@ public class UserController {
             studentController.acceptStudent(userId);
             return "redirect:/manager/manager-main";
         } else {
-            teacherController.acceptTeacher(userId);
+            teacherService.acceptTeacher(userId);
             return "redirect:/manager/manager-main";
         }
     }
@@ -213,7 +218,7 @@ public class UserController {
      */
     @GetMapping("/search-users")
     public String searchUser(String field, String status, String type, String sex, Model model) {
-        List<User> users = userService.searchUsers(field,status,type,sex);
+        List<NecessaryUserDTO> users = userService.searchUsers(field,status,type,sex);
         if (users.size() == 0) {
             model.addAttribute("users", null);
         } else {
@@ -242,7 +247,7 @@ public class UserController {
      */
     @GetMapping("/sign-up-user")
     public String signUpUser(Model model){
-        model.addAttribute("user",new User());
+        model.addAttribute("user",new UserDTO());
         return "SignUp";
     }
 }
