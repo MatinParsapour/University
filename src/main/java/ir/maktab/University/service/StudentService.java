@@ -4,6 +4,7 @@ import ir.maktab.University.entities.Course;
 import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.User;
 import ir.maktab.University.entities.dto.StudentDTO;
+import ir.maktab.University.entities.dto.UserDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +48,7 @@ public interface StudentService extends BaseService<Student,Long>{
      * @param user information about the person that signed up
      * @return a student that saved in data base
      */
-    Student createStudent(User user);
+    Student createStudent(UserDTO user);
 
     /**
      * Reject the student manager choose when student signed up

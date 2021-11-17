@@ -5,6 +5,7 @@ import ir.maktab.University.entities.Role;
 import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.User;
 import ir.maktab.University.entities.dto.StudentDTO;
+import ir.maktab.University.entities.dto.UserDTO;
 import ir.maktab.University.repository.StudentRepository;
 import ir.maktab.University.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class StudentServiceImpl extends BaseServiceImpl<Student,Long,StudentRepo
     }
 
     @Override
-    public Student createStudent(User user) {
+    public Student createStudent(UserDTO user) {
         Student student = new Student();
         Role role = new Role();
         role.setRoleName("STUDENT");
@@ -92,17 +93,22 @@ public class StudentServiceImpl extends BaseServiceImpl<Student,Long,StudentRepo
     public void inActiveStudent(long studentId) {
         Student student = findById(studentId).get();
         student.setActive(false);
-        student.setUserName(null);
         save(student);
     }
 
     @Override
     public void changeRoleToStudent(User user, String username) {
-        Student student = createStudent(user);
-        student.setType("Student");
-        student.setStatus("Accepted");
-        student.setUserName(username);
-        student.setActive(true);
-        save(student);
+        Student definedStudent = studentRepository.findByUserName(username);
+        if(definedStudent == null){
+            Student student = (Student) user;
+            student.setType("Student");
+            student.setStatus("Accepted");
+            student.setUserName(username);
+            student.setActive(true);
+            save(student);
+        }else{
+            definedStudent.setActive(true);
+            save(definedStudent);
+        }
     }
 }
