@@ -2,6 +2,7 @@ package ir.maktab.University.service.impl;
 
 import ir.maktab.University.entities.*;
 import ir.maktab.University.entities.dto.TeacherDTO;
+import ir.maktab.University.entities.dto.UserDTO;
 import ir.maktab.University.repository.TeacherRepository;
 import ir.maktab.University.service.TeacherService;
 import ir.maktab.University.util.Security;
@@ -55,7 +56,7 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher,Long,TeacherRepo
     }
 
     @Override
-    public Teacher createTeacher(User user) {
+    public Teacher createTeacher(UserDTO user) {
         Teacher teacher = new Teacher();
         Role role = new Role();
         role.setRoleName("TEACHER");
@@ -94,17 +95,22 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher,Long,TeacherRepo
     public void inActiveTeacher(long teacherId) {
         Teacher teacher = findById(teacherId).get();
         teacher.setActive(false);
-        teacher.setUserName(null);
         save(teacher);
     }
 
     @Override
     public void changeRoleToTeacher(User user, String username) {
-        Teacher teacher = createTeacher(user);
-        teacher.setType("Teacher");
-        teacher.setStatus("Accepted");
-        teacher.setUserName(username);
-        save(teacher);
+        Teacher definedTeacher = teacherRepository.findByUserName(username);
+        if(definedTeacher == null){
+            Teacher teacher = (Teacher) user;
+            teacher.setType("Teacher");
+            teacher.setStatus("Accepted");
+            teacher.setUserName(username);
+            save(teacher);
+        }else{
+            definedTeacher.setActive(true);
+            save(definedTeacher);
+        }
     }
 
     @Override

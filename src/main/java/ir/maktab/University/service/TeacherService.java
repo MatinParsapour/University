@@ -2,6 +2,7 @@ package ir.maktab.University.service;
 
 import ir.maktab.University.entities.*;
 import ir.maktab.University.entities.dto.TeacherDTO;
+import ir.maktab.University.entities.dto.UserDTO;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public interface TeacherService extends BaseService<Teacher,Long> {
      * @param user information about the person that signed up
      * @return a student that saved in data base
      */
-    Teacher createTeacher(User user);
+    Teacher createTeacher(UserDTO user);
 
     /**
      * Reject the teacher manager choose when teacher signed up
