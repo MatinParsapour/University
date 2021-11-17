@@ -37,7 +37,11 @@ public class QuestionsBankController {
         QuestionsBank questionsBankList = questionsBankService.getAllQuestionsBank(quizId);
         Quiz quiz = quizService.findById(quizId).get();
         model.addAttribute("quiz",quiz);
-        model.addAttribute("questions",questionsBankList.getQuestionHeaders());
+        if(questionsBankList == null){
+            model.addAttribute("questions",null);
+        }else{
+            model.addAttribute("questions",questionsBankList.getQuestionHeaders());
+        }
         return "SelectQuestion";
     }
 }
