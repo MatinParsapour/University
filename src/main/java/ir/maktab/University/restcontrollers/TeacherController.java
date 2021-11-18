@@ -1,4 +1,4 @@
-package ir.maktab.University.controllers;
+package ir.maktab.University.restcontrollers;
 
 import ir.maktab.University.entities.Course;
 import ir.maktab.University.entities.Role;

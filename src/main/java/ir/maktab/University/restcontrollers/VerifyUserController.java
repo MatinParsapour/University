@@ -1,6 +1,8 @@
-package ir.maktab.University.controllers;
+package ir.maktab.University.restcontrollers;
 
+import ir.maktab.University.controllers.StudentController;
 import ir.maktab.University.entities.User;
+import ir.maktab.University.restcontrollers.TeacherController;
 import ir.maktab.University.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

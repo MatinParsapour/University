@@ -1,4 +1,4 @@
-package ir.maktab.University.controllers;
+package ir.maktab.University.restcontrollers;
 
 import ir.maktab.University.service.CourseService;
 import org.springframework.web.bind.annotation.PostMapping;
