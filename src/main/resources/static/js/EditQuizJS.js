@@ -13,6 +13,16 @@ function checkInputs(){
     }
 }
 
+window.onload = function (){
+    var grades = document.getElementsByClassName("points");
+
+    var sum = 0;
+    for (let i = 0; i < grades.length; i++) {
+        sum += grades[i].grade;
+    }
+    document.getElementById("gradeSummation").innerHTML = sum;
+};
+
 function openQuestionDirectionPad(){
     document.getElementById("selectQuestionDirection").style.display = "block"
 }
@@ -85,7 +95,7 @@ $('#editDescriptiveForm')
     .on('change input', function(){
         $(this)
             .find('input:submit, button:submit')
-            .prop('disabled', $(this).serialize() == $(this).data('serialized'))
+            .prop('disabled', $(this).serialize() === $(this).data('serialized'))
         ;
     })
     .find('input:submit, button:submit')
@@ -98,7 +108,7 @@ $('#editMultipleChoicesForm')
     .on('change input', function(){
         $(this)
             .find('input:submit, button:submit')
-            .prop('disabled', $(this).serialize() == $(this).data('serialized'))
+            .prop('disabled', $(this).serialize() === $(this).data('serialized'))
         ;
     })
     .find('input:submit, button:submit')

@@ -36,6 +36,7 @@
 <div th:switch="${quiz.questions}" class="displayNone" id="displayTeachers">
     <h2 th:case="null">سوالی یافت نشد</h2>
     <div th:case="*">
+        <p class="gradeTitle">جمع نمرات : <span class="summationOfGrade" th:text="${#aggregates.sum(quiz.questions.gradeList.![questionPoint])}"></span></p>
         <div th:each="question : ${quiz.questions.questionList}">
             <div class="showBox" th:switch="${question.questionHeader.multipleChoices}">
                 <div th:case="null">
@@ -55,9 +56,9 @@
                     <p>نوع سوال : چند گزینه ای</p>
                     <form id="editMultipleChoicesForm" action="#" method="post" th:action="@{/multiple-choices/edit-question}">
                         <label for="multipleChoicesTitle">عنوان :</label>
-                        <input onkeyup="showOptions()" name="title" class="backGroundBlue form-control" type="text" id="multipleChoicesTitle" aria-label="default input example" th:value="${question.questionHeader.multipleChoices.title}">
+                        <input name="title" class="backGroundBlue form-control" type="text" id="multipleChoicesTitle" aria-label="default input example" th:value="${question.questionHeader.multipleChoices.title}">
                         <label for="multipleChoicesHeader">صورت سوال :</label>
-                        <input onkeyup="showOptions()" name="header" class="backGroundBlue form-control" type="text" id="multipleChoicesHeader" aria-label="default input example" th:value="${question.questionHeader.multipleChoices.header}">
+                        <input name="header" class="backGroundBlue form-control" type="text" id="multipleChoicesHeader" aria-label="default input example" th:value="${question.questionHeader.multipleChoices.header}">
                         <div th:each="option :${question.questionHeader.multipleChoices.options}">
                             <label for="multipleChoicesOption">گزینه :</label>
                             <input onkeyup="showOptions()" name="options" class="optionInput backGroundBlue form-control" type="text" id="multipleChoicesOption" aria-label="default input example" th:value="${option.options}">

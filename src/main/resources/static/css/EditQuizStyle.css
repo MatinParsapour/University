@@ -77,3 +77,26 @@ body {
 #correctAnswerLabel{
     display: none;
 }
+
+.summationOfGrade{
+    border-radius: 10%;
+    behavior: url(PIE.htc);
+    /* remove if you don't care about IE8 */
+    width: 36px;
+    height: 36px;
+    padding: 10px;
+    margin-top: 15px;
+    background: #fff;
+    border: 2px solid #666;
+    color: #666;
+    text-align: center;
+    font: 28px Arial, sans-serif;
+}
+
+.gradeTitle{
+    color: #bb1111;
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: 0px -2px 0px #333,
+    0px 2px 3px #666;
+}
