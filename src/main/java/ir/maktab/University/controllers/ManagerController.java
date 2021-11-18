@@ -3,6 +3,7 @@ package ir.maktab.University.controllers;
 import ir.maktab.University.entities.Course;
 import ir.maktab.University.entities.dto.StudentDTO;
 import ir.maktab.University.entities.dto.TeacherDTO;
+import ir.maktab.University.restcontrollers.TeacherController;
 import ir.maktab.University.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
