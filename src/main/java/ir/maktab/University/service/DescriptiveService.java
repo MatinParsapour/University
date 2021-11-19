@@ -13,12 +13,9 @@ public interface DescriptiveService extends BaseService<Descriptive,Long> {
 
     /**
      * Get all the data from controller and set it to descriptive question and save it
-     * @param questionId id of the descriptive question
-     * @param title the title that may changed
-     * @param header the header that may changed
-     * @param correctAnswer the correct answer that may changed
+     * @param descriptive the question with changes come here
      */
-    void editQuestion(long questionId, String title, String header, String correctAnswer);
+    void editQuestion(Descriptive descriptive);
 
     /**
      * Find the question in the questions bank and set for quiz

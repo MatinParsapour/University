@@ -31,11 +31,7 @@ public class DescriptiveServiceImpl extends BaseServiceImpl<Descriptive,Long, De
     }
 
     @Override
-    public void editQuestion(long questionId, String title, String header, String correctAnswer) {
-        Descriptive descriptive = findById(questionId).get();
-        descriptive.setTitle(title);
-        descriptive.setCorrectAnswer(correctAnswer);
-        descriptive.setHeader(header);
+    public void editQuestion(Descriptive descriptive) {
         save(descriptive);
     }
 
