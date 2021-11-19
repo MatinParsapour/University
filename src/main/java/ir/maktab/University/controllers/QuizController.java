@@ -37,20 +37,6 @@ public class QuizController {
     }
 
     /**
-     * Get the information about the quiz that teacher may changed information of it
-     * @param quizId the id of quiz that teacher chose
-     * @param title the title that may changed
-     * @param description the description that may changed
-     * @param quizTime the quiz time that may changed
-     * @return a String to redirect to main page of teacher
-     */
-    @PostMapping("/change-quiz-properties")
-    public String changeQuizProperties(long quizId, String title, String description, Double quizTime) {
-        quizService.editQuiz(quizId, title, description, quizTime);
-        return "redirect:/teacher/main";
-    }
-
-    /**
      * Delete a quiz that teacher chose
      * @param quizId the id of quiz
      * @return a String to redirect to main page for teacher
