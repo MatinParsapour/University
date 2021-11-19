@@ -58,20 +58,6 @@ public class MultipleChoicesController {
     }
 
     /**
-     * Get all data from front and send to service to update multiple choices question
-     * @param questionId id of the multiple choices question
-     * @param title the title that may changed
-     * @param header the header that may changed
-     * @param options the options that may changed
-     * @return a String then redirect to main page for teacher
-     */
-    @PostMapping("/edit-question")
-    public String editQuestion(long questionId, String title, String header, String options, String correctAnswer){
-        multipleChoicesService.editQuestion(questionId,title,header,options,correctAnswer);
-        return "redirect:/teacher/main";
-    }
-
-    /**
      * Get quiz id and question id and grade to find the question
      * And find quiz and set question to quiz plus point of the
      * question
