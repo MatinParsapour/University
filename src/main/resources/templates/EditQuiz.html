@@ -36,8 +36,8 @@
 <div th:switch="${quiz.questions}" class="displayNone" id="displayTeachers">
     <h2 th:case="null">سوالی یافت نشد</h2>
     <div th:case="*">
-        <p class="gradeTitle">جمع نمرات : <span class="summationOfGrade" th:text="${#aggregates.sum(quiz.questions.gradeList.![questionPoint])}"></span></p>
-        <div th:each="question : ${quiz.questions.questionList}">
+        <p class="gradeTitle">جمع نمرات : <span class="summationOfGrade" th:text="${#aggregates.sum(quiz.questions.![grade.questionPoint])}"></span></p>
+        <div th:each="question : ${quiz.questions}">
             <div class="showBox" th:switch="${question.questionHeader.multipleChoices}">
                 <div th:case="null">
                     <p>نوع سوال : تشریحی</p>
@@ -47,26 +47,30 @@
                         <label for="descriptiveHeader">صورت سوال :</label>
                         <input name="header" class="backGroundBlue form-control" type="text" id="descriptiveHeader" aria-label="default input example" th:value="${question.questionHeader.descriptive.header}">
                         <label for="descriptiveCorrectAnswer">جواب صحیح :</label>
-                        <input name="correctAnswer" class="backGroundBlue form-control" type="text" id="descriptiveCorrectAnswer" aria-label="default input example" th:value="${question.questionHeader.descriptive.correctAnswer}">
-                        <input type="hidden" name="questionId" th:value="${question.questionHeader.descriptive.id}">
+                        <input name="correctAnswer" class="backGroundBlue form-control" type="text" id="descriptiveCorrectAnswer" aria-label="default input example" th:value="${question.questionHeader.descriptive.correctAnswer}">                        <label for="descriptiveCorrectAnswer">جواب صحیح :</label>
+                        <label for="descriptiveGrade">نمره :</label>
+                        <input name="grade" class="backGroundBlue form-control" type="text" id="descriptiveGrade" aria-label="default input example" th:value="${question.grade.questionPoint}">
+                        <input type="hidden" name="id" th:value="${question.questionHeader.descriptive.id}">
                         <input type="submit" value="تغییر">
                     </form>
                 </div>
                 <div th:case="*">
                     <p>نوع سوال : چند گزینه ای</p>
-                    <form id="editMultipleChoicesForm" action="#" method="post" th:action="@{/multiple-choices/edit-question}">
-                        <label for="multipleChoicesTitle">عنوان :</label>
-                        <input name="title" class="backGroundBlue form-control" type="text" id="multipleChoicesTitle" aria-label="default input example" th:value="${question.questionHeader.multipleChoices.title}">
-                        <label for="multipleChoicesHeader">صورت سوال :</label>
-                        <input name="header" class="backGroundBlue form-control" type="text" id="multipleChoicesHeader" aria-label="default input example" th:value="${question.questionHeader.multipleChoices.header}">
+                    <form th:id="'editMultipleChoicesForm' + ${question.id}" action="#" method="post" th:action="@{/multiple-choices/edit-question}">
+                        <label th:for="'multipleChoicesTitle' + ${question.id}">عنوان :</label>
+                        <input onkeyup="showOptions(this)" name="title" class="backGroundBlue form-control" type="text" th:id="'multipleChoicesTitle' + ${question.id}" aria-label="default input example" th:value="${question.questionHeader.multipleChoices.title}">
+                        <label th:for="'multipleChoicesHeader' + ${question.id}">صورت سوال :</label>
+                        <input onkeyup="showOptions(this)" name="header" class="backGroundBlue form-control" type="text" th:id="'multipleChoicesHeader' + ${question.id}" aria-label="default input example" th:value="${question.questionHeader.multipleChoices.header}">
                         <div th:each="option :${question.questionHeader.multipleChoices.options}">
-                            <label for="multipleChoicesOption">گزینه :</label>
-                            <input onkeyup="showOptions()" name="options" class="optionInput backGroundBlue form-control" type="text" id="multipleChoicesOption" aria-label="default input example" th:value="${option.options}">
+                            <label th:for="'multipleChoicesOption' + ${question.id}">گزینه :</label>
+                            <input onkeyup="showOptions(this)" name="options" th:class="'optionInput backGroundBlue form-control' + ${question.id}" type="text" th:id="'multipleChoicesOption' + ${question.id}" aria-label="default input example" th:value="${option.options}">
                         </div>
-                        <div id="multipleChoicesForm">
-                            <p id="correctAnswerLabel">گزینه صحیح :</p>
+                        <div th:id="'multipleChoicesForm' + ${question.id}">
+                            <p th:id="'correctAnswerLabel' + ${question.id}">گزینه صحیح :</p>
                         </div>
-                        <input type="hidden" name="questionId" th:value="${question.questionHeader.multipleChoices.id}">
+                        <label for="multipleChoicesGrade">نمره :</label>
+                        <input name="grade" class="backGroundBlue form-control" type="text" id="multipleChoicesGrade" aria-label="default input example" th:value="${question.grade.questionPoint}">
+                        <input type="hidden" name="id" th:value="${question.questionHeader.multipleChoices.id}">
                         <input type="submit" value="تغییر">
                     </form>
                 </div>
@@ -90,7 +94,7 @@
 </div>
 <div id="selectQuestionDirection">
     <div class="questionDirection">
-        <form action="#" th:action="@{/question-bank/select-question}" method="post">
+        <form id="questionsBankPage" action="#" th:action="@{/question-bank/select-question}" method="post">
             <input type="hidden" name="quizId" th:value="${quiz.id}">
             <input type="submit" value="انتخاب از بانک سوالات">
         </form>
@@ -100,11 +104,11 @@
 </div>
 <div id="questionType">
     <div class="questionDirection">
-        <form action="#" th:action="@{/multiple-choices/create-new-multiple-choices}" method="post">
+        <form id="multipleChociesPage" action="#" th:action="@{/multiple-choices/create-new-multiple-choices}" method="post">
             <input type="hidden" name="quizId" th:value="${quiz.id}">
             <input type="submit" value="سوالات چند گزینه ای">
         </form>
-        <form action="#" th:action="@{/descriptive/create-new-descriptive}" method="post">
+        <form id="descriptivePage" action="#" th:action="@{/descriptive/create-new-descriptive}" method="post">
             <input type="hidden" name="quizId" th:value="${quiz.id}">
             <input type="submit" value="سوالات تشریحی">
         </form>
