@@ -8,7 +8,9 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -18,5 +20,5 @@ import java.util.List;
 public class Manager extends User {
 
     @OneToMany(mappedBy = "manager", fetch = FetchType.EAGER)
-    private List<Course> courses;
+    private Set<Course> courses = new HashSet<>();
 }

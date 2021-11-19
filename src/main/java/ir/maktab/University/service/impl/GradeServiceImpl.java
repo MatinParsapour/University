@@ -23,7 +23,6 @@ public class GradeServiceImpl extends BaseServiceImpl<Grade,Long, GradeRepositor
     public Grade createNewGrade(double point) {
         Grade grade = new Grade();
         grade.setQuestionPoint(point);
-        Grade savedGrade = save(grade);
-        return savedGrade;
+        return save(grade);
     }
 }

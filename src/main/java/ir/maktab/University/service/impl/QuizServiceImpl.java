@@ -51,7 +51,7 @@ public class QuizServiceImpl extends BaseServiceImpl<Quiz,Long, QuizRepository>
     @Override
     public void addQuestions(Questions questions) {
         Quiz quiz = Security.getQuiz();
-        quiz.setQuestions(questions);
+        quiz.getQuestions().add(questions);
         save(quiz);
     }
 }

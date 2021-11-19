@@ -19,9 +19,12 @@ import java.util.Set;
 public class Questions extends BaseEntity<Long> {
     public static final String TABLE_NAME = "questions_table";
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Question> questionList = new HashSet<>();
+    @OneToOne
+    private QuestionHeader questionHeader;
 
-    @OneToMany
-    private Set<Grade> gradeList = new HashSet<>();
+    @ManyToMany
+    private Set<QuestionAnswer> questionAnswerList = new HashSet<>();
+
+    @OneToOne
+    private Grade grade;
 }

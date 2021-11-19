@@ -25,7 +25,4 @@ public class QuestionAnswer extends BaseEntity<Long> {
 
     @ManyToOne
     private Student student;
-
-    @ManyToMany(mappedBy = "questionAnswerList")
-    private Set<Question> question = new HashSet<>();
 }

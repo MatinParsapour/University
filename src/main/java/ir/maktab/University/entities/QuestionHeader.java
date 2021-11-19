@@ -25,7 +25,4 @@ public class QuestionHeader extends BaseEntity<Long> {
     @OneToOne
     private Descriptive descriptive;
 
-    @OneToOne(mappedBy = "questionHeader")
-    private Question question;
-
 }

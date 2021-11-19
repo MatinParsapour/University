@@ -27,6 +27,6 @@ public class StudentsGrade extends BaseEntity<Long> {
     @ManyToMany
     private Set<Student> studentList = new HashSet<>();
 
-    @ManyToMany(mappedBy = "studentsGradeList")
-    private Set<Grade> grades = new HashSet<>();
+    @OneToOne(mappedBy = "studentsGrade")
+    private Grade grade;
 }

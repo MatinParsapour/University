@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -22,7 +24,7 @@ public class Teacher extends User {
     private String status;
 
     @OneToMany(mappedBy = "teacher",fetch = FetchType.EAGER)
-    private List<Course> course;
+    private Set<Course> course = new HashSet<>();
 
     @Column(name = IS_ACTIVE)
     private boolean isActive;

@@ -1,16 +1,18 @@
 package ir.maktab.University.service.impl;
 
 import ir.maktab.University.entities.Grade;
-import ir.maktab.University.entities.Question;
+import ir.maktab.University.entities.QuestionHeader;
 import ir.maktab.University.entities.Questions;
 import ir.maktab.University.repository.QuestionsRepository;
 import ir.maktab.University.service.GradeService;
-import ir.maktab.University.service.QuestionService;
 import ir.maktab.University.service.QuestionsService;
 import ir.maktab.University.service.QuizService;
 import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class QuestionsServiceImpl extends BaseServiceImpl<Questions,Long, QuestionsRepository>
@@ -31,24 +33,12 @@ public class QuestionsServiceImpl extends BaseServiceImpl<Questions,Long, Questi
     }
 
     @Override
-    public void addToQuestions(Question question,double grade) {
+    public void addToQuestions(QuestionHeader questionHeader, double grade) {
+        Questions questions = new Questions();
+        questions.setQuestionHeader(questionHeader);
         Grade newGrade = gradeService.createNewGrade(grade);
-        if(checkQuestions()){
-            Questions questions = Security.getQuiz().getQuestions();
-            questions.getQuestionList().add(question);
-            questions.getGradeList().add(newGrade);
-            save(questions);
-        }else{
-            Questions questions = new Questions();
-            questions.getQuestionList().add(question);
-            questions.getGradeList().add(newGrade);
-            Questions savedQuestions = save(questions);
-            quizService.addQuestions(savedQuestions);
-        }
-    }
-
-    @Override
-    public boolean checkQuestions() {
-        return Security.getQuiz().getQuestions() != null;
+        questions.setGrade(newGrade);
+        Questions savedQuestions = save(questions);
+        quizService.addQuestions(savedQuestions);
     }
 }

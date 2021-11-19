@@ -23,7 +23,7 @@ public class Grade extends BaseEntity<Long> {
     @Column(name = QUESTION_POINT)
     private Double questionPoint;
 
-    @ManyToMany
-    private Set<StudentsGrade> studentsGradeList = new HashSet<>();
+    @OneToOne
+    private StudentsGrade studentsGrade;
 
 }

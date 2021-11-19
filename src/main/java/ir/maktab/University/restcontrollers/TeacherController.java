@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/teacher")
@@ -34,7 +35,7 @@ public class TeacherController {
      */
     @GetMapping("/main")
     public ModelAndView teacherMain(){
-        List<Course> courses = Security.getTeacher().getCourse();
+        Set<Course> courses = Security.getTeacher().getCourse();
         return new ModelAndView("Teacher","courses",courses);
     }
 

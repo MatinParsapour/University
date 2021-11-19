@@ -14,20 +14,6 @@ import javax.persistence.Table;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name = Descriptive.TABLE_NAME)
-public class Descriptive extends BaseEntity<Long> {
-    public static final String TABLE_NAME = "descriptive_table";
-    private static final String TITLE = "title";
-    private static final String HEADER = "header";
-    private static final String CORRECT_ANSWER = "correct_answer";
+public class Descriptive extends BaseQuestion {
 
-    @Column(name = TITLE)
-    private String title;
-
-    @Column(name = HEADER)
-    private String header;
-
-    @Column(name = CORRECT_ANSWER)
-    private String correctAnswer;
 }

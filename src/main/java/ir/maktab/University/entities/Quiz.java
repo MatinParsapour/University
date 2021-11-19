@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,7 +40,7 @@ public class Quiz extends BaseEntity<Long> {
     @ManyToOne
     private Course course;
 
-    @OneToOne
-    private Questions questions;
+    @OneToMany
+    private Set<Questions> questions;
 
 }

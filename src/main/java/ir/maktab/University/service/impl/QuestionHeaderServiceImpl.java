@@ -5,8 +5,8 @@ import ir.maktab.University.entities.MultipleChoices;
 import ir.maktab.University.entities.QuestionHeader;
 import ir.maktab.University.repository.QuestionHeaderRepository;
 import ir.maktab.University.service.QuestionHeaderService;
-import ir.maktab.University.service.QuestionService;
 import ir.maktab.University.service.QuestionsBankService;
+import ir.maktab.University.service.QuestionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +16,15 @@ public class QuestionHeaderServiceImpl extends BaseServiceImpl<QuestionHeader,Lo
 
     private final QuestionHeaderRepository questionHeaderRepository;
 
-    private final QuestionService questionService;
+    private final QuestionsService questionsService;
 
     private final QuestionsBankService questionsBankService;
 
     @Autowired
-    public QuestionHeaderServiceImpl(QuestionHeaderRepository questionHeaderRepository, QuestionService questionService, QuestionsBankService questionsBankService) {
+    public QuestionHeaderServiceImpl(QuestionHeaderRepository questionHeaderRepository, QuestionsService questionsService, QuestionsBankService questionsBankService) {
         super(questionHeaderRepository);
         this.questionHeaderRepository = questionHeaderRepository;
-        this.questionService = questionService;
+        this.questionsService = questionsService;
         this.questionsBankService = questionsBankService;
     }
 
@@ -34,7 +34,7 @@ public class QuestionHeaderServiceImpl extends BaseServiceImpl<QuestionHeader,Lo
         questionHeader.setDescriptive(descriptive);
         QuestionHeader savedQuestionHeader = save(questionHeader);
         questionsBankService.addQuestionHeaderToQuestionBank(savedQuestionHeader);
-        questionService.createNewQuestion(savedQuestionHeader,grade);
+        questionsService.addToQuestions(questionHeader,grade);
     }
 
     @Override
@@ -43,18 +43,18 @@ public class QuestionHeaderServiceImpl extends BaseServiceImpl<QuestionHeader,Lo
         questionHeader.setMultipleChoices(multipleChoices);
         QuestionHeader savedQuestionHeader = save(questionHeader);
         questionsBankService.addQuestionHeaderToQuestionBank(savedQuestionHeader);
-        questionService.createNewQuestion(savedQuestionHeader,grade);
+        questionsService.addToQuestions(questionHeader,grade);
     }
 
     @Override
     public void addNewDescriptiveQuestion(Descriptive descriptive, double grade) {
         QuestionHeader questionHeader = questionHeaderRepository.findByDescriptive(descriptive);
-        questionService.addNewQuestion(questionHeader,grade);
+        questionsService.addToQuestions(questionHeader,grade);
     }
 
     @Override
     public void addNewMultipleChoicesQuestion(MultipleChoices multipleChoices, double grade) {
         QuestionHeader questionHeader = questionHeaderRepository.findByMultipleChoices(multipleChoices);
-        questionService.addNewQuestion(questionHeader,grade);
+        questionsService.addToQuestions(questionHeader,grade);
     }
 }
