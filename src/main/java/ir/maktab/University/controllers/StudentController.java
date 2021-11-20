@@ -1,22 +1,25 @@
 package ir.maktab.University.controllers;
 
+import ir.maktab.University.entities.Course;
 import ir.maktab.University.entities.Role;
 import ir.maktab.University.entities.Student;
 import ir.maktab.University.entities.User;
 import ir.maktab.University.entities.dto.StudentDTO;
 import ir.maktab.University.entities.dto.UserDTO;
 import ir.maktab.University.service.StudentService;
+import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/student")
-
 public class StudentController {
 
 
@@ -98,5 +101,12 @@ public class StudentController {
     @PostMapping("/change-to-student")
     public void changeToStudent(User user, String username) {
         studentService.changeRoleToStudent(user,username);
+    }
+
+    @GetMapping("/student-main")
+    public String studentMain(Model model){
+        Set<Course> courseList = Security.getStudent().getCourseList();
+        model.addAttribute("courses",courseList);
+        return "StudentMain";
     }
 }
