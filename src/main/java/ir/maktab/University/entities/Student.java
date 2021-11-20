@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +23,7 @@ public class Student extends User {
     @Column(name = STATUS)
     private String status;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "students")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "students", fetch = FetchType.EAGER)
     private Set<Course> courseList = new HashSet<>();
 
     @Column(name = IS_ACTIVE)
