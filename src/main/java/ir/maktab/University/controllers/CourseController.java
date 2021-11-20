@@ -160,4 +160,17 @@ public class CourseController {
         model.addAttribute("quiz",new Quiz());
         return "CourseDetails";
     }
+
+    /**
+     * Display the information about the course student chose
+     * @param courseId id of the course student wants to see
+     * @param model a model to send course to view
+     * @return a String then go to the view 
+     */
+    @PostMapping("/student-course")
+    public String studentCourse(long courseId, Model model){
+        Course course = courseService.findById(courseId).get();
+        model.addAttribute("course",course);
+        return "StudentCourseDetails";
+    }
 }
