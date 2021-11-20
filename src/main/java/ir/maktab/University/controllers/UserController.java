@@ -7,6 +7,7 @@ import ir.maktab.University.entities.*;
 import ir.maktab.University.entities.dto.UserDTO;
 import ir.maktab.University.entities.dto.extra.NecessaryUserDTO;
 import ir.maktab.University.entities.dto.extra.UserUPDTO;
+import ir.maktab.University.restcontrollers.TeacherController;
 import ir.maktab.University.service.*;
 import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,8 @@ public class UserController {
 
     private final ManagerService managerService;
 
+    private final StudentService studentService;
+
     private final UserDetailsServiceSecurity userDetailsServiceSecurity;
 
     private final AuthenticationProviderSecurity authenticationProviderSecurity;
@@ -43,13 +46,14 @@ public class UserController {
     @Autowired
     public UserController(UserService userService, StudentController studentController,
                           TeacherController teacherController, TeacherService teacherService, ManagerService managerService,
-                          UserDetailsServiceSecurity userDetailsServiceSecurity,
+                          StudentService studentService, UserDetailsServiceSecurity userDetailsServiceSecurity,
                           AuthenticationProviderSecurity authenticationProviderSecurity) {
         this.userService = userService;
         this.studentController = studentController;
         this.teacherController = teacherController;
         this.teacherService = teacherService;
         this.managerService = managerService;
+        this.studentService = studentService;
         this.userDetailsServiceSecurity = userDetailsServiceSecurity;
         this.authenticationProviderSecurity = authenticationProviderSecurity;
     }
@@ -116,7 +120,9 @@ public class UserController {
             Security.setManager(manager);
             return "redirect:/manager/manager-main";
         }else if(userDetailsSecurity.getUser().getType().equals("Student")){
-            return "redirect:/";
+            Student student = studentService.findById(userDetailsSecurity.getUser().getId()).get();
+            Security.setStudent(student);
+            return "redirect:/student/student-main";
         }else{
             Teacher teacher = teacherController.getTeacher(userDetailsSecurity.getUser().getId());
             Security.setTeacher(teacher);
