@@ -22,9 +22,6 @@ public class Questions extends BaseEntity<Long> {
     @OneToOne
     private QuestionHeader questionHeader;
 
-    @ManyToMany
-    private Set<QuestionAnswer> questionAnswerList = new HashSet<>();
-
     @OneToOne
-    private Grade grade;
+    private QuestionStatus questionStatus;
 }
