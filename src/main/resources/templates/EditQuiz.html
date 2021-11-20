@@ -36,7 +36,7 @@
 <div th:switch="${quiz.questions}" class="displayNone" id="displayTeachers">
     <h2 th:case="null">سوالی یافت نشد</h2>
     <div th:case="*">
-        <p class="gradeTitle">جمع نمرات : <span class="summationOfGrade" th:text="${#aggregates.sum(quiz.questions.![grade.questionPoint])}"></span></p>
+        <p class="gradeTitle">جمع نمرات : <span class="summationOfGrade" th:text="${#aggregates.sum(quiz.![questions.questionStatus.questionPoint])}"></span></p>
         <div th:each="question : ${quiz.questions}">
             <div class="showBox" th:switch="${question.questionHeader.multipleChoices}">
                 <div th:case="null">
@@ -49,7 +49,7 @@
                         <label for="descriptiveCorrectAnswer">جواب صحیح :</label>
                         <input name="correctAnswer" class="backGroundBlue form-control" type="text" id="descriptiveCorrectAnswer" aria-label="default input example" th:value="${question.questionHeader.descriptive.correctAnswer}">                        <label for="descriptiveCorrectAnswer">جواب صحیح :</label>
                         <label for="descriptiveGrade">نمره :</label>
-                        <input name="grade" class="backGroundBlue form-control" type="text" id="descriptiveGrade" aria-label="default input example" th:value="${question.grade.questionPoint}">
+                        <input name="grade" class="backGroundBlue form-control" type="text" id="descriptiveGrade" aria-label="default input example" th:value="${question.questionStatus.questionPoint}">
                         <input type="hidden" name="id" th:value="${question.questionHeader.descriptive.id}">
                         <input type="submit" value="تغییر">
                     </form>
@@ -69,7 +69,7 @@
                             <p th:id="'correctAnswerLabel' + ${question.id}">گزینه صحیح :</p>
                         </div>
                         <label for="multipleChoicesGrade">نمره :</label>
-                        <input name="grade" class="backGroundBlue form-control" type="text" id="multipleChoicesGrade" aria-label="default input example" th:value="${question.grade.questionPoint}">
+                        <input name="grade" class="backGroundBlue form-control" type="text" id="multipleChoicesGrade" aria-label="default input example" th:value="${question.questionStatus.questionPoint}">
                         <input type="hidden" name="id" th:value="${question.questionHeader.multipleChoices.id}">
                         <input type="submit" value="تغییر">
                     </form>
