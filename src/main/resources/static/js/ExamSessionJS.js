@@ -99,25 +99,30 @@ function PaginationButton(page, items) {
 
 
 
-var minutes = document.getElementById("timer").value
-var deadline = new Date().getTime() + minutes * 60 * 1000;
+var timeSecond = document.getElementById("timer").value
+var timeMinute = timeSecond * 60
+function startGRBTimer(duration, display) {
+    var timer = window.name == '' ? duration : window.name,
+        hours, minutes, seconds;
 
-var x = setInterval(function () {
+    setInterval(function () {
+        days = parseInt(timer / (24 * 60 * 60), 10);
+        hours = parseInt(timer % (24 * 60 * 60) / (60 * 60), 10);
+        minutes = parseInt(timer % (60 * 60) / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        display.textContent = hours + "h " + minutes + "m " + seconds + "s";
+        --timer;
 
-    var now = new Date().getTime();
-    var t = deadline - now;
-    var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((t % (1000 * 60)) / 1000);
-    var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    document.getElementById("hour").innerHTML = hours;
-    document.getElementById("minute").innerHTML = minutes;
-    document.getElementById("second").innerHTML = seconds;
-    if (t <= 0) {
-        document.getElementById("form").submit()
-        clearInterval(x);
-        document.getElementById("demo").innerHTML = "TIME UP";
-        document.getElementById("hour").innerHTML = '0';
-        document.getElementById("minute").innerHTML = '0';
-        document.getElementById("second").innerHTML = '0';
-    }
-}, 1000);
+        if (timer <= 0) {
+            timer = duration;
+        }
+
+        window.name = timer;
+    }, 1000);
+}
+
+var display = document.querySelector("#grb");
+startGRBTimer(timeMinute, display);
