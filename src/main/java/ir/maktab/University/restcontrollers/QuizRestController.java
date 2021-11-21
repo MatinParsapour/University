@@ -1,11 +1,15 @@
 package ir.maktab.University.restcontrollers;
 
+import ir.maktab.University.entities.Questions;
 import ir.maktab.University.entities.Quiz;
 import ir.maktab.University.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/question-rest")
@@ -28,5 +32,11 @@ public class QuizRestController {
     @PostMapping("/update-question")
     public void updateQuestion(long quizId, String title, String description, Double quizTime) {
         quizService.editQuiz(quizId,title,description,quizTime);
+    }
+
+    @PostMapping("/get-all-quiz-questions")
+    public Set<Questions> getAllQuizQuestions(long idOfQuiz){
+        Quiz quiz = quizService.findById(idOfQuiz).get();
+        return quiz.getQuestions();
     }
 }
