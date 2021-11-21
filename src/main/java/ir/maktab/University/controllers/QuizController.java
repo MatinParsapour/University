@@ -1,5 +1,6 @@
 package ir.maktab.University.controllers;
 
+import ir.maktab.University.entities.Questions;
 import ir.maktab.University.entities.Quiz;
 import ir.maktab.University.service.CourseService;
 import ir.maktab.University.service.QuizService;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Set;
 
 @Controller
 @RequestMapping("/quiz")
@@ -58,5 +61,18 @@ public class QuizController {
         Quiz quiz = quizService.findById(quizId).get();
         model.addAttribute("quiz", quiz);
         return "EditQuiz";
+    }
+
+    /**
+     * A method to get quiz and send to front
+     * @param idOfQuiz id of quiz to find the quiz
+     * @param model set quiz in model and send to front
+     * @return a String then go to the front
+     */
+    @PostMapping("/take-the-test")
+    public String takeTheTest(Long idOfQuiz,Model model){
+        Quiz quiz = quizService.findById(idOfQuiz).get();
+        model.addAttribute("quiz",quiz);
+        return "ExamSession";
     }
 }
