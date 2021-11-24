@@ -3,17 +3,24 @@ package ir.maktab.University.service;
 import ir.maktab.University.entities.Questions;
 import ir.maktab.University.entities.Quiz;
 
+import java.text.ParseException;
+
 public interface QuizService extends BaseService<Quiz, Long> {
 
+
     /**
-     * Set quiz in data base and relate it to the course that teacher chose
-     * It will roll back if during creating course disorder occurs
-     *
-     * @param quiz     the quiz that teacher created
-     * @param courseId the id of course that the quiz relate to
-     * @return The Quiz object that set in data base
+     * Get all of data from controller create new quiz and save to data base
+     * @param title the title of quiz
+     * @param description description of quiz
+     * @param quizTime time of quiz
+     * @param fromTime beginning time of quiz
+     * @param toTime finish time of quiz
+     * @param inDate date of quiz
+     * @param courseId id of course quiz belong to
+     * @return the quiz saved in data base
+     * @throws ParseException the exception for convert string to local time
      */
-    Quiz createQuiz(Quiz quiz, long courseId);
+    Quiz createQuiz(String title, String description, double quizTime, String fromTime, String toTime, String inDate, long courseId) throws ParseException;
 
     /**
      * Edit the information about a quiz that teacher created

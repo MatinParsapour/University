@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 @Service
 public class QuizServiceImpl extends BaseServiceImpl<Quiz,Long, QuizRepository>
         implements QuizService {
@@ -30,12 +35,23 @@ public class QuizServiceImpl extends BaseServiceImpl<Quiz,Long, QuizRepository>
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public Quiz createQuiz(Quiz quiz, long courseId) {
+    public Quiz createQuiz(String title, String description, double quizTime, String fromTime, String toTime, String inDate, long courseId) throws ParseException {
+        fromTime = fromTime.replace("00","12");
+        toTime = toTime.replace("00","12");
+        LocalTime fromTimeDate = LocalTime.parse(fromTime,DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime toTimeDate = LocalTime.parse(toTime,DateTimeFormatter.ofPattern("HH:mm"));
+        LocalDate examDate = LocalDate.parse(inDate);
         Course course = courseService.findById(courseId).get();
-        quiz.setIsActive(true);
+        Quiz quiz = new Quiz();
         quiz.setCourse(course);
+        quiz.setTitle(title);
+        quiz.setDescription(description);
+        quiz.setQuizTime(quizTime);
+        quiz.setFromTime(fromTimeDate);
+        quiz.setToTime(toTimeDate);
+        quiz.setInDate(examDate);
+        quiz.setIsActive(true);
         Quiz createdQuiz = save(quiz);
-        courseService.addQuizToCourse(course,createdQuiz);
         return createdQuiz;
     }
 
