@@ -141,3 +141,31 @@ body {
 .resize-none{
     resize: none;
 }
+
+#submitButton {
+    display: block;
+    margin: 0 auto;
+    width: 10%;
+    height: 50px;
+    font-family: Helvetica;
+    border-bottom: 5px solid #173814;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background: linear-gradient(#469e3f, #255b20);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px grey;
+    transition: 150ms ease;
+    text-align: center;
+    line-height: 50px;
+    font-weight: bold;
+}
+
+#submitButton:active{
+    border: none;
+    border-bottom: 2px solid steelblue;
+    box-shadow: 0px 1px 5px grey;
+    background: linear-gradient(#255b20,#469e3f);
+    color: #FFF;
+}
