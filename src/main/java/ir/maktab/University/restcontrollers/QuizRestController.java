@@ -38,6 +38,11 @@ public class QuizRestController {
         quizService.editQuiz(quizId,title,description,quizTime);
     }
 
+    /**
+     * Send a set of dto of all questions to front
+     * @param idOfQuiz the id of exam that is going to take
+     * @return set of dto of questions
+     */
     @PostMapping("/get-all-quiz-questions")
     public Set<QuestionHeaderDTO> getAllQuizQuestions(long idOfQuiz){
         Quiz quiz = quizService.findById(idOfQuiz).get();
