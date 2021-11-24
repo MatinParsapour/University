@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
 import java.util.Set;
 
 @RestController
@@ -47,5 +48,21 @@ public class QuizRestController {
     public Set<QuestionHeaderDTO> getAllQuizQuestions(long idOfQuiz){
         Quiz quiz = quizService.findById(idOfQuiz).get();
         return questionsService.questionHeaders(quiz.getQuestions());
+    }
+
+    /**
+     * Get all of data from front and send to service
+     * @param title the title of quiz
+     * @param description description of quiz
+     * @param quizTime time of quiz
+     * @param fromTime beginning time of quiz
+     * @param toTime finish time of quiz
+     * @param inDate date of quiz
+     * @param courseId id of course quiz belong to
+     * @throws ParseException and exception to convert string to local time
+     */
+    @PostMapping("/create-quiz")
+    public void createQuiz(String title, String description, double quizTime, String fromTime, String toTime, String inDate, long courseId) throws ParseException {
+        quizService.createQuiz(title,description,quizTime,fromTime,toTime,inDate,courseId);
     }
 }
