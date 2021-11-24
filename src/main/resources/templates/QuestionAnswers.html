@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/QuestionAnswersStyle.css}">
+    <title>جواب های دانشجویان</title>
+</head>
+<body>
+<div th:switch="${questionStatus}">
+    <div th:case="null">
+        <p>No tickets found</p>
+    </div>
+    <div th:case="*" class="ticketInformation">
+        <table class="table">
+            <thead>
+            <tr th:each="question : ${questionStatus.questionHeader.descriptive}">
+                <div th:switch="${question}">
+                    <div th:case="null">
+                        <th colspan="4" style="text-align: left;"><span
+                                th:text="${questionStatus.questionHeader.multipleChoices.header}"></span> : سوال
+                        </th>
+                        <th style="text-align: left;"><span
+                                th:text="${questionStatus.questionHeader.multipleChoices.correctAnswer}"></span> : جواب
+                            صحیح
+                        </th>
+                    </div>
+                    <div th:case="*">
+                        <th colspan="4" style="text-align: left;"><span
+                                th:text="${questionStatus.questionHeader.descriptive.header}"></span> : سوال
+                        </th>
+                        <th style="text-align: left;"><span
+                                th:text="${questionStatus.questionHeader.descriptive.correctAnswer}"></span> : جواب صحیح
+                        </th>
+                    </div>
+                </div>
+            </tr>
+            <tr>
+                <th>نام</th>
+                <th>نام خانوادگی</th>
+                <th>جواب</th>
+                <th>نمره</th>
+                <th>ثبت</th>
+            </tr>
+            </thead>
+            <div th:each="question : ${questionStatus.questionHeader.descriptive}">
+                <tbody>
+                <tr>
+                    <div th:switch="${question}">
+                        <div th:case="null">
+                            <div th:each="studentResult : ${questionStatus.studentResultList}">
+                                <td th:text="${studentResult.student.firstName}"></td>
+                                <td th:text="${studentResult.student.lastName}"></td>
+                                <td th:text="${studentResult.studentAnswer}"></td>
+                                <td th:text="${studentResult.studentPoint}"></td>
+                                <td>-</td>
+                            </div>
+                        </div>
+                        <div th:case="*">
+                            <div th:each="studentResult : ${questionStatus.studentResultList}">
+                                <td th:text="${studentResult.student.firstName}"></td>
+                                <td th:text="${studentResult.student.lastName}"></td>
+                                <td th:text="${studentResult.studentAnswer}"></td>
+                                <form action="#" th:action="@{/student-result/change-grade}" method="post">
+                                    <td>
+                                        <input name="grade" type="number" th:value="${studentResult.studentPoint}"
+                                               th:max="${questionStatus.questionPoint}">
+
+                                    </td>
+                                    <td>
+                                        <input type="hidden" name="studentResultId" th:value="${studentResult.id}">
+                                        <input type="submit" value="ثبت نمره">
+                                    </td>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
+                </tbody>
+            </div>
+        </table>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script  th:src="@{/js/QuestionAnswersJS.js}"></script>
+</body>
+</html>
