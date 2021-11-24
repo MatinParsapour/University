@@ -8,8 +8,8 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -23,7 +23,10 @@ public class Quiz extends BaseEntity<Long> {
     private static final String TITLE = "title";
     private static final String DESCRIPTION = "description";
     private static final String QUIZ_TIME = "quiz_time";
+    private static final String FROM_TIME = "from_time";
+    private static final String TO_TIME = "to_time";
     private static final String IS_ACTIVE = "is_active";
+    private static final String IN_DATE = "in_date";
 
     @Column(name = TITLE)
     private String title;
@@ -33,6 +36,15 @@ public class Quiz extends BaseEntity<Long> {
 
     @Column(name = QUIZ_TIME)
     private Double quizTime;
+
+    @Column(name = FROM_TIME)
+    private LocalTime fromTime;
+
+    @Column(name = TO_TIME)
+    private LocalTime toTime;
+
+    @Column(name = IN_DATE)
+    private LocalDate inDate;
 
     @Column(name = IS_ACTIVE)
     private Boolean isActive;
