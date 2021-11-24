@@ -36,8 +36,8 @@ public class QuizServiceImpl extends BaseServiceImpl<Quiz,Long, QuizRepository>
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Quiz createQuiz(String title, String description, double quizTime, String fromTime, String toTime, String inDate, long courseId) throws ParseException {
-        fromTime = fromTime.replace("00","12");
-        toTime = toTime.replace("00","12");
+        fromTime = fromTime.replace("00:","12:");
+        toTime = toTime.replace("00:","12:");
         LocalTime fromTimeDate = LocalTime.parse(fromTime,DateTimeFormatter.ofPattern("HH:mm"));
         LocalTime toTimeDate = LocalTime.parse(toTime,DateTimeFormatter.ofPattern("HH:mm"));
         LocalDate examDate = LocalDate.parse(inDate);
