@@ -16,4 +16,11 @@ public interface QuestionStatusService extends BaseService<QuestionStatus,Long> 
      * @param studentAnswers all of student answers
      */
     void setResult(List<StudentAnswersDTO> studentAnswers);
+
+    /**
+     * Get question status by student result id
+     * @param studentResultId the id of student result
+     * @return Question status
+     */
+    QuestionStatus getQuestionStatusByStudentResult(long studentResultId);
 }

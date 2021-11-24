@@ -7,10 +7,12 @@ import ir.maktab.University.entities.dto.extra.StudentAnswersDTO;
 import ir.maktab.University.repository.QuestionStatusRepository;
 import ir.maktab.University.service.QuestionStatusService;
 import ir.maktab.University.service.StudentResultService;
+import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class QuestionStatusServiceImpl extends BaseServiceImpl<QuestionStatus, Long, QuestionStatusRepository>
@@ -43,5 +45,10 @@ public class QuestionStatusServiceImpl extends BaseServiceImpl<QuestionStatus, L
             questionStatus.getStudentResultList().add(studentResult);
             save(questionStatus);
         }
+    }
+
+    @Override
+    public QuestionStatus getQuestionStatusByStudentResult(long studentResult) {
+        return findById(studentResult).get();
     }
 }
