@@ -27,19 +27,6 @@ public class QuizController {
     }
 
     /**
-     * Set two way relationship between quiz and course
-     *
-     * @param quiz     the quiz that teacher created
-     * @param courseId id of course that quiz relate to
-     * @return a String to redirect to main page for teacher
-     */
-    @PostMapping("/create-quiz")
-    public String createQuiz(Quiz quiz, long courseId) {
-        quizService.createQuiz(quiz, courseId);
-        return "redirect:/teacher/main";
-    }
-
-    /**
      * Delete a quiz that teacher chose
      * @param quizId the id of quiz
      * @return a String to redirect to main page for teacher
