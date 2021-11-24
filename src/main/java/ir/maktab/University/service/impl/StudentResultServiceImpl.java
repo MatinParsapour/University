@@ -6,15 +6,20 @@ import ir.maktab.University.entities.dto.extra.StudentAnswersDTO;
 import ir.maktab.University.repository.StudentResultRepository;
 import ir.maktab.University.service.StudentResultService;
 import ir.maktab.University.util.Security;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StudentResultServiceImpl extends BaseServiceImpl<StudentResult,Long, StudentResultRepository>
         implements StudentResultService {
 
+    private final StudentResultRepository studentResultRepository;
 
-    public StudentResultServiceImpl(StudentResultRepository repository) {
+
+    @Autowired
+    public StudentResultServiceImpl(StudentResultRepository repository, StudentResultRepository studentResultRepository) {
         super(repository);
+        this.studentResultRepository = studentResultRepository;
     }
 
     @Override
@@ -30,5 +35,17 @@ public class StudentResultServiceImpl extends BaseServiceImpl<StudentResult,Long
             }
         }
         return save(studentResult);
+    }
+
+    @Override
+    public boolean checkStudent() {
+        return studentResultRepository.findByStudentId(Security.getStudent().getId()) != null;
+    }
+
+    @Override
+    public void changeStudentResultGrade(long studentResultId, double grade) {
+        StudentResult studentResult = findById(studentResultId).get();
+        studentResult.setStudentPoint(grade);
+        save(studentResult);
     }
 }
