@@ -62,4 +62,17 @@ public class QuizController {
         model.addAttribute("quiz",quiz);
         return "ExamSession";
     }
+
+    /**
+     * Find quiz by quiz id and set in model and send to front
+     * @param quizId the id of quiz
+     * @param model the model to set quiz into it
+     * @return a String then go to the page to display result of exam
+     */
+    @PostMapping("/exam-details")
+    public String examDetails(long quizId, Model model){
+        Quiz quiz = quizService.findById(quizId).get();
+        model.addAttribute("quiz",quiz);
+        return "ExamResult";
+    }
 }
