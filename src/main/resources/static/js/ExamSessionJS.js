@@ -1,6 +1,6 @@
 $(document).ready(loadQuestions);
 
-function loadQuestions(){
+function loadQuestions() {
     var idOfQuiz = $("#idOfQuiz").val();
     $.ajax({
         method: "post",
@@ -12,12 +12,12 @@ function loadQuestions(){
     })
 }
 
-function showQuestions(questions){
+function showQuestions(questions) {
     DisplayList(questions, list_element, rows, current_page);
     SetupPagination(questions, pagination_element, rows);
 }
 
-function showError(){
+function showError() {
     alert("اشتباهی رخ داده")
 }
 
@@ -41,26 +41,38 @@ function DisplayList(items, wrapper, rows_per_page, page) {
         let item_element = document.createElement('div');
         wrapper.appendChild(item_element);
         let item;
-        if(paginatedItems[i].questionHeader.descriptive == null){
-            item = paginatedItems[i].questionHeader.multipleChoices.header
+        if (paginatedItems[i].type === "MultipleChoices") {
+            let hiddenInput = document.createElement("input");
+            hiddenInput.setAttribute("type", "hidden")
+            hiddenInput.setAttribute("value", paginatedItems[i].id)
+            hiddenInput.setAttribute("class", "MCQId")
+            item = paginatedItems[i].header
             let select = document.createElement("select")
-            select.setAttribute("class","search_categories")
+            select.setAttribute("id", paginatedItems[i].id)
+            select.setAttribute("class", "search_categories")
             var noneValueOption = document.createElement("option")
             noneValueOption.value = "";
             noneValueOption.text = "-";
             select.appendChild(noneValueOption)
-            for (let j = 0; j < paginatedItems[i].questionHeader.multipleChoices.options.length; j++){
+            for (let j = 0; j < paginatedItems[i].options.length; j++) {
                 var option = document.createElement("option");
-                option.value = paginatedItems[i].questionHeader.multipleChoices.options[j].options
-                option.text = paginatedItems[i].questionHeader.multipleChoices.options[j].options
+                option.value = paginatedItems[i].options[j].options
+                option.text = paginatedItems[i].options[j].options
                 select.appendChild(option);
             }
+            wrapper.append(hiddenInput);
             wrapper.append(select);
-        }else{
-            item = paginatedItems[i].questionHeader.descriptive.header;
+        } else {
+            let hiddentInput = document.createElement("input")
+            hiddentInput.setAttribute("type", "hidden")
+            hiddentInput.setAttribute("value", paginatedItems[i].id)
+            hiddentInput.setAttribute("class", "DQId");
+            item = paginatedItems[i].header;
             let textArea = document.createElement("textarea");
-            textArea.setAttribute("class","backGroundBlue form-control resize-none")
+            textArea.setAttribute("class", "backGroundBlue form-control resize-none")
+            textArea.setAttribute("id", paginatedItems[i].id)
             textArea.placeholder = "جواب خود را وارد کنید"
+            wrapper.append(hiddentInput)
             wrapper.appendChild(textArea);
         }
         item_element.classList.add('item');
@@ -85,6 +97,7 @@ function PaginationButton(page, items) {
     if (current_page == page) button.classList.add('active');
 
     button.addEventListener('click', function () {
+        setToLocalStorage()
         current_page = page;
         DisplayList(items, list_element, rows, current_page);
 
@@ -98,15 +111,14 @@ function PaginationButton(page, items) {
 }
 
 
-
 var timeSecond = document.getElementById("timer").value
 var timeMinute = timeSecond * 60
+
 function startGRBTimer(duration, display) {
     var timer = window.name == '' ? duration : window.name,
         hours, minutes, seconds;
 
     setInterval(function () {
-        days = parseInt(timer / (24 * 60 * 60), 10);
         hours = parseInt(timer % (24 * 60 * 60) / (60 * 60), 10);
         minutes = parseInt(timer % (60 * 60) / 60, 10);
         seconds = parseInt(timer % 60, 10);
@@ -117,7 +129,8 @@ function startGRBTimer(duration, display) {
         --timer;
 
         if (timer <= 0) {
-            timer = duration;
+            setToLocalStorage();
+            finishExam()
         }
 
         window.name = timer;
@@ -126,3 +139,44 @@ function startGRBTimer(duration, display) {
 
 var display = document.querySelector("#grb");
 startGRBTimer(timeMinute, display);
+
+function setToLocalStorage() {
+    var multipleChoices = document.getElementsByClassName("MCQId");
+    for (let i = 0; i < multipleChoices.length; i++) {
+        window.localStorage.setItem(multipleChoices[i].value, document.getElementById(multipleChoices[i].value).value);
+    }
+    var descriptive = document.getElementsByClassName("DQId");
+    for (let i = 0; i < descriptive.length; i++) {
+        window.localStorage.setItem(descriptive[i].value, document.getElementById(descriptive[i].value).value);
+    }
+}
+
+function finishExam() {
+    var list = [];
+    var archive = {},
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+    while (i--) {
+        list.push({
+            "id": parseInt(keys[i]),
+            "answer": localStorage.getItem(keys[i])
+        })
+    }
+    localStorage.clear();
+    console.log(archive)
+    axios.post("http://localhost:8080/question-status-rest/questions-result", list)
+        .then(response => {
+            window.location.href = "http://localhost:8080/student/student-main"
+        })
+}
+
+document.getElementById("submitButton").onclick = function () {
+    var confirm1 = confirm("مطمئن هستید میخواهیدآزمون را تمام کنید؟");
+    if (confirm1) {
+        setToLocalStorage();
+        finishExam();
+    } else {
+        alert("آزمون تمام نشد")
+    }
+}
