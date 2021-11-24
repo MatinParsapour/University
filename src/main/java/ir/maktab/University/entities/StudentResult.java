@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -26,8 +23,8 @@ public class StudentResult extends BaseEntity<Long> {
     @Column(name = STUDENT_ANSWER)
     private String studentAnswer;
 
-    @ManyToMany
-    private Set<Student> student;
+    @OneToOne
+    private Student student;
 
     @Column(name = STUDENT_POINT)
     private double studentPoint;
