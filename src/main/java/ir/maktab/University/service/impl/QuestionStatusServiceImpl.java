@@ -1,6 +1,5 @@
 package ir.maktab.University.service.impl;
 
-import com.google.common.base.Splitter;
 import ir.maktab.University.entities.QuestionHeader;
 import ir.maktab.University.entities.QuestionStatus;
 import ir.maktab.University.entities.StudentResult;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class QuestionStatusServiceImpl extends BaseServiceImpl<QuestionStatus, Long, QuestionStatusRepository>
@@ -41,7 +39,7 @@ public class QuestionStatusServiceImpl extends BaseServiceImpl<QuestionStatus, L
     public void setResult(List<StudentAnswersDTO> studentAnswers) {
         for (StudentAnswersDTO studentAnswersDTO : studentAnswers) {
             QuestionStatus questionStatus = questionStatusRepository.findQuestionStatusByQuestionHeaderId(studentAnswersDTO.getId());
-            StudentResult studentResult = studentResultService.addStudentResultToQuestionStatus(questionStatus, studentAnswersDTO);
+            StudentResult studentResult = studentResultService.saveStudentAnswers(questionStatus, studentAnswersDTO);
             questionStatus.getStudentResultList().add(studentResult);
             save(questionStatus);
         }
