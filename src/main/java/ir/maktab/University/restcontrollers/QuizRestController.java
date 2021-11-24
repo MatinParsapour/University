@@ -2,13 +2,14 @@ package ir.maktab.University.restcontrollers;
 
 import ir.maktab.University.entities.Questions;
 import ir.maktab.University.entities.Quiz;
+import ir.maktab.University.entities.dto.extra.QuestionHeaderDTO;
+import ir.maktab.University.service.QuestionsService;
 import ir.maktab.University.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -17,9 +18,12 @@ public class QuizRestController {
 
     private final QuizService quizService;
 
+    private final QuestionsService questionsService;
+
     @Autowired
-    public QuizRestController(QuizService quizService) {
+    public QuizRestController(QuizService quizService, QuestionsService questionsService) {
         this.quizService = quizService;
+        this.questionsService = questionsService;
     }
 
     /**
@@ -35,8 +39,8 @@ public class QuizRestController {
     }
 
     @PostMapping("/get-all-quiz-questions")
-    public Set<Questions> getAllQuizQuestions(long idOfQuiz){
+    public Set<QuestionHeaderDTO> getAllQuizQuestions(long idOfQuiz){
         Quiz quiz = quizService.findById(idOfQuiz).get();
-        return quiz.getQuestions();
+        return questionsService.questionHeaders(quiz.getQuestions());
     }
 }
