@@ -37,4 +37,25 @@ public interface QuizService extends BaseService<Quiz, Long> {
      * @param questions object of questions includes an object of question and object of grade
      */
     void addQuestions(Questions questions);
+
+    /**
+     * Check beginning time of quiz
+     * @param idOfQuiz the id of quiz want to check beginning time
+     * @return a proper message if now is before quiz beginning time else return null
+     */
+    String checkBeginningTime(long idOfQuiz);
+
+    /**
+     * Check finish time of quiz
+     * @param idOfQuiz the id of quiz want to check finish time
+     * @return a proper message if now is after quiz finish time else return null
+     */
+    String checkFinishTime(long idOfQuiz);
+
+    /**
+     * Check date of quiz
+     * @param idOfQuiz the id of quiz want to check date
+     * @return a proper message if today isn't quiz date
+     */
+    String checkDate(long idOfQuiz);
 }

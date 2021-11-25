@@ -70,4 +70,31 @@ public class QuizServiceImpl extends BaseServiceImpl<Quiz,Long, QuizRepository>
         quiz.getQuestions().add(questions);
         save(quiz);
     }
+
+    @Override
+    public String checkBeginningTime(long idOfQuiz) {
+        Quiz quiz = findById(idOfQuiz).get();
+        if(LocalTime.now().isBefore(quiz.getFromTime())){
+            return "زمان آزمون هنوز نرسیده";
+        }
+        return null;
+    }
+
+    @Override
+    public String checkFinishTime(long idOfQuiz) {
+        Quiz quiz = findById(idOfQuiz).get();
+        if(LocalTime.now().isAfter(quiz.getToTime())){
+            return "زمان آزمون تمام شده";
+        }
+        return null;
+    }
+
+    @Override
+    public String checkDate(long idOfQuiz) {
+        Quiz quiz = findById(idOfQuiz).get();
+        if(LocalDate.now().isAfter(quiz.getInDate())){
+            return "امروز تاریخ آزمون نیست";
+        }
+        return null;
+    }
 }
