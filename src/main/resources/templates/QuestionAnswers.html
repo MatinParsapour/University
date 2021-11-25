@@ -71,19 +71,21 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <div th:switch="${questionStatus.questionHeader.descriptive}">
-                    <div th:case="null">
-                        <div th:each="studentResult : ${questionStatus.studentResultList}">
+            <div th:switch="${questionStatus.questionHeader.descriptive}">
+                <div th:case="null">
+                    <div th:each="studentResult : ${questionStatus.studentResultList}">
+                        <tr>
                             <td th:text="${studentResult.student.firstName}"></td>
                             <td th:text="${studentResult.student.lastName}"></td>
                             <td th:text="${studentResult.studentAnswer}"></td>
                             <td th:text="${studentResult.studentPoint}"></td>
                             <td>-</td>
-                        </div>
+                        </tr>
                     </div>
-                    <div th:case="*">
-                        <div th:each="studentResult : ${questionStatus.studentResultList}">
+                </div>
+                <div th:case="*">
+                    <div th:each="studentResult : ${questionStatus.studentResultList}">
+                        <tr>
                             <td th:text="${studentResult.student.firstName}"></td>
                             <td th:text="${studentResult.student.lastName}"></td>
                             <td th:text="${studentResult.studentAnswer}"></td>
@@ -98,10 +100,10 @@
                                     <input type="submit" value="ثبت نمره">
                                 </td>
                             </form>
-                        </div>
+                        </tr>
                     </div>
                 </div>
-            </tr>
+            </div>
             </tbody>
         </table>
     </div>
