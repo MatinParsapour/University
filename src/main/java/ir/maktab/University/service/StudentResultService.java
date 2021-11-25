@@ -18,7 +18,7 @@ public interface StudentResultService extends BaseService<StudentResult,Long> {
      * check if student have participated in exam or not
      * @return a false if havne't
      */
-    boolean checkStudent();
+    String checkStudent();
 
     /**
      * Get student result id and grade and update student result

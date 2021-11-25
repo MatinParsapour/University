@@ -9,6 +9,8 @@ import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class StudentResultServiceImpl extends BaseServiceImpl<StudentResult,Long, StudentResultRepository>
         implements StudentResultService {
@@ -38,8 +40,12 @@ public class StudentResultServiceImpl extends BaseServiceImpl<StudentResult,Long
     }
 
     @Override
-    public boolean checkStudent() {
-        return studentResultRepository.findByStudentId(Security.getStudent().getId()) != null;
+    public String checkStudent() {
+        Set<StudentResult> studentResult = studentResultRepository.findByStudentId(Security.getStudent().getId());
+        if(studentResult != null){
+            return "شما یکبار آزمون داده اید";
+        }
+        return null;
     }
 
     @Override
