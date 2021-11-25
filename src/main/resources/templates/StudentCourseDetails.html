@@ -49,10 +49,10 @@
         <form th:each="quiz : ${course.quizzes}" action="#" th:action="@{/quiz/take-the-test}" class="student" method="post">
             <p><span th:text="${quiz.title}"></span> : عنوان آزمون</p>
             <p><span th:text="${quiz.description}"></span> : توضیحات آزمون</p>
-            <p><span th:text="${quiz.inDate}"></span> : توضیحات آزمون</p>
+            <p><span th:text="${quiz.inDate}"></span> : تاریخ آزمون</p>
             <p><span th:text="${quiz.quizTime}"></span> : زمان آزمون</p>
             <p><span th:text="${quiz.fromTime}"></span> : از</p>
-            <p><span th:text="${quiz.toTime}"></span> : از</p>
+            <p><span th:text="${quiz.toTime}"></span> : تا</p>
             <input type="hidden" name="idOfQuiz" th:value="${quiz.id}">
             <input type="submit" value="شرکت در آزمون">
         </form>
