@@ -10,4 +10,6 @@ public interface QuestionStatusRepository extends JpaRepository<QuestionStatus,L
 
     @Query(value = "SELECT qs FROM QuestionStatus qs JOIN qs.questionHeader qh where qh.id = :id")
     QuestionStatus findQuestionStatusByQuestionHeaderId(@Param("id") long id);
+
+    QuestionStatus findByStudentResultListId(long id);
 }

@@ -49,6 +49,6 @@ public class QuestionStatusServiceImpl extends BaseServiceImpl<QuestionStatus, L
 
     @Override
     public QuestionStatus getQuestionStatusByStudentResult(long studentResult) {
-        return findById(studentResult).get();
+        return questionStatusRepository.findByStudentResultListId(studentResult);
     }
 }
