@@ -1,5 +1,7 @@
 $(document).ready(loadQuestions);
 
+var questionList;
+
 function loadQuestions() {
     var idOfQuiz = $("#idOfQuiz").val();
     $.ajax({
@@ -7,12 +9,13 @@ function loadQuestions() {
         url: "http://localhost:8080/question-rest/get-all-quiz-questions",
         data: {idOfQuiz: idOfQuiz},
         dataType: "json",
-        success: showQuestions,
+        success: showQuestions ,
         error: showError
     })
 }
 
 function showQuestions(questions) {
+    questionList = questions;
     DisplayList(questions, list_element, rows, current_page);
     SetupPagination(questions, pagination_element, rows);
 }
@@ -110,6 +113,24 @@ function PaginationButton(page, items) {
     return button;
 }
 
+function checkStorage() {
+    var list = [];
+    for (let j = 0; j < questionList.length; j++) {
+        list.push(questionList[j].id)
+    }
+    var archive = [],
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+    while (i--){
+        archive.push(parseInt(keys[i]))
+    }
+    for (let h = 0; h < list.length; h++) {
+        if(!archive.includes(list[h])){
+            localStorage.setItem(list[h],"")
+        }
+    }
+}
 
 var timeSecond = document.getElementById("timer").value
 var timeMinute = timeSecond * 60
@@ -175,6 +196,7 @@ document.getElementById("submitButton").onclick = function () {
     var confirm1 = confirm("مطمئن هستید میخواهیدآزمون را تمام کنید؟");
     if (confirm1) {
         setToLocalStorage();
+        checkStorage()
         finishExam();
     } else {
         alert("آزمون تمام نشد")
