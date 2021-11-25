@@ -41,8 +41,8 @@ public class StudentResultServiceImpl extends BaseServiceImpl<StudentResult,Long
 
     @Override
     public String checkStudent() {
-        Set<StudentResult> studentResult = studentResultRepository.findByStudentId(Security.getStudent().getId());
-        if(studentResult != null){
+        Set<StudentResult> studentResult = studentResultRepository.findByStudent(Security.getStudent());
+        if(studentResult.size() != 0){
             return "شما یکبار آزمون داده اید";
         }
         return null;
