@@ -1,16 +1,14 @@
 package ir.maktab.University.controllers;
 
-import ir.maktab.University.entities.Questions;
 import ir.maktab.University.entities.Quiz;
 import ir.maktab.University.service.CourseService;
 import ir.maktab.University.service.QuizService;
+import ir.maktab.University.service.StudentResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Set;
 
 @Controller
 @RequestMapping("/quiz")
@@ -18,11 +16,14 @@ public class QuizController {
 
     private final QuizService quizService;
 
+    private final StudentResultService studentResultService;
+
     private final CourseService courseService;
 
     @Autowired
-    public QuizController(QuizService quizService, CourseService courseService) {
+    public QuizController(QuizService quizService, StudentResultService studentResultService, CourseService courseService) {
         this.quizService = quizService;
+        this.studentResultService = studentResultService;
         this.courseService = courseService;
     }
 
@@ -58,9 +59,33 @@ public class QuizController {
      */
     @PostMapping("/take-the-test")
     public String takeTheTest(Long idOfQuiz,Model model){
-        Quiz quiz = quizService.findById(idOfQuiz).get();
-        model.addAttribute("quiz",quiz);
-        return "ExamSession";
+        String quizDate = quizService.checkDate(idOfQuiz);
+        if(quizDate == null){
+            String quizBeginningTime = quizService.checkBeginningTime(idOfQuiz);
+            if(quizBeginningTime == null){
+                String quizFinishDate = quizService.checkFinishTime(idOfQuiz);
+                if(quizFinishDate == null){
+                    String studentAllow = studentResultService.checkStudent();
+                    if(studentAllow == null){
+                        Quiz quiz = quizService.findById(idOfQuiz).get();
+                        model.addAttribute("quiz",quiz);
+                        return "ExamSession";
+                    }else{
+                        model.addAttribute("message",studentAllow);
+                        return "QuizWarningPage";
+                    }
+                }else {
+                    model.addAttribute("message",quizFinishDate);
+                    return "QuizWarningPage";
+                }
+            }else {
+                model.addAttribute("message",quizBeginningTime);
+                return "QuizWarningPage";
+            }
+        }else {
+            model.addAttribute("message",quizDate);
+            return "QuizWarningPage";
+        }
     }
 
     /**
