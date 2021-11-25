@@ -56,11 +56,19 @@ public class QuizServiceImpl extends BaseServiceImpl<Quiz,Long, QuizRepository>
     }
 
     @Override
-    public void editQuiz(long quizId, String title, String description, Double quizTime) {
+    public void editQuiz(long quizId, String title, String description, Double quizTime, String fromTime, String toTime, String inDate) {
+        fromTime = fromTime.replace("00:","12:");
+        toTime = toTime.replace("00:","12:");
+        LocalTime fromTimeDate = LocalTime.parse(fromTime,DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime toTimeDate = LocalTime.parse(toTime,DateTimeFormatter.ofPattern("HH:mm"));
+        LocalDate examDate = LocalDate.parse(inDate);
         Quiz quiz = findById(quizId).get();
         quiz.setTitle(title);
         quiz.setDescription(description);
         quiz.setQuizTime(quizTime);
+        quiz.setFromTime(fromTimeDate);
+        quiz.setToTime(toTimeDate);
+        quiz.setInDate(examDate);
         save(quiz);
     }
 

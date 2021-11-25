@@ -17,19 +17,31 @@
                 <div th:switch="${question}">
                     <div th:case="null">
                         <th colspan="4" style="text-align: left;"><span
-                                th:text="${questionStatus.questionHeader.multipleChoices.header}"></span> : سوال
+                                th:text="${questionStatus.questionHeader.multipleChoices.header}"></span>
+                        </th>
+                        <th>
+                            : سوال
                         </th>
                         <th style="text-align: left;"><span
                                 th:text="${questionStatus.questionHeader.multipleChoices.correctAnswer}"></span> : جواب
                             صحیح
                         </th>
+                        <th>
+                            : جواب صحیح
+                        </th>
                     </div>
                     <div th:case="*">
-                        <th colspan="4" style="text-align: left;"><span
-                                th:text="${questionStatus.questionHeader.descriptive.header}"></span> : سوال
+                        <th colspan="2" style="text-align: right;"><span
+                                th:text="${questionStatus.questionHeader.descriptive.header}"></span>
                         </th>
-                        <th style="text-align: left;"><span
-                                th:text="${questionStatus.questionHeader.descriptive.correctAnswer}"></span> : جواب صحیح
+                        <th>
+                            : سوال
+                        </th>
+                        <th style="text-align: right;"><span
+                                th:text="${questionStatus.questionHeader.descriptive.correctAnswer}"></span>
+                        </th>
+                        <th>
+                            : جواب صحیح
                         </th>
                     </div>
                 </div>
@@ -63,7 +75,7 @@
                                 <form action="#" th:action="@{/student-result/change-grade}" method="post">
                                     <td>
                                         <input name="grade" type="number" th:value="${studentResult.studentPoint}"
-                                               th:max="${questionStatus.questionPoint}">
+                                               th:max="${questionStatus.questionPoint}" min="0">
 
                                     </td>
                                     <td>

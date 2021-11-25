@@ -85,9 +85,9 @@
     <div id="editPadInfo" class="editPadInfo">
         <form id="editPadForm" action="#" class="flexDirectionColumn margin-top-5" style="display: flex;" th:action="@{/course/change-course-details}" method="post">
             <label for="exampleFormControlInput1" class="form-label"> عنوان : </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="newTitle" th:value="${course.title}">
+            <input minlength="8" type="text" class="form-control" id="exampleFormControlInput1" name="newTitle" th:value="${course.title}">
             <label for="exampleFormControlInput1" class="form-label">کد دوره : </label>
-            <input id="courseCode" type="number" class="form-control" name="newCourseCode" th:value="${course.courseCode}">
+            <input min="0" id="courseCode" type="number" class="form-control" name="newCourseCode" th:value="${course.courseCode}">
             <label for="exampleFormControlInput1" class="form-label">تاریخ شروع دوره : </label>
             <input type="date" class="form-control" id="newStartDate" name="newStartDate" th:value="${#calendars.format(course.startDate, 'yyyy-MM-dd')}">
             <label for="exampleFormControlInput1" class="form-label">تاریخ پایان دوره : </label>

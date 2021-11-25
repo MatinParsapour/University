@@ -39,7 +39,7 @@
                         <label for="descriptiveCorrectAnswer">جواب صحیح :</label>
                         <input name="correctAnswer" class="backGroundBlue form-control" type="text" id="descriptiveCorrectAnswer" aria-label="default input example" th:value="${question.descriptive.correctAnswer}" readonly>
                         <label for="descriptiveGrade">نمره سوال :</label>
-                        <input class="height-30" type="number" name="grade" id="descriptiveGrade" step="0.01" placeholder="نمره سوال را وارد کنید"/>
+                        <input min="0" class="height-30" type="number" name="grade" id="descriptiveGrade" step="0.01" placeholder="نمره سوال را وارد کنید"/>
                         <input type="hidden" name="quizId" th:value="${quiz.id}">
                         <input type="hidden" name="questionId" th:value="${question.descriptive.id}">
                         <input id="addDescriptiveToQuizButton" type="submit" value="اضافه کردن به ازمون">
@@ -57,7 +57,7 @@
                             <input name="options" class="backGroundBlue form-control" type="text" id="multipleChoicesOption" aria-label="default input example" th:value="${option.options}" readonly>
                         </div>
                         <label for="multipleChoicesGrade">نمره سوال :</label>
-                        <input class="height-30" type="number" name="grade" id="multipleChoicesGrade" step="0.01" placeholder="نمره سوال را وارد کنید"/>
+                        <input min="0" class="height-30" type="number" name="grade" id="multipleChoicesGrade" step="0.01" placeholder="نمره سوال را وارد کنید"/>
                         <input type="hidden" name="quizId" th:value="${quiz.id}">
                         <input type="hidden" name="questionId" th:value="${question.multipleChoices.id}">
                         <input type="submit" value="اضافه کردن به ازمون" id="addMultipleChoicesToQuizButton">

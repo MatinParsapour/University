@@ -35,8 +35,8 @@ public class QuizRestController {
      * @param quizTime the quiz time may have changed
      */
     @PostMapping("/update-question")
-    public void updateQuestion(long quizId, String title, String description, Double quizTime) {
-        quizService.editQuiz(quizId,title,description,quizTime);
+    public void updateQuestion(long quizId, String title, String description, Double quizTime, String fromTime, String toTime, String inDate) {
+        quizService.editQuiz(quizId,title,description,quizTime,fromTime,toTime,inDate);
     }
 
     /**

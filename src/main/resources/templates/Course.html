@@ -30,7 +30,7 @@
       novalidate>
     <div class="col-md-4">
         <label for="validationCustom01" class="form-label">عنوان دوره :</label>
-        <input name="courseTitle" type="text" class="form-control" id="validationCustom01" th:field="*{title}"
+        <input minlength="8" name="courseTitle" type="text" class="form-control" id="validationCustom01" th:field="*{title}"
                placeholder="عنوان دوره را وارد کنید" required>
         <div class="valid-feedback">
             خوب است
@@ -38,7 +38,7 @@
     </div>
     <div class="col-md-4">
         <label for="validationCustom02" class="form-label">کد دوره : </label>
-        <input name="courseCode" type="number" class="form-control" id="validationCustom02" th:field="*{courseCode}"
+        <input min="0" name="courseCode" type="number" class="form-control" id="validationCustom02" th:field="*{courseCode}"
                placeholder="کد دوره را وارد کنید" required>
         <div class="valid-feedback">
             خوب است

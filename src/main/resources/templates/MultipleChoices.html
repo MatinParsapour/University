@@ -10,22 +10,22 @@
 <body>
 <form id="multipleChoicesFrom" action="#" method="post" th:action="@{/multiple-choices/add-multiple-choices}" th:object="${multipleChoices}" class="create-question-form">
     <label for="problem">عنوان سوال : </label>
-    <input name="title" maxlength="40" class="border-radius-5 fontSize-16 resize-none" th:field="*{title}" id="title" cols="30" rows="8"
+    <input minlength="8" name="title" maxlength="40" class="border-radius-5 fontSize-16 resize-none" th:field="*{title}" id="title" cols="30" rows="8"
              onkeyup="displayTitleLength()" placeholder="عنوان سوال را وارد کنید (40 کاراکتر)">
     <p> میزان کاراکتر باقی مانده : <span id="lengthOfInput">40</span></p>
     <label for="problem">صورت سوال : </label>
-    <textarea name="problem" class="border-radius-5 fontSize-16 resize-none" th:field="*{header}" id="problem" cols="30" rows="8"
+    <textarea minlength="5" name="problem" class="border-radius-5 fontSize-16 resize-none" th:field="*{header}" id="problem" cols="30" rows="8"
               placeholder="صورت سوال را وارد کنید"></textarea>
     <div class="container" id="container">
         <p>گزینه ها :</p>
         <div class='element' id='div_1'>
-            <input type='text' class="optionInput backGroundBlue form-control" name="option" id="option" placeholder='گزینه را وارد کنید' >
+            <input minlength="1" type='text' class="optionInput backGroundBlue form-control" name="option" id="option" placeholder='گزینه را وارد کنید' >
             <input type="button" id='txt_1' class='add' value="اضافه کردن گزینه">
         </div>
         <input type="button" value="انتخاب گزینه درست" onclick="setCorrectAnswer()">
     </div>
     <label for="grade">نمره سوال :</label>
-    <input class="height-30" type="number" name="grade" id="grade" step="0.01" placeholder="نمره سوال را وارد کنید"/>
+    <input min="0.00" class="height-30" type="number" name="grade" id="grade" step="0.01" placeholder="نمره سوال را وارد کنید"/>
     <div>
         <input type="hidden" name="quizId" th:value="${quiz.id}">
         <input class="green-button button margin-top-3 border-radius-5" type="submit" id="acceptButton" value="تایید">

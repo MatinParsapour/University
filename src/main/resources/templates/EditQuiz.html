@@ -43,13 +43,13 @@
                     <p>نوع سوال : تشریحی</p>
                     <form id="editDescriptiveForm" action="#" method="post" th:action="@{/descriptive/edit-question}">
                         <label for="descriptiveTitle">عنوان :</label>
-                        <input name="title" class="backGroundBlue form-control" type="text" id="descriptiveTitle" aria-label="default input example" th:value="${question.questionHeader.descriptive.title}">
+                        <input minlength="8" name="title" class="backGroundBlue form-control" type="text" id="descriptiveTitle" aria-label="default input example" th:value="${question.questionHeader.descriptive.title}">
                         <label for="descriptiveHeader">صورت سوال :</label>
-                        <input name="header" class="backGroundBlue form-control" type="text" id="descriptiveHeader" aria-label="default input example" th:value="${question.questionHeader.descriptive.header}">
+                        <input minlength="5" name="header" class="backGroundBlue form-control" type="text" id="descriptiveHeader" aria-label="default input example" th:value="${question.questionHeader.descriptive.header}">
                         <label for="descriptiveCorrectAnswer">جواب صحیح :</label>
-                        <input name="correctAnswer" class="backGroundBlue form-control" type="text" id="descriptiveCorrectAnswer" aria-label="default input example" th:value="${question.questionHeader.descriptive.correctAnswer}">                        <label for="descriptiveCorrectAnswer">جواب صحیح :</label>
+                        <input minlength="1" name="correctAnswer" class="backGroundBlue form-control" type="text" id="descriptiveCorrectAnswer" aria-label="default input example" th:value="${question.questionHeader.descriptive.correctAnswer}">                        <label for="descriptiveCorrectAnswer">جواب صحیح :</label>
                         <label for="descriptiveGrade">نمره :</label>
-                        <input name="grade" class="backGroundBlue form-control" type="text" id="descriptiveGrade" aria-label="default input example" th:value="${question.questionStatus.questionPoint}">
+                        <input min="0.00" name="grade" class="backGroundBlue form-control" type="text" id="descriptiveGrade" aria-label="default input example" th:value="${question.questionStatus.questionPoint}">
                         <input type="hidden" name="id" th:value="${question.questionHeader.descriptive.id}">
                         <input type="submit" value="تغییر">
                     </form>
@@ -58,18 +58,18 @@
                     <p>نوع سوال : چند گزینه ای</p>
                     <form th:id="'editMultipleChoicesForm' + ${question.id}" action="#" method="post" th:action="@{/multiple-choices/edit-question}">
                         <label th:for="'multipleChoicesTitle' + ${question.id}">عنوان :</label>
-                        <input onkeyup="showOptions(this)" name="title" class="backGroundBlue form-control" type="text" th:id="'multipleChoicesTitle' + ${question.id}" aria-label="default input example" th:value="${question.questionHeader.multipleChoices.title}">
+                        <input minlength="8" onkeyup="showOptions(this)" name="title" class="backGroundBlue form-control" type="text" th:id="'multipleChoicesTitle' + ${question.id}" aria-label="default input example" th:value="${question.questionHeader.multipleChoices.title}">
                         <label th:for="'multipleChoicesHeader' + ${question.id}">صورت سوال :</label>
-                        <input onkeyup="showOptions(this)" name="header" class="backGroundBlue form-control" type="text" th:id="'multipleChoicesHeader' + ${question.id}" aria-label="default input example" th:value="${question.questionHeader.multipleChoices.header}">
+                        <input minlength="5" onkeyup="showOptions(this)" name="header" class="backGroundBlue form-control" type="text" th:id="'multipleChoicesHeader' + ${question.id}" aria-label="default input example" th:value="${question.questionHeader.multipleChoices.header}">
                         <div th:each="option :${question.questionHeader.multipleChoices.options}">
                             <label th:for="'multipleChoicesOption' + ${question.id}">گزینه :</label>
-                            <input onkeyup="showOptions(this)" name="options" th:class="'optionInput backGroundBlue form-control' + ${question.id}" type="text" th:id="'multipleChoicesOption' + ${question.id}" aria-label="default input example" th:value="${option.options}">
+                            <input minlength="1" onkeyup="showOptions(this)" name="options" th:class="'optionInput backGroundBlue form-control' + ${question.id}" type="text" th:id="'multipleChoicesOption' + ${question.id}" aria-label="default input example" th:value="${option.options}">
                         </div>
                         <div th:id="'multipleChoicesForm' + ${question.id}">
                             <p th:id="'correctAnswerLabel' + ${question.id}">گزینه صحیح :</p>
                         </div>
                         <label for="multipleChoicesGrade">نمره :</label>
-                        <input name="grade" class="backGroundBlue form-control" type="text" id="multipleChoicesGrade" aria-label="default input example" th:value="${question.questionStatus.questionPoint}">
+                        <input min="0.00" name="grade" class="backGroundBlue form-control" type="text" id="multipleChoicesGrade" aria-label="default input example" th:value="${question.questionStatus.questionPoint}">
                         <input type="hidden" name="id" th:value="${question.questionHeader.multipleChoices.id}">
                         <input type="submit" value="تغییر">
                     </form>
@@ -82,11 +82,17 @@
     <div id="quizData" class="showBox">
         <form id="editQuizForm" action="#" th:action="@{/quiz/change-quiz-properties}" method="post">
             <label for="exampleFormControlInput1" class="form-label">عنوان : </label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="title" th:value="${quiz.title}">
-            <label for="exampleFormControlInput1" class="form-label">توضیحات : </label>
+            <input minlength="8" type="text" class="form-control" id="exampleFormControlInput1" name="title" th:value="${quiz.title}">
+            <label for="description" class="form-label">توضیحات : </label>
             <input type="text" class="form-control" name="description" id="description" th:value="${quiz.description}">
-            <label for="exampleFormControlInput1" class="form-label">زمان : </label>
-            <input type="number" class="form-control" name="quizTime" id="quizTime" th:value="${quiz.quizTime}">
+            <label for="quizTime" class="form-label">زمان : </label>
+            <input min="10" type="number" class="form-control" name="quizTime" id="quizTime" th:value="${quiz.quizTime}">
+            <label for="quizDate" class="form-label">تاریخ : </label>
+            <input type="number" class="form-control" name="inDate" id="quizDate" th:value="${quiz.inDate}">
+            <label for="quizFrom" class="form-label">از : </label>
+            <input type="number" class="form-control" name="fromTime" id="quizFrom" th:value="${quiz.fromTime}">
+            <label for="quizTo" class="form-label">تا : </label>
+            <input type="number" class="form-control" name="toTime" id="quizTo" th:value="${quiz.toTime}">
             <input type="hidden" name="quizId" th:value="${quiz.id}">
             <input type="submit" onclick="checkInputs()" value="تغییر">
         </form>
