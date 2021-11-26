@@ -64,7 +64,7 @@ public class UserController {
      * @param model add the message and entity to model
      * @return a String then redirect to the log in page
      */
-    @GetMapping("/register")
+    @GetMapping("/login")
     public String register(Model model) {
         model.addAttribute("isUserAllow",Security.getIsUserAllow());
         model.addAttribute("user", new UserUPDTO());

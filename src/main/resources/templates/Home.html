@@ -26,7 +26,7 @@
                     <li class="nav-item">
                         <div th:switch="${user}">
                             <div th:case="null">
-                                <a class="nav-link active" aria-current="page" href="/user/register">ورود</a>
+                                <a class="nav-link active" aria-current="page" href="/user/login">ورود</a>
                             </div>
                             <div th:case="*">
                                 <div th:switch="${user.type}">
