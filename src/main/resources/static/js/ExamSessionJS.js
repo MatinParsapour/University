@@ -24,6 +24,10 @@ function showError() {
     alert("اشتباهی رخ داده")
 }
 
+window.onbeforeunload = function (){
+    setToLocalStorage()
+}
+
 const list_element = document.getElementById('list');
 const pagination_element = document.getElementById('pagination');
 
@@ -108,8 +112,8 @@ function PaginationButton(page, items) {
         current_btn.classList.remove('active');
 
         button.classList.add('active');
+        setToInput()
     });
-
     return button;
 }
 
@@ -128,6 +132,18 @@ function checkStorage() {
     for (let h = 0; h < list.length; h++) {
         if(!archive.includes(list[h])){
             localStorage.setItem(list[h],"")
+        }
+    }
+}
+
+function setToInput(){
+    var archive = {},
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+    while(i--){
+        if(document.getElementById(keys[i]) !== null){
+            document.getElementById(parseInt(keys[i])).value = localStorage.getItem(keys[i])
         }
     }
 }
