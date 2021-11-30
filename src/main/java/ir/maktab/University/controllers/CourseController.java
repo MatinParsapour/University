@@ -66,18 +66,6 @@ public class CourseController {
     }
 
     /**
-     * Connect to service and remove student from course
-     * @param courseId the id of course that manager wants to delete student from and gets from site
-     * @param studentId the id of student that will delete form course and gets from site
-     * @return a String to go to the main page for manager
-     */
-    @PostMapping("/remove-student-from-course")
-    public String removeStudentFromCourse(long courseId, long studentId) {
-        courseService.removeStudentFromCourse(courseId,studentId);
-        return "redirect:/manager/manager-main";
-    }
-
-    /**
      * The course that manager set information about it come to this method
      * Check if the course code is already defined or not
      * If already defined redirect to another page else
@@ -122,18 +110,6 @@ public class CourseController {
     public String addCourse(Model model) {
         model.addAttribute("course", new Course());
         return "Course";
-    }
-
-    /**
-     * Set the two way relationship between course and student
-     * @param studentId id of student manager chose to add to course
-     * @param courseId id of course that manager chose to add student to
-     * @return a String to redirect to main page for manager
-     */
-    @PostMapping("/add-student-to-course")
-    public String addStudentToCourse(long studentId, long courseId) {
-        courseService.addStudentToCourse(studentId,courseId);
-        return "redirect:/manager/manager-main";
     }
 
     /**
