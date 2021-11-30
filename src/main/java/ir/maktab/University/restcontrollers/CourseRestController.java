@@ -30,16 +30,31 @@ public class CourseRestController {
         courseService.editCourseDetails(courseId,title,courseCode,startDate,finishDate);
     }
 
+    /**
+     * Set student to course
+     * @param studentId id of student
+     * @param courseId id of course
+     */
     @PostMapping("/add-student-to-course")
     public void addStudentToCourse(long studentId, long courseId){
         courseService.addStudentToCourse(studentId,courseId);
     }
 
+    /**
+     * Remove student from course
+     * @param studentId id of student
+     * @param courseId id of course
+     */
     @PostMapping("/remove-student-from-course")
     public void removeStudentFromCourse(long studentId, long courseId){
         courseService.removeStudentFromCourse(courseId,studentId);
     }
 
+    /**
+     * Set teacher to course or update it
+     * @param teacherId id of teacher
+     * @param courseId id of course
+     */
     @PostMapping("/set-teacher-to-course")
     public void setTeacherToCourse(long teacherId, long courseId){
         courseService.setTeacherToCourse(teacherId,courseId);
