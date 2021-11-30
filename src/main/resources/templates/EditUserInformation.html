@@ -37,7 +37,7 @@
             <label for="exampleFormControlInput1" class="form-label">ایمیل : </label>
             <input id="userEmail" type="email" class="form-control" name="email" th:value="${user.email}">
             <label for="exampleFormControlInput1" class="form-label">کد ملی : </label>
-            <input min="10" max="10" id="userNationalCode" type="number" class="form-control" name="nationalCode" th:value="${user.nationalCode}">
+            <input id="userNationalCode" type="number" class="form-control" name="nationalCode" th:value="${user.nationalCode}">
             <input id="userId" name="userId" type="hidden" th:value="${user.id}">
             <p> جنیست : <span th:text="${user.gender}"></span></p>
             <p>  وضعیت : <span th:text="${user.status}"></span></p>

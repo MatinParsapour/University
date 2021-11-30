@@ -100,7 +100,20 @@ public class StudentServiceImpl extends BaseServiceImpl<Student,Long,StudentRepo
     public void changeRoleToStudent(User user, String username) {
         Student definedStudent = studentRepository.findByUserName(username);
         if(definedStudent == null){
-            Student student = (Student) user;
+            Student student = new Student();
+            Role role = new Role();
+            role.setRoleName("STUDENT");
+            student.setFirstName(user.getFirstName());
+            student.setLastName(user.getLastName());
+            student.setBirthday(user.getBirthday());
+            student.setUserName(user.getUserName());
+            student.setPassword(user.getPassword());
+            student.setNationalCode(user.getNationalCode());
+            student.setGender(user.getGender());
+            student.setEmail(user.getEmail());
+            student.setType(user.getType());
+            student.setActive(true);
+            student.getRoles().add(role);
             student.setType("Student");
             student.setStatus("Accepted");
             student.setUserName(username);

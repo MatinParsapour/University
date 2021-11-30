@@ -92,7 +92,44 @@ $('#editPadForm')
 ;
 
 $(document).ready(function (){
-    $("#editPadForm").on("submit",function (event){
+
+    $('form').on("submit",function (event){
+        var request = {
+            method: "post",
+            url: "",
+            success: function (){
+                alert("اطلاعات تغییر کرد")
+                location.reload()
+            },
+            error: function (){
+                alert("مشکلی پیش امده")
+            }
+        }
+
+        if (event.target.getAttribute("id") === "addTeacherToCourseForm"){
+            request.url = "http://localhost:8080/course-rest/set-teacher-to-course"
+            request.data = $(this).serialize()
+        }else if(event.target.getAttribute("id") === "removeStudentFromCourseForm"){
+            request.url = "http://localhost:8080/course-rest/remove-student-from-course"
+            request.data = $(this).serialize()
+        }else if(event.target.getAttribute("id") === "addStudentToCourseForm"){
+            request.url = "http://localhost:8080/course-rest/add-student-to-course"
+            request.data = $(this).serialize()
+        }else if(event.target.getAttribute("id")=== "editPadForm"){
+            request.url = "http://localhost:8080/course-rest/update-course-data"
+            var courseId = $("#courseId").val();
+            var title = $("#exampleFormControlInput1").val();
+            var courseCode = $("#courseCode").val();
+            var startDate = new Date($("#newStartDate").val());
+            var finishDate = new Date($("#newFinishDate").val());
+            request.data = {courseId: courseId, title: title, courseCode: courseCode, startDate: startDate, finishDate: finishDate}
+        }
+
+        var updateCourseDetails = $.ajax(request);
+        event.preventDefault()
+    })
+
+/*    $("#editPadForm").on("submit",function (event){
         var courseId = $("#courseId").val();
         var title = $("#exampleFormControlInput1").val();
         var courseCode = $("#courseCode").val();
@@ -111,5 +148,5 @@ $(document).ready(function (){
             }
         });
         event.preventDefault()
-    })
+    })*/
 })

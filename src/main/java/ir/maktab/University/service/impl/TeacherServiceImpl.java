@@ -102,7 +102,20 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher,Long,TeacherRepo
     public void changeRoleToTeacher(User user, String username) {
         Teacher definedTeacher = teacherRepository.findByUserName(username);
         if(definedTeacher == null){
-            Teacher teacher = (Teacher) user;
+            Teacher teacher = new Teacher();
+            Role role = new Role();
+            role.setRoleName("TEACHER");
+            teacher.setFirstName(user.getFirstName());
+            teacher.setLastName(user.getLastName());
+            teacher.setBirthday(user.getBirthday());
+            teacher.setUserName(user.getUserName());
+            teacher.setPassword(user.getPassword());
+            teacher.setNationalCode(user.getNationalCode());
+            teacher.setGender(user.getGender());
+            teacher.setEmail(user.getEmail());
+            teacher.setType(user.getType());
+            teacher.setActive(true);
+            teacher.getRoles().add(role);
             teacher.setType("Teacher");
             teacher.setStatus("Accepted");
             teacher.setUserName(username);

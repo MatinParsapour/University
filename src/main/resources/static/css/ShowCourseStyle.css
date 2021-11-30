@@ -28,7 +28,6 @@ body {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
-    display: flex;
     justify-content: space-between;
 }
 
@@ -50,6 +49,7 @@ body {
     border-radius: 5px 5px;
     display: flex;
     flex-direction: column;
+    margin-left: 3%;
     align-items: flex-end;
     overflow: auto;
 }
@@ -244,4 +244,8 @@ label {
     background-color: rgb(10, 10, 68, 80%);
     color: white;
     margin-top: 3%;
+}
+
+.courseContainer{
+    display: flex;
 }

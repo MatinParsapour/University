@@ -29,4 +29,19 @@ public class CourseRestController {
     public void updateCourseData(long courseId, String title, long courseCode, Date startDate, Date finishDate){
         courseService.editCourseDetails(courseId,title,courseCode,startDate,finishDate);
     }
+
+    @PostMapping("/add-student-to-course")
+    public void addStudentToCourse(long studentId, long courseId){
+        courseService.addStudentToCourse(studentId,courseId);
+    }
+
+    @PostMapping("/remove-student-from-course")
+    public void removeStudentFromCourse(long studentId, long courseId){
+        courseService.removeStudentFromCourse(courseId,studentId);
+    }
+
+    @PostMapping("/set-teacher-to-course")
+    public void setTeacherToCourse(long teacherId, long courseId){
+        courseService.setTeacherToCourse(teacherId,courseId);
+    }
 }
