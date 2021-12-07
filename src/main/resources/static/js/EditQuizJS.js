@@ -160,6 +160,8 @@ $(document).ready(function (){
                 alert("اشتباهی بوجود امده")
             }
         }
+        var targetId = event.target.getAttribute("id");
+        var thenum = targetId.replace( /^\D+/g, '');
         if (event.target.getAttribute("id") === "editDescriptiveForm"){
             request.url = "http://localhost:8080/descriptive-rest/update-question";
         } else if( event.target.getAttribute("id") === "editMultipleChoicesForm"){

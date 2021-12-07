@@ -56,7 +56,7 @@
                 </div>
                 <div th:case="*">
                     <p>نوع سوال : چند گزینه ای</p>
-                    <form th:id="'editMultipleChoicesForm' + ${question.id}" action="#" method="post" th:action="@{/multiple-choices/edit-question}">
+                    <form id="editMultipleChoicesForm" action="#" method="post" th:action="@{/multiple-choices/edit-question}">
                         <label th:for="'multipleChoicesTitle' + ${question.id}">عنوان :</label>
                         <input minlength="8" onkeyup="showOptions(this)" name="title" class="backGroundBlue form-control" type="text" th:id="'multipleChoicesTitle' + ${question.id}" aria-label="default input example" th:value="${question.questionHeader.multipleChoices.title}">
                         <label th:for="'multipleChoicesHeader' + ${question.id}">صورت سوال :</label>
@@ -88,11 +88,11 @@
             <label for="quizTime" class="form-label">زمان : </label>
             <input min="10" type="number" class="form-control" name="quizTime" id="quizTime" th:value="${quiz.quizTime}">
             <label for="quizDate" class="form-label">تاریخ : </label>
-            <input type="number" class="form-control" name="inDate" id="quizDate" th:value="${quiz.inDate}">
+            <input type="text" class="form-control" name="inDate" id="quizDate" th:value="${quiz.inDate}" disabled>
             <label for="quizFrom" class="form-label">از : </label>
-            <input type="number" class="form-control" name="fromTime" id="quizFrom" th:value="${quiz.fromTime}">
+            <input type="text" class="form-control" name="fromTime" id="quizFrom" th:value="${quiz.fromTime}" disabled>
             <label for="quizTo" class="form-label">تا : </label>
-            <input type="number" class="form-control" name="toTime" id="quizTo" th:value="${quiz.toTime}">
+            <input type="text" class="form-control" name="toTime" id="quizTo" th:value="${quiz.toTime}" disabled>
             <input type="hidden" name="quizId" th:value="${quiz.id}">
             <input type="submit" onclick="checkInputs()" value="تغییر">
         </form>

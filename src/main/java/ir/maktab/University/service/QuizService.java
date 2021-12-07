@@ -29,11 +29,8 @@ public interface QuizService extends BaseService<Quiz, Long> {
      * @param title       The title that may have changed
      * @param description The description that may have changed
      * @param quizTime    the time of quiz that may have changed
-     * @param fromTime    the fromTime of quiz that may have changed
-     * @param toTime      the toTime of quiz that may have changed
-     * @param inDate      the date of quiz that may have changed
      */
-    void editQuiz(long quizId, String title, String description, Double quizTime, String fromTime, String toTime, String inDate);
+    void editQuiz(long quizId, String title, String description, Double quizTime);
 
     /**
      * Add new object of questions to quiz
