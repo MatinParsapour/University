@@ -8,17 +8,6 @@ function closeCreateQuizPad() {
     document.getElementById("closeButton").style.display = "none"
 }
 
-var timepicker = new TimePicker('time', {
-    lang: 'en',
-    theme: 'dark'
-});
-timepicker.on('change', function(evt) {
-
-    var value = (evt.hour || '00') + ':' + (evt.minute || '00');
-    evt.element.value = value;
-
-})
-
 $(document).ready(function (){
     $("#createQuiz").on("submit",function (event){
         var title = $("#title").val();
@@ -27,18 +16,32 @@ $(document).ready(function (){
         var fromTime = $("#from").val();
         var toTime = $("#to").val();
         var quizTime = $("#minutes").val();
-        var courseId = $("#courseId").val()
-        $.ajax({
-            url: "http://localhost:8080/question-rest/create-quiz",
-            type: "post",
-            data: {title: title, description: description, inDate: examDate, fromTime: fromTime, toTime: toTime, quizTime: quizTime, courseId: courseId},
-            success: function (){
-                alert("آزمون ذخیره شد")
-                location.reload();
-            },error: function (){
-                alert("مشکلی بوجود امده")
+        var courseId = $("#courseId").val();
+        var examDateVar = document.getElementById("examDate").value;
+        var fromTimeVar = document.getElementById("from").value;
+        var toTimeVar = document.getElementById("to").value;
+        const getFromTime = fromTimeVar => new Date(2019, 9, 2, fromTimeVar.substring(0, 2), fromTimeVar.substring(3, 5), 0, 0);
+        const getToTime = toTimeVar => new Date(2019, 9, 2, toTimeVar.substring(0, 2), toTimeVar.substring(3, 5), 0, 0);
+        var examDateDate = new Date(examDateVar);
+        if(examDateDate.getDate() > new Date().getDate() && examDateDate.getMonth() >= new Date().getMonth() && examDateDate.getFullYear() >= new Date().getFullYear()){
+            if(getToTime(toTimeVar).getHours() >= getFromTime(fromTimeVar).getHours() && getToTime(toTimeVar).getMinutes() >getFromTime(fromTimeVar).getMinutes()){
+                $.ajax({
+                    url: "http://localhost:8080/question-rest/create-quiz",
+                    type: "post",
+                    data: {title: title, description: description, inDate: examDate, fromTime: fromTime, toTime: toTime, quizTime: quizTime, courseId: courseId},
+                    success: function (){
+                        alert("آزمون ذخیره شد")
+                        location.reload();
+                    },error: function (){
+                        alert("مشکلی بوجود امده")
+                    }
+                })
+            }else {
+                alert("زمان پایان ازمون مناسب نیست")
             }
-        })
+        }else{
+            alert("تاریخ برگزاری ازمون باید بزرگتر از تاریخ فعلی باشد")
+        }
         event.preventDefault();
     })
 })
