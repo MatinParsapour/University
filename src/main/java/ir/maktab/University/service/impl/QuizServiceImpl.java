@@ -8,6 +8,10 @@ import ir.maktab.University.service.CourseService;
 import ir.maktab.University.service.QuizService;
 import ir.maktab.University.util.Security;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -96,5 +100,11 @@ public class QuizServiceImpl extends BaseServiceImpl<Quiz,Long, QuizRepository>
             return "امروز تاریخ آزمون نیست";
         }
         return null;
+    }
+
+    @Override
+    public Page<Quiz> findPaginated(int pageNo, int pageSize, long id) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return quizRepository.findAllById(pageable,id);
     }
 }

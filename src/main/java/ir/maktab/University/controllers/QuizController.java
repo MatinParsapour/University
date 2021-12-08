@@ -5,10 +5,15 @@ import ir.maktab.University.service.CourseService;
 import ir.maktab.University.service.QuizService;
 import ir.maktab.University.service.StudentResultService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/quiz")
@@ -89,15 +94,24 @@ public class QuizController {
     }
 
     /**
-     * Find quiz by quiz id and set in model and send to front
-     * @param quizId the id of quiz
-     * @param model the model to set quiz into it
-     * @return a String then go to the page to display result of exam
+     *
+     * @param pageNo
+     * @param model
+     * @return
      */
-    @PostMapping("/exam-details")
-    public String examDetails(long quizId, Model model){
-        Quiz quiz = quizService.findById(quizId).get();
-        model.addAttribute("quiz",quiz);
+    @PostMapping("/exam-details/{pageNo}")
+    public String examDetails(@PathVariable(value = "pageNo") int pageNo,
+                              long quizId,Model model){
+        int pageSize = 1;
+
+        Page<Quiz> page = quizService.findPaginated(pageNo, pageSize, quizId);
+        List<Quiz> quizList = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("questions", quizList.get(0).getQuestions());
         return "ExamResult";
     }
 }

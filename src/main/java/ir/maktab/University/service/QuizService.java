@@ -2,6 +2,7 @@ package ir.maktab.University.service;
 
 import ir.maktab.University.entities.Questions;
 import ir.maktab.University.entities.Quiz;
+import org.springframework.data.domain.Page;
 
 import java.text.ParseException;
 
@@ -58,4 +59,6 @@ public interface QuizService extends BaseService<Quiz, Long> {
      * @return a proper message if today isn't quiz date
      */
     String checkDate(long idOfQuiz);
+
+    Page<Quiz> findPaginated(int pageNo, int pageSize, long id);
 }
